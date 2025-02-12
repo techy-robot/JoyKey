@@ -606,7 +606,15 @@
     ],
     [
       "68ef131f-9d28-47fd-9e2d-054e6cdf50c5",
-      "Switch Matrix"
+      "Matrix"
+    ],
+    [
+      "a78c392f-6f7c-48a6-aa3f-986a350bb68a",
+      "Analog Input"
+    ],
+    [
+      "ac250670-848c-4fb5-87be-316f940b1e65",
+      "Battery Management"
     ]
   ],
   "text_variables": {}

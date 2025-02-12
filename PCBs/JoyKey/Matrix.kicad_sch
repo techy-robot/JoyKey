@@ -1040,6 +1040,44 @@
 		)
 		(uuid "f7884961-44b8-439e-afbd-16980b202769")
 	)
+	(text_box "6 Key Switches are on the front, and 2 are on the top as \"triggers\""
+		(exclude_from_sim no)
+		(at 134.62 49.53 0)
+		(size 29.21 10.16)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "84d360d0-913e-4002-aeb7-e2015b9e0727")
+	)
+	(text_box "The last row has two buttons from the rotary dial and the joystick, and the encoder pins A and B"
+		(exclude_from_sim no)
+		(at 156.21 88.9 0)
+		(size 29.21 16.51)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "9d6c85a1-452a-4837-8e42-a8cf8361c613")
+	)
 	(text "Switch Matrix\n"
 		(exclude_from_sim no)
 		(at 72.39 20.828 0)
