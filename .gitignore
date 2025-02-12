@@ -1,0 +1,18 @@
+#audio
+*.wav
+*.mkv
+
+# kicad files
+*fp-info-cache*
+*fabrication-toolkit-options.json
+\#auto_saved_files#
+_autosave-*
+*.lck
+
+# specific files and directories
+.obsidian/workspace.json
+.obsidian/plugins/various-complements/histories.json
+.trash/
+**/*backups/*.zip
+**/obsidian-icon-folder/icons/*.zip
+
