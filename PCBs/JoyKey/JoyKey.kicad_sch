@@ -2663,8 +2663,8 @@
 		)
 	)
 	(sheet
-		(at 31.75 104.14)
-		(size 46.99 30.48)
+		(at 43.18 104.14)
+		(size 35.56 30.48)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -2675,7 +2675,7 @@
 		)
 		(uuid "a78c392f-6f7c-48a6-aa3f-986a350bb68a")
 		(property "Sheetname" "Analog Input"
-			(at 31.75 103.4284 0)
+			(at 43.18 103.4284 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2684,7 +2684,7 @@
 			)
 		)
 		(property "Sheetfile" "Analog Input.kicad_sch"
-			(at 31.75 135.2046 0)
+			(at 43.18 135.2046 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2792,7 +2792,7 @@
 	)
 	(sheet
 		(at 207.01 107.95)
-		(size 36.83 25.4)
+		(size 30.48 25.4)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -2850,7 +2850,7 @@
 	)
 	(sheet
 		(at 158.75 104.14)
-		(size 16.51 26.67)
+		(size 16.51 15.24)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -2870,7 +2870,7 @@
 			)
 		)
 		(property "Sheetfile" "LEDs.kicad_sch"
-			(at 158.75 131.3946 0)
+			(at 158.75 119.9646 0)
 			(effects
 				(font
 					(size 1.27 1.27)
