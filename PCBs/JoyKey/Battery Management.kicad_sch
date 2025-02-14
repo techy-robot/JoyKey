@@ -2206,7 +2206,7 @@
 	(text_box "Swap out the charger and regulator for simpler and cheaper options"
 		(exclude_from_sim no)
 		(at 180.34 83.82 0)
-		(size 20.32 7.62)
+		(size 20.32 11.43)
 		(stroke
 			(width 0)
 			(type default)
@@ -3026,7 +3026,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal"
 			(at 189.23 147.32 0)
 			(effects
 				(font
@@ -3094,7 +3094,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_0805_2012Metric"
 			(at 201.93 106.68 0)
 			(effects
 				(font
