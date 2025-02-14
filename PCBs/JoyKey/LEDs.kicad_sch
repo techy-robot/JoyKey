@@ -1686,7 +1686,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 129.54 81.28 0)
+		(at 129.54 81.28 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1695,7 +1695,7 @@
 		(fields_autoplaced yes)
 		(uuid "73cde2f3-9547-4972-b54e-8c01af6c851e")
 		(property "Reference" "D8"
-			(at 142.24 74.9614 0)
+			(at 142.24 75.7838 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1703,7 +1703,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 142.24 77.5014 0)
+			(at 142.24 78.3238 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1711,7 +1711,7 @@
 			)
 		)
 		(property "Footprint" "SK6812MINI-E:SK6812MINI-E"
-			(at 130.81 88.9 0)
+			(at 128.27 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1721,7 +1721,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 132.08 90.805 0)
+			(at 127 71.755 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1762,7 +1762,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 152.4 81.28 0)
+		(at 152.4 81.28 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1771,7 +1771,7 @@
 		(fields_autoplaced yes)
 		(uuid "783074f2-e178-4c99-9ada-16956b4d6991")
 		(property "Reference" "D7"
-			(at 165.1 74.9614 0)
+			(at 165.1 75.7838 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1779,7 +1779,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 165.1 77.5014 0)
+			(at 165.1 78.3238 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1787,7 +1787,7 @@
 			)
 		)
 		(property "Footprint" "SK6812MINI-E:SK6812MINI-E"
-			(at 153.67 88.9 0)
+			(at 151.13 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1797,7 +1797,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 154.94 90.805 0)
+			(at 149.86 71.755 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1980,7 +1980,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 105.41 81.28 0)
+		(at 105.41 81.28 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1989,7 +1989,7 @@
 		(fields_autoplaced yes)
 		(uuid "9c44b3c8-3c87-4374-8b8b-869f87c66da2")
 		(property "Reference" "D10"
-			(at 118.11 74.9614 0)
+			(at 118.11 75.7838 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1997,7 +1997,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 118.11 77.5014 0)
+			(at 118.11 78.3238 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2005,7 +2005,7 @@
 			)
 		)
 		(property "Footprint" "SK6812MINI-E:SK6812MINI-E"
-			(at 106.68 88.9 0)
+			(at 104.14 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2015,7 +2015,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 107.95 90.805 0)
+			(at 102.87 71.755 0)
 			(effects
 				(font
 					(size 1.27 1.27)
