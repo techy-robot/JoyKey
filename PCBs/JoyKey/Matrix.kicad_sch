@@ -5,6 +5,168 @@
 	(uuid "ad881bd2-5439-4721-838e-d6ff283997fa")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Connector:Conn_01x02_Socket"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Socket"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Socket_1_1"
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:D"
 			(pin_numbers hide)
 			(pin_names
@@ -689,7 +851,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 86.36) (xy 158.75 86.36)
+			(xy 154.94 86.36) (xy 163.83 86.36)
 		)
 		(stroke
 			(width 0)
@@ -759,16 +921,6 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 91.44) (xy 163.83 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "44820b7b-35be-4aff-a338-3c48ad665222")
-	)
-	(wire
-		(pts
 			(xy 154.94 64.77) (xy 154.94 86.36)
 		)
 		(stroke
@@ -829,7 +981,7 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 69.85) (xy 163.83 71.12)
+			(xy 163.83 67.31) (xy 163.83 71.12)
 		)
 		(stroke
 			(width 0)
@@ -856,6 +1008,16 @@
 			(type default)
 		)
 		(uuid "7835e9ba-a49c-4577-8804-f521241f3785")
+	)
+	(wire
+		(pts
+			(xy 163.83 88.9) (xy 163.83 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "79b065ef-7b6b-4b8b-9c1c-3249cfeaa330")
 	)
 	(wire
 		(pts
@@ -969,7 +1131,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 64.77) (xy 158.75 64.77)
+			(xy 154.94 64.77) (xy 163.83 64.77)
 		)
 		(stroke
 			(width 0)
@@ -1149,7 +1311,7 @@
 	)
 	(text_box "6 Key Switches are on the front, and 2 are on the top as \"triggers\""
 		(exclude_from_sim no)
-		(at 176.53 67.31 0)
+		(at 179.07 72.39 0)
 		(size 29.21 10.16)
 		(stroke
 			(width 0)
@@ -1168,7 +1330,7 @@
 	)
 	(text_box "The last row has the encoder pins A and B, and a buttons from the rotary dial and the joystick "
 		(exclude_from_sim no)
-		(at 198.12 106.68 0)
+		(at 177.8 106.68 0)
 		(size 29.21 16.51)
 		(stroke
 			(width 0)
@@ -1997,6 +2159,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 168.91 86.36 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "534ca137-3390-4a78-9d01-fed297bb81bb")
+		(property "Reference" "J6"
+			(at 170.18 86.3599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Top Trigger 2"
+			(at 170.18 88.8999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 168.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 168.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 168.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "005070cb-345e-4574-aa1c-5b621f4d3bf1")
+		)
+		(pin "1"
+			(uuid "3f152312-3019-4d16-8607-5e2228e5ff9d")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
+					(reference "J6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:D")
 		(at 149.86 119.38 90)
 		(unit 1)
@@ -2393,75 +2625,6 @@
 			(project "JoyKey"
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
 					(reference "D2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Switch:SW_Push_45deg")
-		(at 161.29 88.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "750c77ce-b396-4a3a-b312-a541bc529f8e")
-		(property "Reference" "SW12"
-			(at 161.29 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_Push_45deg"
-			(at 161.29 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "MX_Solderable:MX-Solderable-1U"
-			(at 161.29 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 161.29 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Push button switch, normally open, two pins, 45° tilted"
-			(at 161.29 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "96d322e7-1f54-4150-9020-4b4ddf45799a")
-		)
-		(pin "2"
-			(uuid "752f934e-23f9-4757-b782-b88f84d3e043")
-		)
-		(instances
-			(project "JoyKey"
-				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
-					(reference "SW12")
 					(unit 1)
 				)
 			)
@@ -3165,34 +3328,35 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push_45deg")
-		(at 161.29 67.31 0)
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 168.91 64.77 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "e9ba64d8-5a1e-4545-b411-310ff5fae200")
-		(property "Reference" "SW11"
-			(at 161.29 62.23 0)
+		(uuid "e798ea16-cbac-4109-980d-012871a6cddf")
+		(property "Reference" "J5"
+			(at 170.18 64.7699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "SW_Push_45deg"
-			(at 161.29 62.23 0)
+		(property "Value" "Top Trigger 1"
+			(at 170.18 67.3099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
-		(property "Footprint" "MX_Solderable:MX-Solderable-1U"
-			(at 161.29 67.31 0)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 168.91 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3201,7 +3365,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 161.29 67.31 0)
+			(at 168.91 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3209,25 +3373,25 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Push button switch, normally open, two pins, 45° tilted"
-			(at 161.29 67.31 0)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 168.91 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "1"
-			(uuid "66f01b41-b1b8-4389-9e37-2545f90b9b47")
 		)
 		(pin "2"
-			(uuid "ce71343c-ec1c-4b33-aeac-41900689e9b3")
+			(uuid "fcd0da90-2c11-4c21-9d46-c9d870a11a05")
+		)
+		(pin "1"
+			(uuid "1912b652-3c63-4d7b-92e5-48d17063c335")
 		)
 		(instances
-			(project "JoyKey"
+			(project ""
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
-					(reference "SW11")
+					(reference "J5")
 					(unit 1)
 				)
 			)
