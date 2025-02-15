@@ -614,6 +614,24 @@
 					)
 				)
 				(pin passive line
+					(at -8.89 0 0)
+					(length 2.54)
+					(name "MP"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "MP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
 					(at 8.89 -2.54 180)
 					(length 2.54)
 					(name "V1"
@@ -1202,10 +1220,78 @@
 		(pin "V1"
 			(uuid "fecf62b3-4eec-4b9d-805a-a9fa73e5abc2")
 		)
+		(pin "MP"
+			(uuid "db3bf926-7209-4ccd-96be-d698ddd74f61")
+		)
 		(instances
 			(project ""
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/a78c392f-6f7c-48a6-aa3f-986a350bb68a"
 					(reference "U5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 172.72 88.9 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6235a6a8-51e3-47d4-97f6-31a7b0680df3")
+		(property "Reference" "#PWR011"
+			(at 166.37 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 174.244 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 172.72 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 172.72 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 172.72 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "edf57203-9903-42fb-bf44-1c19e8da0b86")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/a78c392f-6f7c-48a6-aa3f-986a350bb68a"
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
