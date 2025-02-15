@@ -13367,7 +13367,7 @@
 	(footprint "SK6812MINI-E:SK6812MINI-E"
 		(layer "B.Cu")
 		(uuid "8988451b-ee75-4fc5-9d1b-c90da53dad2a")
-		(at 173.83125 119.0625 -90)
+		(at 174.3 114.65 -90)
 		(property "Reference" "D19"
 			(at 0 -2.1 90)
 			(unlocked yes)
