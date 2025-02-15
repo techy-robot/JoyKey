@@ -8751,7 +8751,7 @@
 			(at -0.2 0 180)
 			(size 0.2 0.2)
 			(layers "B.Cu")
-			(net 20 "/Analog Input/EC11Common")
+			(net 30 "/Analog Input/EC11B")
 			(pinfunction "1")
 			(pintype "passive")
 			(uuid "f734588b-a4a6-44d9-aba1-1c304bc79144")
@@ -9621,7 +9621,7 @@
 	(footprint "Diode_SMD:Nexperia_CFP3_SOD-123W"
 		(layer "B.Cu")
 		(uuid "2fd2d3b3-20ac-4745-bb99-389d22224a11")
-		(at 176.2125 127.60625 90)
+		(at 178.59375 129.56875 90)
 		(descr "Nexperia CFP3 (SOD-123W), https://assets.nexperia.com/documents/outline-drawing/SOD123W.pdf")
 		(tags "CFP3 SOD-123W")
 		(property "Reference" "D17"
@@ -9922,323 +9922,6 @@
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "8ea29b0a-63a0-4494-8954-9038a42dbdbd")
-		)
-		(model "${KICAD8_3DMODEL_DIR}/Diode_SMD.3dshapes/Nexperia_CFP3_SOD-123W.wrl"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
-	(footprint "Diode_SMD:Nexperia_CFP3_SOD-123W"
-		(layer "B.Cu")
-		(uuid "383539bb-668f-462b-8e88-8620d07e0297")
-		(at 178.59375 114.3 90)
-		(descr "Nexperia CFP3 (SOD-123W), https://assets.nexperia.com/documents/outline-drawing/SOD123W.pdf")
-		(tags "CFP3 SOD-123W")
-		(property "Reference" "D13"
-			(at 0 2 90)
-			(layer "B.SilkS")
-			(uuid "cefcf583-4448-4c06-ab2a-3cff936e2cda")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Value" "1N4148W"
-			(at 0 -2 90)
-			(layer "B.Fab")
-			(uuid "248d4da5-b044-4761-9919-4b225bff9320")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Footprint" "Diode_SMD:Nexperia_CFP3_SOD-123W"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "76ac9a5e-9b4e-4f59-9a72-f7aca8d31880")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "89727d85-b48b-40a2-ae03-bb8dc6fe0049")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Description" "Diode"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "ca82ee4f-59ea-415d-849d-2f77a2a7ca43")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "dad85117-9f6f-4ce9-90c4-7cf463bb8928")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "0fbb69e5-2889-440a-a1cf-e333deb29f4e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
-		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
-		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/e0afe359-267e-4b44-9d16-2f634df69e3f")
-		(sheetname "Matrix")
-		(sheetfile "Matrix.kicad_sch")
-		(attr smd)
-		(fp_line
-			(start 1.4 -0.95)
-			(end -2.26 -0.95)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "a8f813b5-7073-4d96-94eb-e620c92ddbee")
-		)
-		(fp_line
-			(start -2.26 -0.95)
-			(end -2.26 0.95)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "a582561c-cb49-4086-9bc8-43c427647cc1")
-		)
-		(fp_line
-			(start 1.4 0.95)
-			(end -2.26 0.95)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "947b8865-ee4c-4fef-bc54-8585b1952ff1")
-		)
-		(fp_line
-			(start 2.25 -1.1)
-			(end 2.25 1.1)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "B.CrtYd")
-			(uuid "b08aadda-4919-4bc2-adb7-12b32e26e503")
-		)
-		(fp_line
-			(start -2.25 -1.1)
-			(end 2.25 -1.1)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "B.CrtYd")
-			(uuid "7b34ac56-3c8b-43f7-8ad1-2b56544d9e6b")
-		)
-		(fp_line
-			(start -2.25 -1.1)
-			(end -2.25 1.1)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "B.CrtYd")
-			(uuid "2068986e-87c3-4b49-b153-b2a554072b01")
-		)
-		(fp_line
-			(start 2.25 1.1)
-			(end -2.25 1.1)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "B.CrtYd")
-			(uuid "1ffe28d1-b29c-4733-866c-87e2460ea906")
-		)
-		(fp_line
-			(start 1.3 -0.85)
-			(end 1.3 0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "b7e0cbd1-02d2-4af6-8334-2e1d5e8ccba4")
-		)
-		(fp_line
-			(start -1.3 -0.85)
-			(end 1.3 -0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "8582e4c6-861a-4159-a079-792a48ea91ce")
-		)
-		(fp_line
-			(start -0.35 -0.55)
-			(end -0.35 0.55)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "cbc31d27-5aae-43af-9a54-15b16a07345f")
-		)
-		(fp_line
-			(start 0.25 -0.4)
-			(end -0.35 0)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "4270a24f-043f-4f08-b9e4-02b92513dd17")
-		)
-		(fp_line
-			(start 0.25 -0.4)
-			(end 0.25 0.4)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "a69e9848-b022-4dda-9144-ae1b28f18165")
-		)
-		(fp_line
-			(start 0.25 0)
-			(end 0.75 0)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "e99a4918-cdc8-4fb4-a0b3-c29ff979bde9")
-		)
-		(fp_line
-			(start -0.35 0)
-			(end -0.75 0)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "2e86db2f-00fc-483d-99a2-358355e4b757")
-		)
-		(fp_line
-			(start 0.25 0.4)
-			(end -0.35 0)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "47de75e4-a687-4ec0-b1c2-884f9b1e0d1a")
-		)
-		(fp_line
-			(start 1.3 0.85)
-			(end -1.3 0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "05b73b41-b112-49c6-ab0c-5f64c0c7dc06")
-		)
-		(fp_line
-			(start -1.3 0.85)
-			(end -1.3 -0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "B.Fab")
-			(uuid "382ff3eb-3633-4c90-8eb5-e327d5d90097")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 0 2 90)
-			(layer "B.Fab")
-			(uuid "75113442-5bd4-4dcd-abde-9805df569003")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
-		(pad "1" smd rect
-			(at -1.4 0 90)
-			(size 1.2 1.2)
-			(layers "B.Cu" "B.Paste" "B.Mask")
-			(net 38 "/ROW1")
-			(pinfunction "K")
-			(pintype "passive")
-			(uuid "f4eff44b-ac68-4e6e-9add-84fe23495e50")
-		)
-		(pad "2" smd rect
-			(at 1.4 0 90)
-			(size 1.2 1.2)
-			(layers "B.Cu" "B.Paste" "B.Mask")
-			(net 32 "/Analog Input/EC11A")
-			(pinfunction "A")
-			(pintype "passive")
-			(uuid "df8bf586-5d91-4f54-a618-ee727c45dcb7")
 		)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_SMD.3dshapes/Nexperia_CFP3_SOD-123W.wrl"
 			(offset
@@ -11217,7 +10900,7 @@
 	(footprint "Diode_SMD:Nexperia_CFP3_SOD-123W"
 		(layer "B.Cu")
 		(uuid "4815d030-1c9e-4c85-a42b-85a02e4bff5d")
-		(at 173.83125 114.3 90)
+		(at 176.2125 114.3 90)
 		(descr "Nexperia CFP3 (SOD-123W), https://assets.nexperia.com/documents/outline-drawing/SOD123W.pdf")
 		(tags "CFP3 SOD-123W")
 		(property "Reference" "D12"
@@ -11514,7 +11197,7 @@
 			(at 1.4 0 90)
 			(size 1.2 1.2)
 			(layers "B.Cu" "B.Paste" "B.Mask")
-			(net 30 "/Analog Input/EC11B")
+			(net 20 "/Analog Input/EC11Common")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "a2146c42-0719-451d-8a78-51c6e7b733cb")
@@ -12063,7 +11746,7 @@
 			(at -0.2 0 180)
 			(size 0.2 0.2)
 			(layers "B.Cu")
-			(net 20 "/Analog Input/EC11Common")
+			(net 32 "/Analog Input/EC11A")
 			(pinfunction "1")
 			(pintype "passive")
 			(uuid "07976c4b-4968-49a3-9855-451eecc8f30d")
@@ -13719,7 +13402,7 @@
 			)
 		)
 		(property "Footprint" "SK6812MINI-E:SK6812MINI-E"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "9ace78fd-a381-4cb8-8bf0-e9a8510a20f8")
@@ -13732,7 +13415,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "9dfec02c-3a5b-4465-9aed-485918f74463")
@@ -13745,7 +13428,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "dfc91b89-d30a-4855-a1e5-9472cdcebef0")

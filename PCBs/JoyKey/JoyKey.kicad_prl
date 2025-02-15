@@ -129,20 +129,7 @@
     "sorting_column": 0
   },
   "project": {
-    "files": [
-      {
-        "name": "JoyKey.kicad_sch",
-        "open": true,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": 0,
-          "pos_y": 1310,
-          "size_x": 1536,
-          "size_y": 460
-        }
-      }
-    ]
+    "files": []
   },
   "schematic": {
     "selection_filter": {
