@@ -622,12 +622,6 @@
 		)
 	)
 	(junction
-		(at 119.38 109.22)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0a38c6ce-af70-4ba3-a4ed-80a5cb744245")
-	)
-	(junction
 		(at 127 64.77)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -640,6 +634,12 @@
 		(uuid "3bb81b1d-f26f-41cd-ab00-6ca5603dbcf5")
 	)
 	(junction
+		(at 157.48 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3dd45b4d-cbce-487e-9661-1e4a3062bdaf")
+	)
+	(junction
 		(at 120.65 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -650,12 +650,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "52588452-21dd-4289-adf7-fedae52c3104")
-	)
-	(junction
-		(at 154.94 86.36)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5b24fcab-6d53-43a8-8cce-dbca601d1fb3")
 	)
 	(junction
 		(at 149.86 102.87)
@@ -691,13 +685,19 @@
 		(at 154.94 64.77)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "9ee4ca5b-6b1d-4243-a2e2-8e30c509e254")
+		(uuid "885a3d04-ecda-41de-b1f5-52f904fc1969")
 	)
 	(junction
 		(at 120.65 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b726c74d-142a-4fcb-b35b-1fc490e2bec0")
+	)
+	(junction
+		(at 154.94 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ce469ea5-a344-46df-bcd3-b21b3b9403ee")
 	)
 	(junction
 		(at 120.65 124.46)
@@ -741,16 +741,6 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 109.22) (xy 127 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "04cc7239-e7e5-4acb-9eb3-87d4889958ba")
-	)
-	(wire
-		(pts
 			(xy 149.86 101.6) (xy 149.86 102.87)
 		)
 		(stroke
@@ -758,16 +748,6 @@
 			(type default)
 		)
 		(uuid "0b1977c9-dbd4-4c91-aaf0-af7c11d4fe11")
-	)
-	(wire
-		(pts
-			(xy 140.97 86.36) (xy 140.97 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0ba2a475-d500-4678-ad45-622d6438faf0")
 	)
 	(wire
 		(pts
@@ -798,16 +778,6 @@
 			(type default)
 		)
 		(uuid "10fd3553-cf2c-4264-bec0-1e32e6de1cd2")
-	)
-	(wire
-		(pts
-			(xy 149.86 69.85) (xy 149.86 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1abd642b-5c6b-467f-bc40-f3367bf431b1")
 	)
 	(wire
 		(pts
@@ -851,13 +821,13 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 86.36) (xy 163.83 86.36)
+			(xy 130.81 106.68) (xy 127 106.68)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "31aa8d69-a7d2-4182-b802-c777c4d15563")
+		(uuid "30743917-c00d-451d-8e72-73122d30869f")
 	)
 	(wire
 		(pts
@@ -868,16 +838,6 @@
 			(type default)
 		)
 		(uuid "322c824a-f720-4fb2-ae2f-d4c90d2f05a2")
-	)
-	(wire
-		(pts
-			(xy 140.97 113.03) (xy 140.97 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34952fb5-71d6-49a3-9f31-30a7dd74b733")
 	)
 	(wire
 		(pts
@@ -911,23 +871,13 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 71.12) (xy 120.65 69.85)
+			(xy 120.65 64.77) (xy 120.65 71.12)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "410adda3-dfd8-4019-86f1-12565c1c5a4c")
-	)
-	(wire
-		(pts
-			(xy 154.94 64.77) (xy 154.94 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4593d8e5-0336-45eb-bb2d-8cca50844dc0")
 	)
 	(wire
 		(pts
@@ -938,6 +888,16 @@
 			(type default)
 		)
 		(uuid "4671ced1-94fb-420c-9262-9549a8159207")
+	)
+	(wire
+		(pts
+			(xy 110.49 109.22) (xy 110.49 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e6015ac-7691-4e62-9768-b96736196b70")
 	)
 	(wire
 		(pts
@@ -961,6 +921,16 @@
 	)
 	(wire
 		(pts
+			(xy 140.97 86.36) (xy 140.97 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a6582b1-a623-417c-9d5c-d8340266e01c")
+	)
+	(wire
+		(pts
 			(xy 154.94 54.61) (xy 154.94 64.77)
 		)
 		(stroke
@@ -981,13 +951,43 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 67.31) (xy 163.83 71.12)
+			(xy 135.89 111.76) (xy 135.89 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b913a76-342f-48a4-9a88-6451b6aec00c")
+	)
+	(wire
+		(pts
+			(xy 163.83 64.77) (xy 163.83 71.12)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "6c69fa9a-711e-49c1-8b71-e7563bc6c70b")
+	)
+	(wire
+		(pts
+			(xy 165.1 115.57) (xy 165.1 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d5dbda6-e44b-442a-bd81-3e34532783db")
+	)
+	(wire
+		(pts
+			(xy 163.83 115.57) (xy 165.1 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6eddfb31-03c5-400b-8768-bc1770f8d39d")
 	)
 	(wire
 		(pts
@@ -1001,23 +1001,23 @@
 	)
 	(wire
 		(pts
-			(xy 127 104.14) (xy 127 86.36)
+			(xy 154.94 86.36) (xy 157.48 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "705ee037-5f6a-4e9d-a659-725b7828be3c")
+	)
+	(wire
+		(pts
+			(xy 127 86.36) (xy 127 106.68)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "7835e9ba-a49c-4577-8804-f521241f3785")
-	)
-	(wire
-		(pts
-			(xy 163.83 88.9) (xy 163.83 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "79b065ef-7b6b-4b8b-9c1c-3249cfeaa330")
 	)
 	(wire
 		(pts
@@ -1031,27 +1031,7 @@
 	)
 	(wire
 		(pts
-			(xy 110.49 109.22) (xy 119.38 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7c98d48c-e74c-4555-a56a-0753ef1a7020")
-	)
-	(wire
-		(pts
-			(xy 119.38 109.22) (xy 119.38 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f931fb1-7ac1-4932-ae59-0897ef12ecc7")
-	)
-	(wire
-		(pts
-			(xy 110.49 64.77) (xy 115.57 64.77)
+			(xy 110.49 64.77) (xy 118.11 64.77)
 		)
 		(stroke
 			(width 0)
@@ -1071,13 +1051,33 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 91.44) (xy 149.86 93.98)
+			(xy 123.19 115.57) (xy 123.19 114.3)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8ff150ab-6459-46ea-b603-63857d457c78")
+		(uuid "8eef48e1-ab67-4488-af2f-fb51c2e7ceb2")
+	)
+	(wire
+		(pts
+			(xy 161.29 91.44) (xy 157.48 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "98e528c3-745f-4622-be83-2a956bc49699")
+	)
+	(wire
+		(pts
+			(xy 154.94 109.22) (xy 154.94 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "993f8799-28a6-4b42-8bb8-d6defd15003d")
 	)
 	(wire
 		(pts
@@ -1111,6 +1111,16 @@
 	)
 	(wire
 		(pts
+			(xy 120.65 115.57) (xy 123.19 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a7182d8b-4de2-4bd5-89a7-7d9ffdd0a81a")
+	)
+	(wire
+		(pts
 			(xy 110.49 104.14) (xy 110.49 86.36)
 		)
 		(stroke
@@ -1131,7 +1141,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 64.77) (xy 163.83 64.77)
+			(xy 154.94 64.77) (xy 161.29 64.77)
 		)
 		(stroke
 			(width 0)
@@ -1151,16 +1161,6 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 115.57) (xy 163.83 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b43856d3-87ac-4d94-971f-62ea4c4b3c15")
-	)
-	(wire
-		(pts
 			(xy 140.97 64.77) (xy 144.78 64.77)
 		)
 		(stroke
@@ -1168,6 +1168,16 @@
 			(type default)
 		)
 		(uuid "ba7fbc02-bc7a-4458-a807-ee195931d5a0")
+	)
+	(wire
+		(pts
+			(xy 144.78 106.68) (xy 140.97 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c0672bbd-8927-4062-ac8c-9c55bc3fcfa0")
 	)
 	(wire
 		(pts
@@ -1201,13 +1211,33 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 86.36) (xy 144.78 86.36)
+			(xy 144.78 91.44) (xy 157.48 91.44)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "cbff01b8-3941-4980-83d4-05faa99fcb34")
+		(uuid "cf1edbde-2b70-480c-90c5-369a6d568fe4")
+	)
+	(wire
+		(pts
+			(xy 154.94 64.77) (xy 154.94 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d19376cb-c554-40e9-8284-45e7895cb8c7")
+	)
+	(wire
+		(pts
+			(xy 149.86 69.85) (xy 149.86 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d9c0c79b-6874-4ce7-91f7-cbb03d620894")
 	)
 	(wire
 		(pts
@@ -1231,13 +1261,13 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 113.03) (xy 154.94 109.22)
+			(xy 149.86 111.76) (xy 149.86 115.57)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e381485c-8c9d-41ab-ad20-cb4a4e0f3ef4")
+		(uuid "de70cd57-6a1d-41ef-a040-d456c4895060")
 	)
 	(wire
 		(pts
@@ -1261,6 +1291,16 @@
 	)
 	(wire
 		(pts
+			(xy 154.94 86.36) (xy 154.94 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed8d88b4-6d79-4864-ae59-3689fa8b2ff5")
+	)
+	(wire
+		(pts
 			(xy 149.86 83.82) (xy 163.83 83.82)
 		)
 		(stroke
@@ -1278,16 +1318,6 @@
 			(type default)
 		)
 		(uuid "f265fb43-4e83-4e26-8dad-c64a4c8d847f")
-	)
-	(wire
-		(pts
-			(xy 154.94 86.36) (xy 154.94 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f516d882-ee26-46c1-95ee-f4cc5568452b")
 	)
 	(wire
 		(pts
@@ -1309,9 +1339,38 @@
 		)
 		(uuid "f6f97dff-f607-43b5-83fb-5a4a17dae1e9")
 	)
+	(wire
+		(pts
+			(xy 144.78 86.36) (xy 140.97 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "facf324b-5f6a-43e5-96fc-6399229dbd50")
+	)
+	(text_box "Encoder Pins A and B. Must be in separate columns due to the shared common pin causing potential problems. Common must also be upstream to not connect to two separate diodes"
+		(exclude_from_sim no)
+		(at 179.07 85.09 0)
+		(size 30.48 16.51)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "1a4c2758-6d81-427c-b087-e6c50e4a1083")
+	)
 	(text_box "6 Key Switches are on the front, and 2 are on the top as \"triggers\""
 		(exclude_from_sim no)
-		(at 179.07 72.39 0)
+		(at 182.88 62.23 0)
 		(size 29.21 10.16)
 		(stroke
 			(width 0)
@@ -1327,25 +1386,6 @@
 			(justify left top)
 		)
 		(uuid "84d360d0-913e-4002-aeb7-e2015b9e0727")
-	)
-	(text_box "The last row has the encoder pins A and B, and a buttons from the rotary dial and the joystick "
-		(exclude_from_sim no)
-		(at 177.8 106.68 0)
-		(size 29.21 16.51)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "9d6c85a1-452a-4837-8e42-a8cf8361c613")
 	)
 	(text "Switch Matrix\n"
 		(exclude_from_sim no)
@@ -1369,7 +1409,7 @@
 	)
 	(hierarchical_label "EC11A"
 		(shape input)
-		(at 120.65 115.57 180)
+		(at 163.83 93.98 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1380,7 +1420,7 @@
 	)
 	(hierarchical_label "EC11SWB"
 		(shape input)
-		(at 149.86 115.57 180)
+		(at 165.1 113.03 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1391,7 +1431,7 @@
 	)
 	(hierarchical_label "StickButtonA"
 		(shape input)
-		(at 154.94 113.03 0)
+		(at 110.49 111.76 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1402,7 +1442,7 @@
 	)
 	(hierarchical_label "EC11B"
 		(shape input)
-		(at 135.89 115.57 180)
+		(at 149.86 93.98 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1424,7 +1464,7 @@
 	)
 	(hierarchical_label "StickButtonB"
 		(shape input)
-		(at 167.64 115.57 180)
+		(at 123.19 114.3 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1433,20 +1473,9 @@
 		)
 		(uuid "5c7b4866-1c72-4744-9032-9b8b7b3cd758")
 	)
-	(hierarchical_label "EC11Common"
-		(shape input)
-		(at 119.38 113.03 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5ec7fa41-27d6-4924-9ae6-1d4dd980d4d4")
-	)
 	(hierarchical_label "EC11SWA"
 		(shape input)
-		(at 140.97 113.03 0)
+		(at 154.94 110.49 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1488,6 +1517,17 @@
 		)
 		(uuid "d4bd5fa4-392b-47fe-a25d-eeea0672f5c7")
 	)
+	(hierarchical_label "EC11Common"
+		(shape input)
+		(at 161.29 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d9583c0f-af77-449a-87e4-956807a1a762")
+	)
 	(hierarchical_label "ROW0"
 		(shape input)
 		(at 96.52 83.82 180)
@@ -1522,6 +1562,75 @@
 		(uuid "e85eb522-344f-4ec3-836f-0004bb501cd0")
 	)
 	(symbol
+		(lib_id "Switch:SW_Push_45deg")
+		(at 147.32 67.31 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0f3d8977-c2f4-46e1-a61e-2e6d81c609cc")
+		(property "Reference" "SW3"
+			(at 147.32 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push_45deg"
+			(at 147.32 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "MX_Solderable:MX-Solderable-1U"
+			(at 147.32 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 147.32 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, normally open, two pins, 45° tilted"
+			(at 147.32 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2ed3b960-8bc8-4689-8dd6-892c2e6c4425")
+		)
+		(pin "2"
+			(uuid "e9ceb9ab-f27a-4195-973e-4447d6e9ae9f")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
+					(reference "SW3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:NetTie_2")
 		(at 154.94 106.68 90)
 		(unit 1)
@@ -1540,7 +1649,7 @@
 			)
 		)
 		(property "Value" "NetTie_2"
-			(at 144.526 107.95 90)
+			(at 154.432 108.204 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2021,7 +2130,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "432cf5fa-83a6-40c9-aadf-d731d301740c")
-		(property "Reference" "SW3"
+		(property "Reference" "SW2"
 			(at 133.35 62.23 0)
 			(effects
 				(font
@@ -2074,7 +2183,7 @@
 		(instances
 			(project "JoyKey"
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
-					(reference "SW3")
+					(reference "SW2")
 					(unit 1)
 				)
 			)
@@ -2082,7 +2191,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
-		(at 168.91 86.36 0)
+		(at 161.29 59.69 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2091,25 +2200,25 @@
 		(fields_autoplaced yes)
 		(uuid "534ca137-3390-4a78-9d01-fed297bb81bb")
 		(property "Reference" "J6"
-			(at 170.18 86.3599 0)
+			(at 165.1 59.0549 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "Top Trigger 2"
-			(at 170.18 88.8999 0)
+			(at 165.1 61.5949 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 168.91 86.36 0)
+			(at 161.29 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2118,7 +2227,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 168.91 86.36 0)
+			(at 161.29 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2127,7 +2236,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 168.91 86.36 0)
+			(at 161.29 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2308,34 +2417,34 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:NetTie_2")
-		(at 127 106.68 90)
+		(lib_id "Switch:SW_Push_45deg")
+		(at 133.35 109.22 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "68920a5f-776c-440a-90b0-63963c549b5b")
-		(property "Reference" "NT2"
-			(at 128.27 105.4099 90)
+		(fields_autoplaced yes)
+		(uuid "616aa3fd-9aaa-4912-ad33-8121b659f475")
+		(property "Reference" "SW6"
+			(at 133.35 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
-		(property "Value" "NetTie_2"
-			(at 116.586 107.95 90)
+		(property "Value" "SW_Push_45deg"
+			(at 133.35 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(hide yes)
 			)
 		)
-		(property "Footprint" "custom_Connector:NetTie-2_SMD_Pad0.2mm"
-			(at 127 106.68 0)
+		(property "Footprint" "MX_Solderable:MX-Solderable-1U"
+			(at 133.35 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2344,7 +2453,76 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 127 106.68 0)
+			(at 133.35 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, normally open, two pins, 45° tilted"
+			(at 133.35 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cdf073ee-bd23-4b02-8092-e0396cbb5e7e")
+		)
+		(pin "2"
+			(uuid "30b8f0b7-d399-4b05-829e-062af1921694")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
+					(reference "SW6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:NetTie_2")
+		(at 157.48 88.9 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "68920a5f-776c-440a-90b0-63963c549b5b")
+		(property "Reference" "NT2"
+			(at 158.75 87.6299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "NetTie_2"
+			(at 153.924 89.408 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "custom_Connector:NetTie-2_SMD_Pad0.2mm"
+			(at 157.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 157.48 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2353,7 +2531,7 @@
 			)
 		)
 		(property "Description" "Net tie, 2 pins"
-			(at 127 106.68 0)
+			(at 157.48 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2553,75 +2731,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push_45deg")
-		(at 118.11 67.31 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8667284d-d917-49a4-92f2-8f1c424eb494")
-		(property "Reference" "SW2"
-			(at 118.11 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_Push_45deg"
-			(at 118.11 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "MX_Solderable:MX-Solderable-1U"
-			(at 118.11 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 118.11 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Push button switch, normally open, two pins, 45° tilted"
-			(at 118.11 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5143bc65-f40f-4c59-ae78-9ec073add03d")
-		)
-		(pin "2"
-			(uuid "a316ff8d-b55d-421f-aaec-1c3369f1578a")
-		)
-		(instances
-			(project "JoyKey"
-				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
-					(reference "SW2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:D")
 		(at 135.89 74.93 90)
 		(unit 1)
@@ -2799,7 +2908,7 @@
 	)
 	(symbol
 		(lib_id "Switch:SW_Push_45deg")
-		(at 147.32 67.31 0)
+		(at 147.32 109.22 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2808,7 +2917,7 @@
 		(fields_autoplaced yes)
 		(uuid "9178215a-0455-493f-9352-69cf4102fa20")
 		(property "Reference" "SW7"
-			(at 147.32 62.23 0)
+			(at 147.32 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2816,7 +2925,7 @@
 			)
 		)
 		(property "Value" "SW_Push_45deg"
-			(at 147.32 62.23 0)
+			(at 147.32 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2825,7 +2934,7 @@
 			)
 		)
 		(property "Footprint" "MX_Solderable:MX-Solderable-1U"
-			(at 147.32 67.31 0)
+			(at 147.32 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2834,7 +2943,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 147.32 67.31 0)
+			(at 147.32 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2843,7 +2952,7 @@
 			)
 		)
 		(property "Description" "Push button switch, normally open, two pins, 45° tilted"
-			(at 147.32 67.31 0)
+			(at 147.32 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2937,7 +3046,7 @@
 	)
 	(symbol
 		(lib_id "Device:NetTie_2")
-		(at 140.97 106.68 90)
+		(at 144.78 88.9 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -2945,7 +3054,7 @@
 		(dnp no)
 		(uuid "af4ee35a-cbc8-4b61-850d-7d755040fb1c")
 		(property "Reference" "NT3"
-			(at 142.24 105.4099 90)
+			(at 146.05 87.6299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2954,7 +3063,7 @@
 			)
 		)
 		(property "Value" "NetTie_2"
-			(at 130.556 107.95 90)
+			(at 140.716 89.408 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2963,7 +3072,7 @@
 			)
 		)
 		(property "Footprint" "custom_Connector:NetTie-2_SMD_Pad0.2mm"
-			(at 140.97 106.68 0)
+			(at 144.78 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2972,7 +3081,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 140.97 106.68 0)
+			(at 144.78 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2981,7 +3090,7 @@
 			)
 		)
 		(property "Description" "Net tie, 2 pins"
-			(at 140.97 106.68 0)
+			(at 144.78 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3181,75 +3290,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push_45deg")
-		(at 147.32 88.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "dddda787-38f9-43d1-9818-275bc868b13e")
-		(property "Reference" "SW6"
-			(at 147.32 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_Push_45deg"
-			(at 147.32 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "MX_Solderable:MX-Solderable-1U"
-			(at 147.32 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 147.32 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Push button switch, normally open, two pins, 45° tilted"
-			(at 147.32 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1e6cc491-ce7c-4720-908f-71be83fe17ce")
-		)
-		(pin "2"
-			(uuid "e67e078c-3d66-49d4-a3d5-59226bc3636e")
-		)
-		(instances
-			(project "JoyKey"
-				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
-					(reference "SW6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:D")
 		(at 163.83 97.79 90)
 		(unit 1)
@@ -3339,7 +3379,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
-		(at 168.91 64.77 0)
+		(at 118.11 59.69 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3348,25 +3388,25 @@
 		(fields_autoplaced yes)
 		(uuid "e798ea16-cbac-4109-980d-012871a6cddf")
 		(property "Reference" "J5"
-			(at 170.18 64.7699 0)
+			(at 121.92 59.0549 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "Top Trigger 1"
-			(at 170.18 67.3099 0)
+			(at 121.92 61.5949 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 168.91 64.77 0)
+			(at 118.11 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3375,7 +3415,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 168.91 64.77 0)
+			(at 118.11 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3384,7 +3424,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 168.91 64.77 0)
+			(at 118.11 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)

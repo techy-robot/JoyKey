@@ -1732,7 +1732,7 @@
 		(uuid "3b957cb3-1e94-4683-b81b-c1e6a576eeec")
 	)
 	(label "ROW0"
-		(at 102.87 52.07 180)
+		(at 102.87 63.5 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1782,7 +1782,7 @@
 		(uuid "6777c3f4-f55a-4523-9bf1-c73e936b61fd")
 	)
 	(label "COL0"
-		(at 138.43 63.5 0)
+		(at 138.43 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1792,7 +1792,7 @@
 		(uuid "6ffa5447-86e7-4d1f-a823-31598e0207a9")
 	)
 	(label "ROW2"
-		(at 102.87 63.5 180)
+		(at 102.87 52.07 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1842,7 +1842,7 @@
 		(uuid "be389c3b-0524-4185-adf1-3561300e342c")
 	)
 	(label "COL2"
-		(at 138.43 55.88 0)
+		(at 138.43 63.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
