@@ -1,7 +1,7 @@
 {
   "board": {
-    "active_layer": 31,
-    "active_layer_preset": "All Layers",
+    "active_layer": 0,
+    "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
     "hidden_nets": [],
@@ -129,7 +129,32 @@
     "sorting_column": 0
   },
   "project": {
-    "files": []
+    "files": [
+      {
+        "name": "JoyKey.kicad_sch",
+        "open": true,
+        "window": {
+          "display": 0,
+          "maximized": true,
+          "pos_x": 0,
+          "pos_y": 262,
+          "size_x": 1536,
+          "size_y": 460
+        }
+      },
+      {
+        "name": "JoyKey.kicad_pcb",
+        "open": true,
+        "window": {
+          "display": 0,
+          "maximized": true,
+          "pos_x": -181,
+          "pos_y": 159,
+          "size_x": 1717,
+          "size_y": 601
+        }
+      }
+    ]
   },
   "schematic": {
     "selection_filter": {
