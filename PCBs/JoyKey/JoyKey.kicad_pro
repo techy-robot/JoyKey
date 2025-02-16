@@ -509,7 +509,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "JoyKey_pcb.step",
+      "step": "../../CAD/JoyKey_pcb.step",
       "svg": "",
       "vrml": ""
     },
