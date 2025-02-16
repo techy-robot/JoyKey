@@ -509,7 +509,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "orpheuspad_pcb_final.step",
+      "step": "JoyKey_pcb.step",
       "svg": "",
       "vrml": ""
     },
