@@ -1642,7 +1642,7 @@
 		(uuid "a4ea728c-8b66-4f64-989e-63f43ec526dc")
 	)
 	(label "ROW1"
-		(at 102.87 48.26 180)
+		(at 102.87 52.07 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1732,7 +1732,7 @@
 		(uuid "3b957cb3-1e94-4683-b81b-c1e6a576eeec")
 	)
 	(label "ROW0"
-		(at 102.87 63.5 180)
+		(at 102.87 48.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1792,7 +1792,7 @@
 		(uuid "6ffa5447-86e7-4d1f-a823-31598e0207a9")
 	)
 	(label "ROW2"
-		(at 102.87 52.07 180)
+		(at 102.87 63.5 180)
 		(effects
 			(font
 				(size 1.27 1.27)
