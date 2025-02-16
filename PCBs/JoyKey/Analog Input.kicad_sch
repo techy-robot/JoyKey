@@ -11,8 +11,8 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "SW"
-				(at 0 6.604 0)
+			(property "Reference" "SW1"
+				(at 0 -10.16 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -20,14 +20,14 @@
 				)
 			)
 			(property "Value" "RotaryEncoder_Switch"
-				(at 0 -6.604 0)
+				(at 0 -7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "Rotary_Encoder:RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm"
 				(at -3.81 4.064 0)
 				(effects
 					(font
@@ -345,6 +345,24 @@
 						)
 					)
 					(number "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "MP"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "MP"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -914,6 +932,16 @@
 	)
 	(wire
 		(pts
+			(xy 170.18 88.9) (xy 172.72 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "08ef3da7-b542-45cd-869d-c086ab431e89")
+	)
+	(wire
+		(pts
 			(xy 179.07 72.39) (xy 179.07 80.01)
 		)
 		(stroke
@@ -961,6 +989,16 @@
 			(type default)
 		)
 		(uuid "c540ae29-3abc-44d4-af41-0ab64d88edfc")
+	)
+	(wire
+		(pts
+			(xy 114.3 74.93) (xy 114.3 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d91c4f81-1144-4556-94c2-68cd422216ed")
 	)
 	(text "Rotary Encoder"
 		(exclude_from_sim no)
@@ -1234,7 +1272,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 172.72 88.9 270)
+		(at 170.18 88.9 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1242,7 +1280,7 @@
 		(dnp no)
 		(uuid "6235a6a8-51e3-47d4-97f6-31a7b0680df3")
 		(property "Reference" "#PWR011"
-			(at 166.37 88.9 0)
+			(at 163.83 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1251,7 +1289,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 174.244 88.9 0)
+			(at 171.704 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1259,7 +1297,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 172.72 88.9 0)
+			(at 170.18 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1268,7 +1306,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 172.72 88.9 0)
+			(at 170.18 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1277,7 +1315,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 172.72 88.9 0)
+			(at 170.18 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1364,6 +1402,9 @@
 		)
 		(pin "C"
 			(uuid "7c2771c2-73b4-46d8-af49-96ad2ac2cf17")
+		)
+		(pin "MP"
+			(uuid "35783ec5-c5a4-4d4e-bd1a-4864f3822789")
 		)
 		(instances
 			(project "JoyKey"
@@ -1501,6 +1542,71 @@
 			(project "JoyKey"
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/a78c392f-6f7c-48a6-aa3f-986a350bb68a"
 					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 114.3 74.93 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a675bd0a-4ecf-4de4-8fcd-b3edad09cd17")
+		(property "Reference" "#PWR012"
+			(at 114.3 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 114.3 76.454 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 114.3 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 114.3 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 114.3 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "71e4420c-a42c-4265-a7b5-bdc4a40674a1")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/a78c392f-6f7c-48a6-aa3f-986a350bb68a"
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
