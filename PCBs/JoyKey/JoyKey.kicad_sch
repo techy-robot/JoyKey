@@ -1752,7 +1752,7 @@
 		(uuid "450c26f7-acf0-462f-a0f2-0fd54ef8739f")
 	)
 	(label "COL1"
-		(at 138.43 59.69 0)
+		(at 138.43 63.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1842,7 +1842,7 @@
 		(uuid "be389c3b-0524-4185-adf1-3561300e342c")
 	)
 	(label "COL2"
-		(at 138.43 63.5 0)
+		(at 138.43 59.69 0)
 		(effects
 			(font
 				(size 1.27 1.27)
