@@ -1050,6 +1050,342 @@
 				)
 			)
 		)
+		(symbol "Sensor_Motion:LSM6DSL"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -11.43 15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "LSM6DSL"
+				(at -11.43 12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Footprint" "Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y"
+				(at -10.16 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.st.com/resource/en/datasheet/lsm6dsl.pdf"
+				(at 2.54 -16.51 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "I2C/SPI, iNEMO inertial module: always-on 3D accelerometer and 3D gyroscope, 1.71V to 3.6V VCC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Accelerometer Gyroscope MEMS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "LGA*3x2.5mm*P0.5mm*LayoutBorder3x4y*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LSM6DSL_0_1"
+				(rectangle
+					(start -12.7 12.7)
+					(end 12.7 -12.7)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "LSM6DSL_1_1"
+				(pin bidirectional line
+					(at -15.24 7.62 0)
+					(length 2.54)
+					(name "SDO/SA0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 12.7 -5.08 180)
+					(length 3.81) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 12.7 -2.54 180)
+					(length 3.81) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 -7.62 0)
+					(length 2.54)
+					(name "CS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 -5.08 0)
+					(length 2.54)
+					(name "SCL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -15.24 -2.54 0)
+					(length 2.54)
+					(name "SDA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -15.24 5.08 0)
+					(length 2.54)
+					(name "SDX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 2.54 0)
+					(length 2.54)
+					(name "SCX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 7.62 180)
+					(length 2.54)
+					(name "INT1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 15.24 270)
+					(length 2.54)
+					(name "VDDIO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -15.24 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -15.24 90)
+					(length 2.54) hide
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 2.54 15.24 270)
+					(length 2.54)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 5.08 180)
+					(length 2.54)
+					(name "INT2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "power:+3V3"
 			(power)
 			(pin_numbers hide)
@@ -1484,6 +1820,12 @@
 		)
 	)
 	(junction
+		(at 137.16 143.51)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "10681695-c46a-44e9-adef-cb138f575636")
+	)
+	(junction
 		(at 140.97 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1500,6 +1842,40 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "aedb9559-be90-49e0-b84b-65713e1157b5")
+	)
+	(no_connect
+		(at 120.65 156.21)
+		(uuid "7200d1fa-df76-479e-9a44-bb13b4f3b34f")
+	)
+	(no_connect
+		(at 120.65 168.91)
+		(uuid "9c6ad33b-6e7c-4040-ba4a-f2d126e0c3da")
+	)
+	(no_connect
+		(at 120.65 153.67)
+		(uuid "b6c6a071-751d-4196-b56b-1985fb567363")
+	)
+	(no_connect
+		(at 151.13 156.21)
+		(uuid "dd31f78d-af66-419d-a14a-b8741134c7d9")
+	)
+	(no_connect
+		(at 120.65 158.75)
+		(uuid "de10f507-3ec3-43e8-9915-4055cef19a3a")
+	)
+	(no_connect
+		(at 151.13 153.67)
+		(uuid "e76f12f0-ed66-41e9-9a43-1f3f0f7e9d34")
+	)
+	(wire
+		(pts
+			(xy 138.43 143.51) (xy 137.16 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "036e1084-8da0-42d9-94b4-06fd3d173d96")
 	)
 	(wire
 		(pts
@@ -1533,6 +1909,16 @@
 	)
 	(wire
 		(pts
+			(xy 135.89 146.05) (xy 135.89 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3359f972-1bc4-4b0e-9c26-80f01b95f248")
+	)
+	(wire
+		(pts
 			(xy 210.82 68.58) (xy 210.82 57.15)
 		)
 		(stroke
@@ -1540,6 +1926,16 @@
 			(type default)
 		)
 		(uuid "394f17be-7acf-4d28-971c-ed4c534ea352")
+	)
+	(wire
+		(pts
+			(xy 135.89 143.51) (xy 137.16 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "404238d5-d136-48d7-9748-ca5a5ffe8fbf")
 	)
 	(wire
 		(pts
@@ -1610,6 +2006,16 @@
 			(type default)
 		)
 		(uuid "d290b733-2481-46c0-8adb-c3fb12203bce")
+	)
+	(wire
+		(pts
+			(xy 138.43 146.05) (xy 138.43 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3c1e0a9-3d58-4b95-8974-1f4007547026")
 	)
 	(wire
 		(pts
@@ -1732,6 +2138,16 @@
 			(justify right bottom)
 		)
 		(uuid "02ebe122-bfab-4cc5-b3ea-24046f77a1a0")
+	)
+	(label "SCL"
+		(at 213.36 57.15 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "05cda606-a2ab-485b-a6e9-dbd572ffbd7a")
 	)
 	(label "COL1"
 		(at 125.73 104.14 90)
@@ -1883,6 +2299,16 @@
 		)
 		(uuid "7ff357cc-f5a9-4a0f-bdd5-aa6a91021fe5")
 	)
+	(label "SDA"
+		(at 215.9 57.15 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "80a3c9b4-64e8-4333-9208-0037822b8b83")
+	)
 	(label "JoystickY"
 		(at 102.87 44.45 180)
 		(effects
@@ -1943,49 +2369,25 @@
 		)
 		(uuid "e41d9035-304a-49ec-81e6-e0922b87ca73")
 	)
-	(global_label "SCL"
-		(shape input)
-		(at 213.36 57.15 270)
-		(fields_autoplaced yes)
+	(label "SDA"
+		(at 120.65 163.83 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify right bottom)
 		)
-		(uuid "946cbfe1-c02b-45ad-ad5a-c9dd09cce658")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 213.36 63.6428 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
+		(uuid "edb8a7ff-0b9a-4dad-ba4b-df65584d6139")
 	)
-	(global_label "SDA"
-		(shape input)
-		(at 215.9 57.15 270)
-		(fields_autoplaced yes)
+	(label "SCL"
+		(at 120.65 166.37 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify right bottom)
 		)
-		(uuid "e33c8e51-9148-41cb-acfd-e7d7e0994a4d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 215.9 63.7033 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
+		(uuid "fdf3d923-41ad-49ce-8d11-7cdb010766a8")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2614,6 +3016,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3V3")
+		(at 137.16 143.51 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9419e6c5-b0ec-40d7-857a-f92b568f0892")
+		(property "Reference" "#PWR014"
+			(at 137.16 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 137.16 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 137.16 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8bea8dba-b79b-40bb-8352-c525aa60a6d2")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb"
+					(reference "#PWR014")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x04_Pin")
 		(at 210.82 52.07 90)
 		(mirror x)
@@ -2820,6 +3287,113 @@
 		)
 	)
 	(symbol
+		(lib_id "Sensor_Motion:LSM6DSL")
+		(at 135.89 161.29 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e93ffa5e-bc56-4b7a-9c49-195c37a695a4")
+		(property "Reference" "U2"
+			(at 138.0841 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LSM6DSL"
+			(at 138.0841 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y"
+			(at 125.73 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/lsm6dsl.pdf"
+			(at 138.43 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "I2C/SPI, iNEMO inertial module: always-on 3D accelerometer and 3D gyroscope, 1.71V to 3.6V VCC"
+			(at 135.89 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "0d2f27d4-49a7-41f5-bf4b-b6dabe03d6d2")
+		)
+		(pin "7"
+			(uuid "86232062-f16d-4a48-9e1a-e0366b5df4e3")
+		)
+		(pin "8"
+			(uuid "a3b405fa-23a7-4468-b5dd-42b1e7e3e5db")
+		)
+		(pin "9"
+			(uuid "cabf3d50-c004-4c59-989b-948af707a31f")
+		)
+		(pin "5"
+			(uuid "b3bf4582-9e30-4ee2-83ca-9282a9beb14f")
+		)
+		(pin "10"
+			(uuid "b4a3cb3f-a96b-4fc5-92c8-12359343cd36")
+		)
+		(pin "2"
+			(uuid "f538936c-485b-4cb1-a797-84ccb159fd73")
+		)
+		(pin "14"
+			(uuid "48a517de-38b6-47a3-a8fe-f537e96543d9")
+		)
+		(pin "13"
+			(uuid "d9604ca5-c736-494f-a69e-091c77266995")
+		)
+		(pin "4"
+			(uuid "4a228e1e-17db-4c41-8637-11dcf0a78ebd")
+		)
+		(pin "3"
+			(uuid "991767ae-6f37-445c-ad5f-6d75564241c9")
+		)
+		(pin "1"
+			(uuid "d5a3ec1f-27ea-4cb6-b497-f3b74f460c53")
+		)
+		(pin "11"
+			(uuid "0b8cf504-6edc-46f8-87bd-dba0edb718f9")
+		)
+		(pin "12"
+			(uuid "1b938515-575e-4ef9-82e0-974a5c842cde")
+		)
+		(instances
+			(project ""
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb"
+					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 152.4 45.72 0)
 		(unit 1)
@@ -2946,6 +3520,72 @@
 			(project "JoyKey"
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb"
 					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 135.89 176.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fbf4f02b-64bf-41da-94f4-d5a29d6f4412")
+		(property "Reference" "#PWR013"
+			(at 135.89 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 135.89 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 135.89 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 135.89 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 135.89 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cc7cfccb-fc62-44fc-a8a1-e988280fd29f")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb"
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
