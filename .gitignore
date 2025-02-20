@@ -15,4 +15,5 @@ _autosave-*
 .trash/
 **/*backups/*.zip
 **/obsidian-icon-folder/icons/*.zip
+PCBs/JoyKey/libraries/**
 
