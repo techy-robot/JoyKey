@@ -5,7 +5,7 @@
 	(uuid "1193c540-eb22-4c12-9d5e-58b290b55333")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Device:RotaryEncoder_Switch"
+		(symbol "Device:RotaryEncoder"
 			(pin_names
 				(offset 0.254) hide)
 			(exclude_from_sim no)
@@ -27,7 +27,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Rotary_Encoder:RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm"
+			(property "Footprint" "Rotary_Encoder:RotaryEncoder_Alps_EC12E_Vertical_H20mm"
 				(at -3.81 4.064 0)
 				(effects
 					(font
@@ -45,7 +45,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Rotary encoder, dual channel, incremental quadrate outputs, with switch"
+			(property "Description" "Rotary encoder, dual channel, incremental quadrate outputs"
 				(at 0 0 0)
 				(effects
 					(font
@@ -54,7 +54,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "rotary switch encoder switch push button"
+			(property "ki_keywords" "rotary switch encoder"
 				(at 0 0 0)
 				(effects
 					(font
@@ -63,7 +63,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "RotaryEncoder*Switch*"
+			(property "ki_fp_filters" "RotaryEncoder*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -72,7 +72,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "RotaryEncoder_Switch_0_1"
+			(symbol "RotaryEncoder_0_1"
 				(rectangle
 					(start -5.08 5.08)
 					(end 5.08 -5.08)
@@ -156,30 +156,6 @@
 				)
 				(polyline
 					(pts
-						(xy 3.81 0) (xy 3.429 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.81 1.016) (xy 3.81 -1.016)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy -5.08 -2.54) (xy -3.81 -2.54) (xy -3.81 -2.032)
 					)
 					(stroke
@@ -228,30 +204,6 @@
 				)
 				(polyline
 					(pts
-						(xy 5.08 -2.54) (xy 4.318 -2.54) (xy 4.318 -1.016)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.08 2.54) (xy 4.318 2.54) (xy 4.318 1.016)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy -5.08 0) (xy -3.81 0) (xy -3.81 -1.016) (xy -3.302 -2.032)
 					)
 					(stroke
@@ -274,30 +226,8 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 4.318 -1.016)
-					(radius 0.127)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 4.318 1.016)
-					(radius 0.127)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 			)
-			(symbol "RotaryEncoder_Switch_1_1"
+			(symbol "RotaryEncoder_1_1"
 				(pin passive line
 					(at -7.62 2.54 0)
 					(length 2.54)
@@ -353,7 +283,7 @@
 					)
 				)
 				(pin input line
-					(at 0 -7.62 90)
+					(at 0 7.62 270)
 					(length 2.54)
 					(name "MP"
 						(effects
@@ -363,42 +293,6 @@
 						)
 					)
 					(number "MP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 2.54 180)
-					(length 2.54)
-					(name "S1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "S1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -2.54 180)
-					(length 2.54)
-					(name "S2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "S2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -992,7 +886,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 74.93) (xy 114.3 80.01)
+			(xy 114.3 96.52) (xy 114.3 95.25)
 		)
 		(stroke
 			(width 0)
@@ -1010,17 +904,6 @@
 		)
 		(uuid "e460d0d3-9eaa-470c-9e5f-10907e6dbfb1")
 	)
-	(hierarchical_label "EC11SWA"
-		(shape output)
-		(at 106.68 85.09 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "1c73372b-99c2-4465-8c97-4256a822e251")
-	)
 	(hierarchical_label "StickButtonB"
 		(shape output)
 		(at 186.69 100.33 0)
@@ -1031,17 +914,6 @@
 			(justify left)
 		)
 		(uuid "242a7db9-8b08-4098-b666-cde0f0380935")
-	)
-	(hierarchical_label "EC11SWB"
-		(shape output)
-		(at 106.68 90.17 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "2eb08956-9679-4d3a-aca4-04f29fe034a9")
 	)
 	(hierarchical_label "JoystickX"
 		(shape output)
@@ -1336,7 +1208,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:RotaryEncoder_Switch")
+		(lib_id "Device:RotaryEncoder")
 		(at 114.3 87.63 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -1361,7 +1233,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Rotary_Encoder:RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm"
+		(property "Footprint" "Rotary_Encoder:RotaryEncoder_Alps_EC12E_Vertical_H20mm"
 			(at 118.11 91.694 0)
 			(effects
 				(font
@@ -1379,7 +1251,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Rotary encoder, dual channel, incremental quadrate outputs, with switch"
+		(property "Description" "Rotary encoder, dual channel, incremental quadrate outputs"
 			(at 114.3 87.63 0)
 			(effects
 				(font
@@ -1391,20 +1263,14 @@
 		(pin "A"
 			(uuid "754c0ade-6dc5-4aa5-b208-51d51b4f69a1")
 		)
-		(pin "S1"
-			(uuid "612b7d41-f4b4-494d-9094-2d062ca98141")
-		)
 		(pin "B"
 			(uuid "c544dae1-6b8f-4843-b88a-26c35a7b269b")
-		)
-		(pin "S2"
-			(uuid "3a642aa8-e684-48d4-b6dd-4572711dbf12")
 		)
 		(pin "C"
 			(uuid "7c2771c2-73b4-46d8-af49-96ad2ac2cf17")
 		)
 		(pin "MP"
-			(uuid "35783ec5-c5a4-4d4e-bd1a-4864f3822789")
+			(uuid "a53fc587-2628-4f66-9b4d-605cd2db5ded")
 		)
 		(instances
 			(project "JoyKey"
@@ -1549,7 +1415,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 114.3 74.93 180)
+		(at 114.3 96.52 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1557,7 +1423,7 @@
 		(dnp no)
 		(uuid "a675bd0a-4ecf-4de4-8fcd-b3edad09cd17")
 		(property "Reference" "#PWR012"
-			(at 114.3 68.58 0)
+			(at 114.3 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1566,7 +1432,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 114.3 76.454 0)
+			(at 118.618 98.806 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1574,7 +1440,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 114.3 74.93 0)
+			(at 114.3 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1583,7 +1449,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 114.3 74.93 0)
+			(at 114.3 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1592,7 +1458,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 114.3 74.93 0)
+			(at 114.3 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)

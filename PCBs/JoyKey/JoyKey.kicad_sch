@@ -1889,16 +1889,6 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 110.49) (xy 85.09 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "10cf5cde-9e88-4bbd-a137-5ae518635c89")
-	)
-	(wire
-		(pts
 			(xy 208.28 59.69) (xy 208.28 57.15)
 		)
 		(stroke
@@ -1996,16 +1986,6 @@
 			(type default)
 		)
 		(uuid "af6065b3-a5f4-4b5c-a4c3-f28ef2c38ab3")
-	)
-	(wire
-		(pts
-			(xy 78.74 113.03) (xy 85.09 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d290b733-2481-46c0-8adb-c3fb12203bce")
 	)
 	(wire
 		(pts
@@ -3687,26 +3667,6 @@
 				(justify left top)
 			)
 		)
-		(pin "EC11SWB" input
-			(at 85.09 113.03 180)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-			(uuid "c014ce8a-4e29-48fb-9a12-0909e50e3e9c")
-		)
-		(pin "EC11SWA" input
-			(at 85.09 110.49 180)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-			(uuid "931fd26f-f1ea-4945-b141-817e0ed33300")
-		)
 		(pin "StickButtonB" input
 			(at 85.09 128.27 180)
 			(effects
@@ -3884,26 +3844,6 @@
 				(justify right)
 			)
 			(uuid "2b75442f-fe17-4228-a938-bfebe3d6e8e4")
-		)
-		(pin "EC11SWB" output
-			(at 78.74 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "32239f65-1989-47dd-8d10-b14072c282ee")
-		)
-		(pin "EC11SWA" output
-			(at 78.74 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "8f9a4146-3239-4216-afe7-639e3a09ffd0")
 		)
 		(pin "EC11Common" output
 			(at 78.74 120.65 0)

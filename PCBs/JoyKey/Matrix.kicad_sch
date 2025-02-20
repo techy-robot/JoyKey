@@ -818,23 +818,13 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 115.57) (xy 165.1 113.03)
+			(xy 163.83 115.57) (xy 163.83 113.03)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "6d5dbda6-e44b-442a-bd81-3e34532783db")
-	)
-	(wire
-		(pts
-			(xy 163.83 115.57) (xy 165.1 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6eddfb31-03c5-400b-8768-bc1770f8d39d")
 	)
 	(wire
 		(pts
@@ -905,6 +895,16 @@
 			(type default)
 		)
 		(uuid "8eef48e1-ab67-4488-af2f-fb51c2e7ceb2")
+	)
+	(wire
+		(pts
+			(xy 154.94 86.36) (xy 154.94 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92739249-4c7c-48f8-9003-9e87f387baab")
 	)
 	(wire
 		(pts
@@ -1118,16 +1118,6 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 86.36) (xy 154.94 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ed8d88b4-6d79-4864-ae59-3689fa8b2ff5")
-	)
-	(wire
-		(pts
 			(xy 149.86 83.82) (xy 163.83 83.82)
 		)
 		(stroke
@@ -1165,6 +1155,16 @@
 			(type default)
 		)
 		(uuid "f6f97dff-f607-43b5-83fb-5a4a17dae1e9")
+	)
+	(wire
+		(pts
+			(xy 154.94 113.03) (xy 161.29 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8225e9d-ef41-4ace-a400-21d1bf2a7e3e")
 	)
 	(wire
 		(pts
@@ -1245,17 +1245,6 @@
 		)
 		(uuid "07b37b33-fbcf-448f-b476-ca9d79137982")
 	)
-	(hierarchical_label "EC11SWB"
-		(shape input)
-		(at 165.1 113.03 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "16d17219-094e-4f83-9c69-4658ab21e2f5")
-	)
 	(hierarchical_label "StickButtonA"
 		(shape input)
 		(at 110.49 111.76 0)
@@ -1299,17 +1288,6 @@
 			(justify right)
 		)
 		(uuid "5c7b4866-1c72-4744-9032-9b8b7b3cd758")
-	)
-	(hierarchical_label "EC11SWA"
-		(shape input)
-		(at 154.94 110.49 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "7404644b-0889-4244-96fd-c7de4bed53bb")
 	)
 	(hierarchical_label "COL2"
 		(shape input)
@@ -2257,6 +2235,76 @@
 			(project "JoyKey"
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
 					(reference "D11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 161.29 107.95 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7a9f2538-7c68-4a3f-8204-9c95f68f7f29")
+		(property "Reference" "J7"
+			(at 165.1 107.3149 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Extra Trigger"
+			(at 165.1 109.8549 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 161.29 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 161.29 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 161.29 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "96a6eb34-1103-4286-af26-2b27786dbfce")
+		)
+		(pin "1"
+			(uuid "c26919c6-e889-4d65-a34d-75a03f40ed03")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
+					(reference "J7")
 					(unit 1)
 				)
 			)
