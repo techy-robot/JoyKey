@@ -1,13 +1,15 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "1193c540-eb22-4c12-9d5e-58b290b55333")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Device:RotaryEncoder"
 			(pin_names
-				(offset 0.254) hide)
+				(offset 0.254)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -84,70 +86,24 @@
 						(type background)
 					)
 				)
-				(circle
-					(center -3.81 0)
-					(radius 0.254)
+				(polyline
+					(pts
+						(xy -5.08 2.54) (xy -3.81 2.54) (xy -3.81 2.032)
+					)
 					(stroke
 						(width 0)
 						(type default)
 					)
 					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center -0.381 0)
-					(radius 1.905)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start -0.381 2.667)
-					(mid -3.0988 -0.0635)
-					(end -0.381 -2.794)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
 						(type none)
 					)
 				)
 				(polyline
 					(pts
-						(xy -0.635 -1.778) (xy -0.635 1.778)
+						(xy -5.08 0) (xy -3.81 0) (xy -3.81 -1.016) (xy -3.302 -2.032)
 					)
 					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.381 -1.778) (xy -0.381 1.778)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.127 1.778) (xy -0.127 -1.778)
-					)
-					(stroke
-						(width 0.254)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -168,7 +124,7 @@
 				)
 				(polyline
 					(pts
-						(xy -5.08 2.54) (xy -3.81 2.54) (xy -3.81 2.032)
+						(xy -4.318 0) (xy -3.81 0) (xy -3.81 1.016) (xy -3.302 2.032)
 					)
 					(stroke
 						(width 0)
@@ -178,9 +134,67 @@
 						(type none)
 					)
 				)
+				(circle
+					(center -3.81 0)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 				(polyline
 					(pts
-						(xy 0.254 -3.048) (xy -0.508 -2.794) (xy 0.127 -2.413)
+						(xy -0.635 -1.778) (xy -0.635 1.778)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -0.381 0)
+					(radius 1.905)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.381 -1.778) (xy -0.381 1.778)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -0.381 -2.794)
+					(mid -3.0988 -0.0635)
+					(end -0.381 2.667)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.127 1.778) (xy -0.127 -1.778)
 					)
 					(stroke
 						(width 0.254)
@@ -204,22 +218,10 @@
 				)
 				(polyline
 					(pts
-						(xy -5.08 0) (xy -3.81 0) (xy -3.81 -1.016) (xy -3.302 -2.032)
+						(xy 0.254 -3.048) (xy -0.508 -2.794) (xy 0.127 -2.413)
 					)
 					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -4.318 0) (xy -3.81 0) (xy -3.81 1.016) (xy -3.302 2.032)
-					)
-					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -247,24 +249,6 @@
 					)
 				)
 				(pin passive line
-					(at -7.62 -2.54 0)
-					(length 2.54)
-					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
 					(at -7.62 0 0)
 					(length 2.54)
 					(name "C"
@@ -275,6 +259,24 @@
 						)
 					)
 					(number "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "B"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -301,6 +303,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "custom_Interface_HID:2_axis_analog_joystick_button"
 			(exclude_from_sim no)
@@ -350,9 +353,10 @@
 				)
 			)
 			(symbol "2_axis_analog_joystick_button_0_1"
-				(circle
-					(center 0 -8.89)
-					(radius 1.27)
+				(polyline
+					(pts
+						(xy -2.54 -6.35) (xy -2.54 -11.43) (xy 2.54 -11.43) (xy 2.54 -6.35)
+					)
 					(stroke
 						(width 0)
 						(type default)
@@ -361,10 +365,20 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy -2.54 -6.35) (xy -2.54 -11.43) (xy 2.54 -11.43) (xy 2.54 -6.35)
+				(circle
+					(center 0 0)
+					(radius 4.5791)
+					(stroke
+						(width 0)
+						(type default)
 					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 -8.89)
+					(radius 1.27)
 					(stroke
 						(width 0)
 						(type default)
@@ -386,66 +400,19 @@
 						(type none)
 					)
 				)
-				(circle
-					(center 0 0)
-					(radius 4.5791)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 			)
 			(symbol "2_axis_analog_joystick_button_1_1"
 				(pin passive line
-					(at 5.08 -11.43 180)
+					(at -8.89 0 0)
 					(length 2.54)
-					(name "B1A"
+					(name "MP"
 						(effects
 							(font
 								(size 0 0)
 							)
 						)
 					)
-					(number "B1A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -11.43 0)
-					(length 2.54)
-					(name "B1B"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "B1B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -8.89 180)
-					(length 2.54)
-					(name "B2A"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "B2A"
+					(number "MP"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -472,34 +439,16 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 8.89 270)
+					(at -5.08 -11.43 0)
 					(length 2.54)
-					(name "H1"
+					(name "B1B"
 						(effects
 							(font
 								(size 0 0)
 							)
 						)
 					)
-					(number "H1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 8.89 270)
-					(length 2.54)
-					(name "H2"
-						(effects
-							(font
-								(size 0 0)
-							)
-						)
-					)
-					(number "H2"
+					(number "B1B"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -526,16 +475,16 @@
 					)
 				)
 				(pin passive line
-					(at -8.89 0 0)
+					(at 0 8.89 270)
 					(length 2.54)
-					(name "MP"
+					(name "H2"
 						(effects
 							(font
 								(size 0 0)
 							)
 						)
 					)
-					(number "MP"
+					(number "H2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -544,16 +493,70 @@
 					)
 				)
 				(pin passive line
-					(at 8.89 -2.54 180)
+					(at 2.54 8.89 270)
 					(length 2.54)
-					(name "V1"
+					(name "H1"
 						(effects
 							(font
 								(size 0 0)
 							)
 						)
 					)
-					(number "V1"
+					(number "H1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -8.89 180)
+					(length 2.54)
+					(name "B2A"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "B2A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -11.43 180)
+					(length 2.54)
+					(name "B1A"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "B1A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 8.89 2.54 180)
+					(length 2.54)
+					(name "V3"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "V3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -580,16 +583,16 @@
 					)
 				)
 				(pin passive line
-					(at 8.89 2.54 180)
+					(at 8.89 -2.54 180)
 					(length 2.54)
-					(name "V3"
+					(name "V1"
 						(effects
 							(font
 								(size 0 0)
 							)
 						)
 					)
-					(number "V3"
+					(number "V1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -598,12 +601,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+3V3"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -675,7 +683,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -687,7 +695,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -718,12 +726,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -814,7 +827,18 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text "Rotary Encoder"
+		(exclude_from_sim no)
+		(at 114.808 103.378 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+			)
+		)
+		(uuid "e460d0d3-9eaa-470c-9e5f-10907e6dbfb1")
 	)
 	(no_connect
 		(at 176.53 100.33)
@@ -893,16 +917,6 @@
 			(type default)
 		)
 		(uuid "d91c4f81-1144-4556-94c2-68cd422216ed")
-	)
-	(text "Rotary Encoder"
-		(exclude_from_sim no)
-		(at 114.808 103.378 0)
-		(effects
-			(font
-				(size 2.54 2.54)
-			)
-		)
-		(uuid "e460d0d3-9eaa-470c-9e5f-10907e6dbfb1")
 	)
 	(hierarchical_label "StickButtonB"
 		(shape output)
