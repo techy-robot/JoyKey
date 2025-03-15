@@ -1972,28 +1972,6 @@
 		)
 		(uuid "82052028-1595-4a6f-aa9c-648b86313a89")
 	)
-	(text_box "Double check footprint jst size, and pin order!!!"
-		(exclude_from_sim no)
-		(at 260.35 110.49 0)
-		(size 20.32 7.62)
-		(margins 0.9525 0.9525 0.9525 0.9525)
-		(stroke
-			(width 0)
-			(type default)
-			(color 255 0 0 1)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 255 0 0 1)
-			)
-			(justify left top)
-		)
-		(uuid "f71a6240-d865-408d-91f6-3128abb9fa49")
-	)
 	(junction
 		(at 127 109.22)
 		(diameter 0)
@@ -2478,7 +2456,8 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 254 114.3 180)
+		(at 254 127 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2487,7 +2466,7 @@
 		(fields_autoplaced yes)
 		(uuid "0c6972d5-ab69-418a-b15c-5dbd79aa55f1")
 		(property "Reference" "#PWR26"
-			(at 254 107.95 0)
+			(at 254 133.35 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2496,7 +2475,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 254 109.22 0)
+			(at 254 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2504,7 +2483,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 254 114.3 0)
+			(at 254 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2513,7 +2492,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 254 114.3 0)
+			(at 254 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2522,7 +2501,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 254 114.3 0)
+			(at 254 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2949,8 +2928,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic_MountingPin:Conn_01x02_MountingPin")
-		(at 254 121.92 0)
-		(mirror x)
+		(at 254 119.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2958,7 +2936,7 @@
 		(dnp no)
 		(uuid "3e84c28a-967b-4d92-9536-47493145b3ce")
 		(property "Reference" "J4"
-			(at 255.27 121.9201 0)
+			(at 255.27 119.3799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2967,7 +2945,7 @@
 			)
 		)
 		(property "Value" "JST PH"
-			(at 255.27 119.3801 0)
+			(at 255.27 121.9199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2976,7 +2954,7 @@
 			)
 		)
 		(property "Footprint" "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal"
-			(at 254 121.92 0)
+			(at 254 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2985,7 +2963,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 254 121.92 0)
+			(at 254 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2994,7 +2972,7 @@
 			)
 		)
 		(property "Description" "Generic connectable mounting pin connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 254 121.92 0)
+			(at 254 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)

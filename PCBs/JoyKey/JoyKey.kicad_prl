@@ -1,11 +1,11 @@
 {
   "board": {
-    "active_layer": 0,
+    "active_layer": 2,
     "active_layer_preset": "All Layers",
     "auto_track_width": false,
     "hidden_netclasses": [],
     "hidden_nets": [],
-    "high_contrast_mode": 0,
+    "high_contrast_mode": 1,
     "net_color_mode": 1,
     "opacity": {
       "images": 0.6,
@@ -115,15 +115,27 @@
   "project": {
     "files": [
       {
-        "name": "JoyKey.kicad_pcb",
-        "open": false,
+        "name": "JoyKey.kicad_sch",
+        "open": true,
         "window": {
           "display": 0,
           "maximized": true,
-          "pos_x": 0,
+          "pos_x": 192,
+          "pos_y": 262,
+          "size_x": 1152,
+          "size_y": 460
+        }
+      },
+      {
+        "name": "JoyKey.kicad_pcb",
+        "open": true,
+        "window": {
+          "display": 0,
+          "maximized": true,
+          "pos_x": -181,
           "pos_y": 159,
           "size_x": 1280,
-          "size_y": 450
+          "size_y": 720
         }
       }
     ]
