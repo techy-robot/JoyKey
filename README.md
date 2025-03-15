@@ -1,5 +1,5 @@
 ---
-modified: 2025-02-11T08:44:54-07:00
+modified: 2025-02-20T21:09:22-07:00
 ---
 # JoyKey
 This is a small macropad that simultaneously acts as game controller and an entertainment device. 
@@ -30,3 +30,33 @@ The name is inspired by the Nintendo JoyCon portmanteau (Joystick Controller) ex
 
 # A Note on Project Management
 This project is managed transparently in this very repo. I am using Obsidian.md as my notetaking, documentation, and project management tool. A lot of the markdown files you will see in this repo might look a bit weird; that is due to the Wiki-links instead of markdown links and the YAML file front-matter that Obsidian supports. My system works well for one person, but I'm not sure how future proof this system is. You can find my sample vault here, which explains more: [GitHub - techy-robot/Project-Management-Obsidian-Sample-Vault](https://github.com/techy-robot/Project-Management-Obsidian-Sample-Vault). 
+
+# Pictures
+
+## Case
+![](media/Case%20Bottom.png)
+
+![](media/Case%20Front.png)
+
+![](media/Case%20Inside.png)
+
+![](media/Case%20Top.png)
+
+![](media/Final%20View.png)
+
+## PCB
+Bottom
+![](media/Board%20Bottom.png)
+Top
+![](media/Board%20Top.png)
+
+## Schematic
+![](media/Schem%201.png)
+
+![](media/Schem%202.png)
+
+![](media/Schem%203.png)
+
+![](media/Schem%204.png)
+
+![](media/Schem%205.png)
