@@ -6,30 +6,37 @@ This is a small macropad that simultaneously acts as game controller and an ente
 
 The name is inspired by the Nintendo JoyCon portmanteau (Joystick Controller) except I have replaced the 2nd word with "Keypad" (Joystick Keypad). See [name ideas](name%20ideas.md) for other things I came up with.
 
+My main repo were development will continue: https://github.com/techy-robot/JoyKey
+
 # Features
-- Customizable macro pad using KMK firmware
+- Customizable macro pad using QMK firmware
 - Game controller mimicking a joy-con
 - Offline games that can be played on the display with no connections
 - Small handheld size
 - Linear keys
 
-
-# BOM
-- 8 Cherry mx Red keys with clear shell varient
+# Approoved Parts BOM
+- 8 Cherry mx Red keys with clear shell variant
 - 8 Black keycaps
-- 1 Analog PS2 Joystick (I already have)
-- 1 EC11 encoder (flat volume dial on the side)
 - 128x64 px SSD1306-based monochrome display near the top
-- SEEED Xiao RP2040 (can be replaced w/ SEEED xiao MG24 or nRF52840 Sense for BLE, IMU, and battery charging)
+- SEEED Xiao RP2040 (can be replaced later w/ SEEED xiao MG24 or nRF52840 Sense for BLE and other goodies)
 - 12 Sk6812 Mini-E reverse mount RGB leds
 - 3 M3x16 screws and M3 heatsets
 
-# Extra Ideas
-- Taiyo Yuden NRF51822 Module Bluetouth
-- 
-
-# A Note on Project Management
-This project is managed transparently in this very repo. I am using Obsidian.md as my notetaking, documentation, and project management tool. A lot of the markdown files you will see in this repo might look a bit weird; that is due to the Wiki-links instead of markdown links and the YAML file front-matter that Obsidian supports. My system works well for one person, but I'm not sure how future proof this system is. You can find my sample vault here, which explains more: [GitHub - techy-robot/Project-Management-Obsidian-Sample-Vault](https://github.com/techy-robot/Project-Management-Obsidian-Sample-Vault). 
+# Extra Parts BOM
+- 1 Analog PS2 Joystick (I already have)
+- 1 Alps SRBE110301. (flat volume dial on the side). LCSC #C160861
+- AP2112K-3.3 Linear Regulator. LCSC #C51118
+- MCP73831T-2ACI/OT Lipo Battery Charger. LCSC #C424093
+- 4 10uf 0805 capacitors. LCSC #C15850
+- DMG3415 Sot23-3 PMOS. LCSC #C7202986
+- 3 10k 0805 resistors. LCSC #C17414
+- 1 2k 0805 resistor. LCSC #C17604
+- 1 0603 LED. LCSC #C2286
+- 1 LSM6DS3 LCSC #C967633
+- JST PH S2B smd LCSC #C295747
+- 12 1N4148W diodes LCSC #C2128
+- 1 MBR0540 schotkey LCSC #C78545
 
 # Pictures
 

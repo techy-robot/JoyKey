@@ -2439,6 +2439,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C78545"
+			(at 120.65 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "590b7236-a936-4b0f-917c-aa713104cbf8")
 		)
@@ -2568,6 +2577,15 @@
 			)
 		)
 		(property "Description" "P-MOSFET transistor, gate/source/drain"
+			(at 72.39 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C7202986"
 			(at 72.39 104.14 0)
 			(effects
 				(font
@@ -2911,6 +2929,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C2286"
+			(at 210.82 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e4aae1d0-1ad2-4476-8fd2-27f0e5bd10f3")
 		)
@@ -2972,6 +2999,15 @@
 			)
 		)
 		(property "Description" "Generic connectable mounting pin connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 254 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C295747"
 			(at 254 119.38 0)
 			(effects
 				(font
@@ -3185,6 +3221,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C15850"
+			(at 114.3 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "fcb8f92c-a4a4-4736-b077-00b137aaba3f")
 		)
@@ -3247,6 +3292,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 83.82 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C17414"
 			(at 83.82 113.03 0)
 			(effects
 				(font
@@ -3458,6 +3512,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C424093"
+			(at 182.88 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4b59c0cf-8099-4be0-996d-cc48ea3d880c")
 		)
@@ -3535,6 +3598,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C17414"
+			(at 199.39 114.3 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "48c3c8fb-efdf-4704-a0fa-da062e3e43ba")
 		)
@@ -3597,6 +3669,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 74.93 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C15850"
 			(at 74.93 116.84 0)
 			(effects
 				(font
@@ -3807,6 +3888,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C15850"
+			(at 226.06 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8deee3d2-face-4488-b181-23b399591b43")
 		)
@@ -3869,6 +3959,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 127 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C15850"
 			(at 127 111.76 0)
 			(effects
 				(font
@@ -4013,6 +4112,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C17604"
+			(at 170.18 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ec84e673-8cd7-4ba2-82df-78a191972141")
 		)
@@ -4073,6 +4181,15 @@
 			)
 		)
 		(property "Description" "600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"
+			(at 102.87 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51118"
 			(at 102.87 111.76 0)
 			(effects
 				(font
@@ -4152,6 +4269,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 59.69 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C17414"
 			(at 59.69 113.03 0)
 			(effects
 				(font

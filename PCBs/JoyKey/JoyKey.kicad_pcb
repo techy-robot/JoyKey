@@ -4371,6 +4371,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C15850"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "0a76a33c-c39b-45fe-83f8-3d36daefc828")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/ac250670-848c-4fb5-87be-316f940b1e65/5fca07d4-e98c-42eb-917a-5ef1753f2faf")
 		(sheetname "/Battery Management/")
@@ -4597,6 +4611,20 @@
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "0bcc4ea7-0594-4f75-853f-a3d978314eb5")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "4543ff01-2393-4809-98a1-9a1ca4e94840")
 			(effects
 				(font
 					(size 1 1)
@@ -4909,6 +4937,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "134282ba-75f1-4f41-824c-5b8f47c593aa")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/5e1c59f6-d570-4d2b-a029-5f4d5398e783")
 		(sheetname "/Matrix/")
@@ -5205,6 +5247,20 @@
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "eb03f6dd-9ecc-4410-9a5b-db691e4235bb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "7f8a698d-780d-4cad-a48c-2ea297dcad2b")
 			(effects
 				(font
 					(size 1 1)
@@ -5723,6 +5779,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "b59043f4-3b36-40bd-bc07-e635c3c93a89")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/8efbd86f-be59-4e56-ac57-fc79e20a0aa3")
 		(sheetname "/Matrix/")
@@ -5994,6 +6064,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C78545"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "28658a0f-4d25-40cd-b330-d3842200e8df")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -6303,6 +6387,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2128"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "ebbae9bc-2374-4407-8fc8-640228991e3d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/3d9b1689-faed-4d35-8d73-b97f57cbc72e")
 		(sheetname "/Matrix/")
@@ -6574,6 +6672,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C17414"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "8ed89288-269c-4c8a-9330-3af176fb46af")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -7652,6 +7764,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "94e818c6-e638-498c-9393-607ca7c56c71")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/d0c11e2f-5c9c-421e-bb75-5b996ed8aab7")
 		(sheetname "/Matrix/")
@@ -8134,6 +8260,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C15850"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "6568cea9-7c78-4fca-a2ad-b91d4ab534b1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/ac250670-848c-4fb5-87be-316f940b1e65/d13afb64-d2a6-4246-b8f0-a521491889f4")
 		(sheetname "/Battery Management/")
@@ -8546,6 +8686,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C15850"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "57045705-a16e-4a51-8954-0b8c731ec66e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/ac250670-848c-4fb5-87be-316f940b1e65/cccebab2-04cc-44a8-a1d6-b7ec01b9bc9d")
 		(sheetname "/Battery Management/")
@@ -8747,6 +8901,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C17414"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "05c3a3ff-e8c1-4ef9-b955-a29dbb4bb06e")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -9192,6 +9360,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "398e521e-e870-4dac-b93f-819d1af460c6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/2227a287-a373-4172-b16c-0fee6bd34490")
 		(sheetname "/Matrix/")
@@ -9461,6 +9643,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C51118"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "d239a0b6-0813-4e14-960a-250a6b304574")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -9980,6 +10176,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "98bf43be-f095-4da1-8e5f-777aaa59adfa")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/1e5d47c3-1f3b-4d71-aaf7-d2dedeec939a")
 		(sheetname "/Matrix/")
@@ -10249,6 +10459,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C424093"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "5679ea54-03e1-40bd-bc79-d88d19c10a47")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -10562,6 +10786,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "45e5aa23-1f26-4565-a862-265dddbfbf2a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/b663cb82-e5a1-4c67-b51b-ef9c4961845b")
 		(sheetname "/Matrix/")
@@ -10831,6 +11069,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C7202986"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "3d107031-dad5-4c5c-8624-a9292fc02e10")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -11296,6 +11548,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C17414"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "cec9b9be-e797-495d-9d1b-abb318d21e2a")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -11919,6 +12185,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C17604"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "c2408049-be94-44b7-86c2-bbf9593a21ab")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/ac250670-848c-4fb5-87be-316f940b1e65/d9e71a68-257e-4f44-b068-1680475b9f80")
 		(sheetname "/Battery Management/")
@@ -12120,6 +12400,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C15850"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "54975d3f-0d2a-4614-84e0-391d71d41ef2")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -12351,6 +12645,20 @@
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "3e9119f7-aa9d-4e64-b24a-3fb8dfc9a90b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "11f30a9f-0dff-4739-b19b-7c9b987b043f")
 			(effects
 				(font
 					(size 1 1)
@@ -12630,6 +12938,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C295747"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "015447fc-e092-454d-a64b-a389806f683c")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -12996,6 +13318,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C967633"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "dd75cb93-41bf-45d2-bee9-f0b7bd84fac9")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
@@ -13429,6 +13765,20 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2128"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "419790ee-5f08-4a2a-a4f6-f935e2c138f1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68ef131f-9d28-47fd-9e2d-054e6cdf50c5/3f92e9d8-808c-4591-91c7-9f07df4ba589")
 		(sheetname "/Matrix/")
@@ -13700,6 +14050,20 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2286"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "82593008-1cd0-4c58-8adf-3d036b622106")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
