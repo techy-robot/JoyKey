@@ -6626,7 +6626,7 @@
 		(descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R1"
-			(at -2.275 -0.35 0)
+			(at -0.1 -1.775 0)
 			(layer "B.SilkS")
 			(uuid "8e0fd82b-e2c2-4835-941a-84300e25e80e")
 			(effects
@@ -11025,7 +11025,7 @@
 		(descr "SOT, 3 Pin (JEDEC MO-178 inferred 3-pin variant https://www.jedec.org/document_search?search_api_views_fulltext=MO-178), generated with kicad-footprint-generator ipc_gullwing_generator.py")
 		(tags "SOT TO_SOT_SMD")
 		(property "Reference" "Q1"
-			(at 0 2.4 0)
+			(at -0.425 2.6 0)
 			(layer "B.SilkS")
 			(uuid "44f5e589-f781-497e-8fa3-49b44c9f09f0")
 			(effects
@@ -12574,7 +12574,7 @@
 		(descr "Nexperia CFP3 (SOD-123W), https://assets.nexperia.com/documents/outline-drawing/SOD123W.pdf")
 		(tags "CFP3 SOD-123W")
 		(property "Reference" "D3"
-			(at 0 2 90)
+			(at -0.3 1.95 90)
 			(layer "B.SilkS")
 			(uuid "e29d550d-0473-4b53-b9da-8d92d1e481f2")
 			(effects
@@ -14004,7 +14004,7 @@
 		(descr "LED SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
 		(tags "LED")
 		(property "Reference" "D20"
-			(at 1.525 -2.375 90)
+			(at -0.75 1.2 180)
 			(layer "B.SilkS")
 			(uuid "26197dd2-f9c8-492d-a1e5-b5bbc1e32cc8")
 			(effects
@@ -16586,6 +16586,18 @@
 			)
 		)
 	)
+	(gr_text "+"
+		(at 172.975 104.95 0)
+		(layer "B.SilkS")
+		(uuid "4aef3950-7ea6-4117-938e-1565f89e0e48")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom mirror)
+		)
+	)
 	(gr_text "Xiao This Side"
 		(at 142 87.7 0)
 		(layer "B.SilkS")
@@ -16801,6 +16813,18 @@
 					(xy 130.274691 86.501564) (xy 130.340457 86.463143) (xy 130.409241 86.44336) (xy 130.486636 86.436765)
 				)
 			)
+		)
+	)
+	(gr_text "-"
+		(at 176.225 104.975 0)
+		(layer "B.SilkS")
+		(uuid "a9ccf4ff-4258-4140-a309-012d3fa776df")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom mirror)
 		)
 	)
 	(gr_text "5.08 LED offset from key center"
