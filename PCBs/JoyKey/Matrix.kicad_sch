@@ -535,7 +535,7 @@
 	)
 	(text_box "Encoder Pins A and B. For separate columns have the common pin be on the row. If vertical orientation, have the common pin be on column and A and B on separate rows"
 		(exclude_from_sim no)
-		(at 179.07 85.09 0)
+		(at 180.34 90.17 0)
 		(size 30.48 16.51)
 		(margins 0.9525 0.9525 0.9525 0.9525)
 		(stroke
@@ -608,12 +608,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6b71ab3f-5dee-444b-ac2e-c23a603e2e8c")
-	)
-	(junction
-		(at 135.89 102.87)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7456fae5-1303-43cd-9561-300bff27b513")
 	)
 	(junction
 		(at 127 86.36)
@@ -731,16 +725,6 @@
 	)
 	(wire
 		(pts
-			(xy 135.89 91.44) (xy 135.89 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2210b386-b63c-4f5f-8b6d-aebd27121a81")
-	)
-	(wire
-		(pts
 			(xy 130.81 106.68) (xy 127 106.68)
 		)
 		(stroke
@@ -808,16 +792,6 @@
 			(type default)
 		)
 		(uuid "4671ced1-94fb-420c-9262-9549a8159207")
-	)
-	(wire
-		(pts
-			(xy 157.48 86.36) (xy 157.48 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4e953a3e-34c5-4241-8e63-187712ae2874")
 	)
 	(wire
 		(pts
@@ -891,7 +865,7 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 115.57) (xy 163.83 113.03)
+			(xy 163.83 115.57) (xy 163.83 111.76)
 		)
 		(stroke
 			(width 0)
@@ -931,16 +905,6 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 102.87) (xy 135.89 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7bb75ee7-8099-4dcf-b8f5-b3c170e49c7d")
-	)
-	(wire
-		(pts
 			(xy 110.49 64.77) (xy 118.11 64.77)
 		)
 		(stroke
@@ -971,33 +935,13 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 86.36) (xy 154.94 113.03)
+			(xy 154.94 86.36) (xy 154.94 106.68)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "92739249-4c7c-48f8-9003-9e87f387baab")
-	)
-	(wire
-		(pts
-			(xy 161.29 91.44) (xy 157.48 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "98e528c3-745f-4622-be83-2a956bc49699")
-	)
-	(wire
-		(pts
-			(xy 135.89 102.87) (xy 135.89 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9f17de60-3c79-42c6-bef6-f5d4220c3736")
 	)
 	(wire
 		(pts
@@ -1011,7 +955,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 102.87) (xy 135.89 102.87)
+			(xy 120.65 102.87) (xy 143.51 102.87)
 		)
 		(stroke
 			(width 0)
@@ -1131,16 +1075,6 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 86.36) (xy 144.78 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "db2b7941-658a-4f5e-902e-f398bf6b0915")
-	)
-	(wire
-		(pts
 			(xy 135.89 69.85) (xy 135.89 71.12)
 		)
 		(stroke
@@ -1181,7 +1115,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 86.36) (xy 130.81 86.36)
+			(xy 127 86.36) (xy 128.27 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1231,7 +1165,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 113.03) (xy 161.29 113.03)
+			(xy 154.94 106.68) (xy 158.75 106.68)
 		)
 		(stroke
 			(width 0)
@@ -1241,7 +1175,7 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 86.36) (xy 140.97 86.36)
+			(xy 142.24 86.36) (xy 140.97 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1251,7 +1185,7 @@
 	)
 	(hierarchical_label "EC11A"
 		(shape input)
-		(at 161.29 91.44 0)
+		(at 157.48 86.36 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1273,7 +1207,7 @@
 	)
 	(hierarchical_label "EC11B"
 		(shape input)
-		(at 144.78 91.44 0)
+		(at 142.24 86.36 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1326,6 +1260,17 @@
 		)
 		(uuid "96be0b56-b2bc-488f-89f0-247eee790129")
 	)
+	(hierarchical_label "EC11SW"
+		(shape input)
+		(at 128.27 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9be29562-9e77-45ff-91b8-38b79e84981f")
+	)
 	(hierarchical_label "COL3"
 		(shape input)
 		(at 154.94 54.61 90)
@@ -1339,7 +1284,7 @@
 	)
 	(hierarchical_label "EC11Common"
 		(shape input)
-		(at 149.86 95.25 0)
+		(at 143.51 95.25 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2214,173 +2159,6 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 135.89 97.79 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "76feb2eb-c875-4ebd-988a-488e211b4fcc")
-		(property "Reference" "D11"
-			(at 138.43 96.5199 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "1N4148W"
-			(at 138.43 99.0599 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Diode_SMD:Nexperia_CFP3_SOD-123W"
-			(at 135.89 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 135.89 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode"
-			(at 135.89 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 135.89 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 135.89 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 135.89 97.79 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c64c3e96-4d60-4384-8785-d67398855229")
-		)
-		(pin "2"
-			(uuid "e55d5135-91c0-4a1b-914f-cfb6ff8dc937")
-		)
-		(instances
-			(project "JoyKey"
-				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
-					(reference "D11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 161.29 107.95 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7a9f2538-7c68-4a3f-8204-9c95f68f7f29")
-		(property "Reference" "J7"
-			(at 165.1 107.3149 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "Extra Trigger"
-			(at 165.1 109.8549 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 161.29 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 161.29 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 161.29 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "96a6eb34-1103-4286-af26-2b27786dbfce")
-		)
-		(pin "1"
-			(uuid "c26919c6-e889-4d65-a34d-75a03f40ed03")
-		)
-		(instances
-			(project "JoyKey"
-				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/68ef131f-9d28-47fd-9e2d-054e6cdf50c5"
-					(reference "J7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D")
 		(at 149.86 74.93 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2741,7 +2519,7 @@
 	)
 	(symbol
 		(lib_id "Switch:SW_Push_45deg")
-		(at 133.35 88.9 0)
+		(at 161.29 109.22 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2750,7 +2528,7 @@
 		(fields_autoplaced yes)
 		(uuid "adc4c952-a74b-4966-8b32-dd95521c4d0a")
 		(property "Reference" "SW5"
-			(at 133.35 83.82 0)
+			(at 161.29 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2758,7 +2536,7 @@
 			)
 		)
 		(property "Value" "SW_Push_45deg"
-			(at 133.35 83.82 0)
+			(at 161.29 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2767,7 +2545,7 @@
 			)
 		)
 		(property "Footprint" "MX_Solderable:MX-Solderable-1U"
-			(at 133.35 88.9 0)
+			(at 161.29 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2776,7 +2554,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 133.35 88.9 0)
+			(at 161.29 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2785,7 +2563,7 @@
 			)
 		)
 		(property "Description" "Push button switch, normally open, two pins, 45° tilted"
-			(at 133.35 88.9 0)
+			(at 161.29 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2907,7 +2685,7 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 149.86 99.06 90)
+		(at 143.51 99.06 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2916,7 +2694,7 @@
 		(fields_autoplaced yes)
 		(uuid "d0c11e2f-5c9c-421e-bb75-5b996ed8aab7")
 		(property "Reference" "D12"
-			(at 152.4 97.7899 90)
+			(at 146.05 97.7899 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2925,7 +2703,7 @@
 			)
 		)
 		(property "Value" "1N4148W"
-			(at 152.4 100.3299 90)
+			(at 146.05 100.3299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2934,7 +2712,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:Nexperia_CFP3_SOD-123W"
-			(at 149.86 99.06 0)
+			(at 143.51 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2943,7 +2721,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 149.86 99.06 0)
+			(at 143.51 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2952,7 +2730,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 149.86 99.06 0)
+			(at 143.51 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2961,7 +2739,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 149.86 99.06 0)
+			(at 143.51 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2970,7 +2748,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 149.86 99.06 0)
+			(at 143.51 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2979,7 +2757,7 @@
 			)
 		)
 		(property "LCSC" "C2128"
-			(at 149.86 99.06 90)
+			(at 143.51 99.06 90)
 			(effects
 				(font
 					(size 1.27 1.27)

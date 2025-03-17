@@ -2003,6 +2003,16 @@
 	)
 	(wire
 		(pts
+			(xy 78.74 115.57) (xy 85.09 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46472311-2cfd-45c5-8af2-eea665fe1de0")
+	)
+	(wire
+		(pts
 			(xy 78.74 128.27) (xy 85.09 128.27)
 		)
 		(stroke
@@ -3830,6 +3840,16 @@
 				(justify left)
 			)
 		)
+		(pin "EC11SW" input
+			(at 85.09 115.57 180)
+			(uuid "02904150-c690-4259-bd99-68efd5356ce8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
 			(project "JoyKey"
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb"
@@ -3935,6 +3955,16 @@
 		(pin "JoystickX" output
 			(at 58.42 104.14 90)
 			(uuid "34940774-031c-4206-92fe-3bbf73bba626")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "EC11SW" output
+			(at 78.74 115.57 0)
+			(uuid "bf7c9878-5040-48c3-b393-98b8fb07d39f")
 			(effects
 				(font
 					(size 1.27 1.27)
