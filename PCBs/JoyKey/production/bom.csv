@@ -1,6 +1,6 @@
 ﻿Designator,Footprint,Quantity,Value,LCSC Part #
 "C1, C3, C4, C5",0805,4,10uF,C15850
-"D1, D11, D12, D14, D15, D16, D17, D2, D3, D4, D9",Nexperia_CFP3_SOD-123W,11,1N4148W,C2128
+"D1, D11, D12, D14, D15, D16, D17, D2, D22, D3, D4, D9",Nexperia_CFP3_SOD-123W,12,1N4148W,C2128
 "D10, D13, D18, D19, D21, D23, D5, D6, D7, D8",SK6812MINI-E,10,SK6812MINI,
 D20,0603,1,LED Orange,C2286
 D24,Nexperia_CFP3_SOD-123W,1,MBR0540,C78545
@@ -10,13 +10,12 @@ J3,PinHeader_1x01_P2.54mm_Vertical,1,Testpad wire hole1,
 J4,JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal,1,JST PH,C295747
 J5,PinHeader_1x02_P2.54mm_Vertical,1,Top Trigger 1,
 J6,PinHeader_1x02_P2.54mm_Vertical,1,Top Trigger 2,
-J7,PinHeader_1x02_P2.54mm_Vertical,1,Extra Trigger,
 Q1,SOT-23-3,1,DMG3415,C7202986
 "R1, R3, R4",0805,3,10k,C17414
 R2,0805,1,2k,C17604
-SW1,RotaryEncoder_Alps_EC12E_Vertical_H20mm,1,RotaryEncoder_Switch,
 "SW2, SW3, SW4, SW5, SW6, SW7",MX-Solderable-1U,6,SW_Push_45deg,
 U1,SOT-23-5,1,AP2112K-3.3,C51118
+U2,Alps SRBE110301,1,Alps SRBE110301,
 U3,XIAO-RP2040-DIP,1,XIAO-RP2040-DIP,
 U4,LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y_COSTSAVERPADs,1,LSM6DS3,C967633
 U5,Adafruit 2-Axis joystick,1,2_axis_analog_joystick_button,
