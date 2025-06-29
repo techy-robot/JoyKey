@@ -822,13 +822,33 @@
 	)
 	(text "Rotary Encoder"
 		(exclude_from_sim no)
-		(at 114.808 103.378 0)
+		(at 104.902 110.998 0)
 		(effects
 			(font
 				(size 2.54 2.54)
 			)
 		)
 		(uuid "e460d0d3-9eaa-470c-9e5f-10907e6dbfb1")
+	)
+	(text_box "Encoder can be on either side of board, based on assembly preferences. The pinouts are mirrored, keep that in mind in firmware when you have direction issues"
+		(exclude_from_sim no)
+		(at 40.64 59.69 0)
+		(size 22.86 17.78)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "fe805065-55f1-4c80-90a2-f7da244a22ab")
 	)
 	(no_connect
 		(at 176.53 100.33)
@@ -910,6 +930,17 @@
 		)
 		(uuid "47cfc613-e0fb-4450-b793-5cb9d456505e")
 	)
+	(hierarchical_label "EC11B"
+		(shape output)
+		(at 73.66 67.31 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5b8076ea-471b-426b-8460-b976e2bbce63")
+	)
 	(hierarchical_label "JoystickY"
 		(shape output)
 		(at 190.5 88.9 0)
@@ -920,6 +951,28 @@
 			(justify left)
 		)
 		(uuid "71e540b0-254a-4883-9f3b-9620b8da0e6a")
+	)
+	(hierarchical_label "EC11Common"
+		(shape output)
+		(at 74.93 87.63 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "965b3b80-1f8c-4c96-83ea-c38230bd0d85")
+	)
+	(hierarchical_label "EC11A"
+		(shape output)
+		(at 81.28 67.31 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a4072aef-a5d7-4c61-82dc-0618fb5cf6cd")
 	)
 	(hierarchical_label "EC11A"
 		(shape output)
@@ -975,6 +1028,17 @@
 			(justify right)
 		)
 		(uuid "ea648998-3046-4d42-afbe-b08d39a84994")
+	)
+	(hierarchical_label "EC11SW"
+		(shape output)
+		(at 77.47 67.31 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f00e74f7-3f4a-445a-b789-dc78640fcc04")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -1207,9 +1271,9 @@
 		(at 111.76 76.2 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "8a2d7581-a777-4427-83bb-7d3e5fe225e6")
 		(property "Reference" "U2"
@@ -1483,6 +1547,71 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 80.01 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c6308107-599e-494b-be80-354043965864")
+		(property "Reference" "#PWR031"
+			(at 80.01 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 84.328 89.916 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 80.01 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 80.01 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 80.01 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8679f0aa-651e-4efb-9a65-225c54cc63b1")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/a78c392f-6f7c-48a6-aa3f-986a350bb68a"
+					(reference "#PWR031")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 179.07 72.39 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -1541,6 +1670,88 @@
 			(project "JoyKey"
 				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/a78c392f-6f7c-48a6-aa3f-986a350bb68a"
 					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "custom_Interface_HID:Alps_SRBE110301")
+		(at 77.47 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "feccffea-dd86-4e04-ae5c-0a5dc108f21d")
+		(property "Reference" "U6"
+			(at 85.09 76.8349 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Alps SRBE110301"
+			(at 85.09 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "custom_Interface_HID:Alps SRBE110301"
+			(at 77.47 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 77.47 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "c3f7dcf1-bf44-4a8a-858d-df100379d7b0")
+		)
+		(pin "3"
+			(uuid "138e4b68-bb75-4e4e-8c90-6b75edbc5141")
+		)
+		(pin "6"
+			(uuid "714a724f-365b-4c13-8699-7af234f3e3a9")
+		)
+		(pin "4"
+			(uuid "6b1eaeb8-4156-4c4b-8696-fd9ee9aa28c8")
+		)
+		(pin "2"
+			(uuid "df2d1ea6-b975-401f-a107-02709a4a7d6f")
+		)
+		(pin "1"
+			(uuid "5e1c18ba-76bf-471e-8e8f-fcdda8251893")
+		)
+		(instances
+			(project "JoyKey"
+				(path "/7995ec7a-c14b-437e-b354-3eb74052b7cb/a78c392f-6f7c-48a6-aa3f-986a350bb68a"
+					(reference "U6")
 					(unit 1)
 				)
 			)
