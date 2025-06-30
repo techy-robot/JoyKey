@@ -121,7 +121,7 @@
           "display": 0,
           "maximized": true,
           "pos_x": 358,
-          "pos_y": 1390,
+          "pos_y": 1454,
           "size_x": 1152,
           "size_y": 492
         }
@@ -135,7 +135,7 @@
           "pos_x": 294,
           "pos_y": 1207,
           "size_x": 1280,
-          "size_y": 417
+          "size_y": 720
         }
       }
     ]
