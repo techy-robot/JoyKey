@@ -3,18 +3,13 @@
     "keyboard_name": "joykey",
     "maintainer": "techy-robot",
     "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
+        "command": true,
+        "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
-    },
-    "matrix_pins": {
-        "cols": ["GP4", "GP1", "GP2", "GP27"],
-        "rows": ["GP28", "GP29", "GP0"]
     },
     "processor": "RP2040",
     "url": "https://hackpad.hackclub.com",
@@ -26,18 +21,18 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"matrix": [0, 0], "x": 0, "y": 0},
-                {"matrix": [0, 1], "x": 1, "y": 0},
-                {"matrix": [0, 2], "x": 2, "y": 0},
-                {"matrix": [0, 3], "x": 3, "y": 0},
-                {"matrix": [1, 0], "x": 0, "y": 1},
-                {"matrix": [1, 1], "x": 1, "y": 1},
-                {"matrix": [1, 2], "x": 2, "y": 1},
-                {"matrix": [1, 3], "x": 3, "y": 1},
-                {"matrix": [2, 0], "x": 0, "y": 2},
-                {"matrix": [2, 1], "x": 1, "y": 2},
-                {"matrix": [2, 2], "x": 2, "y": 2},
-                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [0, 0], "label":"Left Triger", "x":0, "y":0},
+                {"matrix": [0, 1], "label":"Key 2", "x":2, "y":1},
+                {"matrix": [0, 2], "label":"Right Trigger", "x":4, "y":0},
+                {"matrix": [0, 3], "label":"EncA", "x":4.75, "y":1.25, "w":0.5, "h":0.5},
+                {"matrix": [1, 0], "label":"Key 1", "x":1, "y":1},
+                {"matrix": [1, 1], "label":"Key 5", "x":2, "y":2},
+                {"matrix": [1, 2], "label":"Key 3", "x":3, "y":1},
+                {"matrix": [1, 3], "label":"EncB", "x":4.75, "y":2.25, "w":0.5, "h":0.5},
+                {"matrix": [2, 0], "label":"JoystickBtn", "x":0.25, "y":1.75, "w":0.5, "h":0.5},
+                {"matrix": [2, 1], "label":"Key 4", "x":1, "y":2},
+                {"matrix": [2, 2], "label":"Key 6", "x":3, "y":2},
+                {"matrix": [2, 3], "label":"EncBtn", "x":4.25, "y":1.75, "w":0.5, "h":0.5}
             ]
         }
     }

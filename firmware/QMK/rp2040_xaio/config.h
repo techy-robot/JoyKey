@@ -15,13 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//TODO ?? What is this for
-#pragma once
+//#pragma once
 
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
-
 
 #define MATRIX_ROW_PINS { GP28, GP29, GP0 }
 #define MATRIX_COL_PINS { GP4, GP1, GP2, GP27 } // GP27 is hyjacked joystick y pin.
@@ -31,21 +29,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define ENCODER_MAP_KEY_DELAY 10
 
-#define UNUSED_PINS
-
 #define WS2812_DI_PIN GP3
-#define RGBLIGHT_LED_COUNT 12
+#define RGBLIGHT_LED_COUNT 6 //6 for basic, 10 for radio one
+#define RGB_MATRIX_CENTER { 2, 1 } //Key 2. For accurate animations I need it in center of { 0..224, 0..64 }
 
-#define I2C_DRIVER I2CD1
-#define I2C1_SDA_PIN GP6
-#define I2C1_SCL_PIN GP7
+
+
+//#define I2C_DRIVER I2CD1
+//#define I2C1_SDA_PIN GP6
+//#define I2C1_SCL_PIN GP7
 
 // Min 0, max 32
-#define JOYSTICK_BUTTON_COUNT 1
+//#define JOYSTICK_BUTTON_COUNT 1
 // Min 0, max 6: X, Y, Z, Rx, Ry, Rz
-#define JOYSTICK_AXIS_COUNT 2
+//#define JOYSTICK_AXIS_COUNT 2
 // Min 8, max 16
-#define JOYSTICK_AXIS_RESOLUTION 10
+//#define JOYSTICK_AXIS_RESOLUTION 10
 
-#define ANALOG_JOYSTICK_X_AXIS_PIN GP26
+//#define ANALOG_JOYSTICK_X_AXIS_PIN GP26
 //#define ANALOG_JOYSTICK_Y_AXIS_PIN GP27
+
+//Left trigger
+#define BOOTMAGIC_ROW 0
+#define BOOTMAGIC_COLUMN 0
+
+//DFU only, RP2040 has UF2
+//#define QMK_LED GP3

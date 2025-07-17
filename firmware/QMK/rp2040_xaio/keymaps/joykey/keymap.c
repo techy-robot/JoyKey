@@ -15,22 +15,53 @@
  */
 #include QMK_KEYBOARD_H
 
+#define KEYNAMES = 
+
+enum layer_names {
+    base,
+    mod,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [base] = LAYOUT(
         KC_A, KC_B,   KC_C,   KC_D, \
         KC_F, KC_G,   KC_H,   KC_I,  \
         KC_K, KC_L,   KC_M,   KC_N
     )
 };
 
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+  // Key Matrix to LED Index
+  { 9,  2, 10, NO_LED },
+  { 1,  6,  3,     4   },
+  { 8,  7,  5, NO_LED }
+}, {
+  // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
+  { 1,  1 }, { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }, { 1,  2 }, { 0,  2 }, { 0,  0 }, { 4,  0 }
+}, {
+  // LED Index to Flag (bitmask). I enabled all flags just because
+  255, 255, 255, 255, 255, 255, 255, 255, 255, 255
+} };
+#endif
+
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable_noeeprom(); // enables Rgb, without saving settings
+    rgb_matrix_sethsv_noeeprom(106, 255, 50);// green, full saturation, low brightness
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+}
 
 //Encoder main purpose is to switch key layers and input modes (game controller, macropad, mouse, remote)
 
 //This should be encoder matrix, which doesn't exist in QMK and I will have to write my own.
-/* #ifdef ENCODER_MAP_ENABLE
+/*#ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-}; */
+};*/
+
+
+// All below needs to be moved into a file called joykey.c, as its custom utility functions and not usr
+
 
 //joystick
 //if in mouse mode return mouse movements, otherwise return joystick values
