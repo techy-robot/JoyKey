@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define MATRIX_ROW_PINS { GP28, GP29, GP0 }
-#define MATRIX_COL_PINS { GP4, GP1, GP2, GP25 } // GP25 is a hyjacked blue led pin on xiao
+#define MATRIX_COL_PINS { GP4, GP1, GP2, GP27 } // GP27 is hyjacked joystick y pin.
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW for me, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 //#define ENCODER_MAP_KEY_DELAY 10
@@ -48,4 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define JOYSTICK_AXIS_RESOLUTION 10
 
 #define ANALOG_JOYSTICK_X_AXIS_PIN GP26
-#define ANALOG_JOYSTICK_Y_AXIS_PIN GP27
+//#define ANALOG_JOYSTICK_Y_AXIS_PIN GP27

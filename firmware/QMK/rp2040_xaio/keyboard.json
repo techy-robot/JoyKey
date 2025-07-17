@@ -13,7 +13,7 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["GP4", "GP1", "GP2", "GP25"],
+        "cols": ["GP4", "GP1", "GP2", "GP27"],
         "rows": ["GP28", "GP29", "GP0"]
     },
     "processor": "RP2040",
