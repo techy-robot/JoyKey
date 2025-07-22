@@ -15,18 +15,23 @@
  */
 #include QMK_KEYBOARD_H
 
-#define KEYNAMES = 
+#include "print.h"
+
+enum my_keycodes {
+  KC_ENC = SAFE_RANGE,
+  KC_SEND_MSG
+};
 
 enum layer_names {
     base,
-    mod,
+    mod
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [base] = LAYOUT(
-        KC_A, KC_B,   KC_C,   KC_D, \
-        KC_F, KC_G,   KC_H,   KC_I,  \
-        KC_K, KC_L,   KC_M,   KC_N
+        KC_A, KC_B,   QK_BOOT,   KC_ENC, \
+        KC_F, KC_G,   KC_H,   KC_ENC, \
+        KC_K, DB_TOGG,   KC_SEND_MSG,   KC_N
     )
 };
 
@@ -64,51 +69,29 @@ void keyboard_post_init_user(void) {
     rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
 }
 
-//Encoder main purpose is to switch key layers and input modes (game controller, macropad, mouse, remote)
-
-//This should be encoder matrix, which doesn't exist in QMK and I will have to write my own.
-/*#ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-};*/
-
-
-// All below needs to be moved into a file called joykey.c, as its custom utility functions and not usr
-
-
-//joystick
-//if in mouse mode return mouse movements, otherwise return joystick values
-// Need to write that code
-/*joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
-    JOYSTICK_AXIS_IN(GP26, 900, 575, 285),
-    JOYSTICK_AXIS_VIRTUAL
-};*/
-
-//Gyro sensor data, used for mouse, or game controller only
-
-
-//wireless stuff??
-
-/*#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    printf("Encoder %d turned %s\n", index, clockwise ? "clockwise" : "counterclockwise");
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_DOWN);
+        } else {
+            tap_code(KC_UP);
+        }
     }
-
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-    
-    return false;
+    return true;
 }
-#endif*/
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_SEND_MSG:
+      if (record->event.pressed) {
+        // Do something when pressed
+        print("Hello World!\n");
+      } else {
+        // Do something else when release
+      }
+      return false; // Skip all further processing of this key
+    default:
+      return true; // Process all other keycodes normally
+  }
+}

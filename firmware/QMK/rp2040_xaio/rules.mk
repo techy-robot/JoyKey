@@ -8,8 +8,11 @@ RGB_MATRIX_DRIVER = ws2812
 WS2812_DRIVER = vendor # This driver is RP2040 specific, use pwm for other
 
 
-# ENCODER_ENABLE = yes
 # ENCODER_MAP_ENABLE = yes
+
+ENCODER_ENABLE = yes
+SRC += utils/encoder_handler.c
+
 # required for rp2040
 LTO_ENABLE = yes
 

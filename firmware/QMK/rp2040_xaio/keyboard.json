@@ -3,6 +3,11 @@
     "keyboard_name": "joykey",
     "maintainer": "techy-robot",
     "bootloader": "rp2040",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"}
+        ]
+    },
     "features": {
         "bootmagic": true,
         "command": true,
@@ -12,7 +17,7 @@
         "nkro": true
     },
     "processor": "RP2040",
-    "url": "https://hackpad.hackclub.com",
+    "url": "https://github.com/techy-robot/JoyKey",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",

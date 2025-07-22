@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define ENCODER_MAP_KEY_DELAY 10
 
+#define ENCODER_COUNT 1
+
+/* LED matrix*/
 #define WS2812_DI_PIN GP3
 //6 for basic, 10 for radio one
 #define RGB_MATRIX_LED_COUNT 6
@@ -37,6 +40,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENABLE_RGB_MATRIX_BREATHING
 
+/* Single Neopixel, 2 LED lines not supported in QMK*/
+
+/* Single RGB (IDK why Xaio RP2040 has both)*/
+#define INDICATOR_RED GP17
+#define INDICATOR_GREEN GP16
+#define INDICATOR_BLUE GP25
 
 //#define I2C_DRIVER I2CD1
 //#define I2C1_SDA_PIN GP6
@@ -55,6 +64,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Left trigger
 #define BOOTMAGIC_ROW 0
 #define BOOTMAGIC_COLUMN 0
+
+#undef NO_PRINT
+#undef NO_DEBUG
 
 //DFU only, RP2040 has UF2
 //#define QMK_LED GP3
