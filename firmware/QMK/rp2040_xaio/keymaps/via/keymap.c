@@ -15,8 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#include "print.h"
-
 enum my_keycodes {
   KC_ENC = SAFE_RANGE,
   KC_SEND_MSG
@@ -94,8 +92,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_SEND_MSG:
       if (record->event.pressed) {
-        // Do something when pressed
-        print("Hello World!\n");
+        
       } else {
         // Do something else when release
       }

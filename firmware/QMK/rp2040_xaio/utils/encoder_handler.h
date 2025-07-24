@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "matrix.h"
-#include "print.h"
 
 #define NO_ENC 255
 #define ENC_PAD_A 0
