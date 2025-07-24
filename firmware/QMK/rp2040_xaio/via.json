@@ -1,0 +1,75 @@
+{
+    
+  "name": "joykey",
+  "vendorId": "0x4A4B",
+  "productId": "0x0000",
+  
+  "matrix": {
+      "rows": 3,
+      "cols": 4
+  },
+  
+  "menus": ["qmk_rgb_matrix" ],
+
+  "layouts": {
+      "keymap": [
+        [
+          "0,0\n\n\n\n\n\nLeft Trigger",
+          {
+            "x": 3
+          },
+          "0,2\n\n\n\n\n\nRight Trigger"
+        ],
+        [
+          {
+            "x": 1
+          },
+          "1,0\n\n\n\n\n\nKey 1",
+          "0,1\n\n\n\n\n\nKey 2",
+          "1,2\n\n\n\n\n\nKey 3"
+        ],
+        [
+          {
+            "y": -0.75,
+            "x": 4.75,
+            "w": 0.5,
+            "h": 0.5
+          },
+          "0,3\n\n\n\n\n\nEncA"
+        ],
+        [
+          {
+            "y": -0.5,
+            "x": 0.25,
+            "w": 0.5,
+            "h": 0.5
+          },
+          "2,0\n\n\n\n\n\nJoystickBtn",
+          {
+            "x": 3.5,
+            "w": 0.5,
+            "h": 0.5
+          },
+          "2,3\nEncBtn\n\n\n\n\ne0"
+        ],
+        [
+          {
+            "y": -0.75,
+            "x": 1
+          },
+          "2,1\n\n\n\n\n\nKey 4",
+          "1,1\n\n\n\n\n\nKey 5",
+          "2,2\n\n\n\n\n\nKey 6"
+        ],
+        [
+          {
+            "y": -0.75,
+            "x": 4.75,
+            "w": 0.5,
+            "h": 0.5
+          },
+          "1,3\n\n\n\n\n\nEncB"
+        ]
+      ]
+  }
+}

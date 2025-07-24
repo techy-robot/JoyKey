@@ -1,3 +1,6 @@
+// Copyright 2025 asher Edwards
+// Licensed under the GNU GPL v3
+
 /*
  * Keyboard specific file for Joykey, contianing all utility functions
 */

@@ -1,147 +1,106 @@
-// Copyright 2023 QMK
-// SPDX-License-Identifier: GPL-2.0-or-later
-
+/* Copyright 2025 Asher Edwards
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include QMK_KEYBOARD_H
 
-enum layer_names {
-    _BASE,
-    KICAD,
-    ONSHAPE,
+#include "print.h"
+
+enum my_keycodes {
+  KC_ENC = SAFE_RANGE,
+  KC_SEND_MSG
 };
 
-//custin codes
-S_PARROT = KC.MACRO(":ultrafastparrot:");
-
-driver = SSD1306(
-    # Mandatory:
-    i2c=i2c_bus,
-    # Optional:
-    device_address=0x3C,
-)
-display = Display(
-    # Mandatory:
-    display=driver,
-    # Optional:
-    width=128, # screen size
-    height=32, # screen size
-    flip = False, # flips your display content
-    flip_left = False, # flips your display content on left side split
-    flip_right = False, # flips your display content on right side split
-    brightness=0.6, # initial screen brightness level
-    brightness_step=0.1, # used for brightness increase/decrease keycodes
-    dim_time=30, # time in seconds to reduce screen brightness
-    dim_target=0.1, # set level for brightness decrease
-    off_time=60, # time in seconds to turn off screen
-    powersave_dim_time=10, # time in seconds to reduce screen brightness
-    powersave_dim_target=0.1, # set level for brightness decrease
-    powersave_off_time=30, # time in seconds to turn off screen
-)
-
-display.entries = [
-    ImageEntry(image="layer-1.bmp", layer=0),
-    ImageEntry(image="layer-2.bmp", layer=1),
-    ImageEntry(image="layer-3.bmp", layer=2),
-    ImageEntry(image="layer-4.bmp", layer=3),
-]
+enum layer_names {
+    base,
+    mod
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-     *     ┬───┐
-     *     │ 2 │
-     * ├───┼───┼───┤
-     * │ 3 │ 5 │ 6 │
-     * └───┴───┴───┘
-     */
-
-    /*
-    The wiring is a little convoluted - refer to the diagram below:
-    
-    */
-    [_BASE] = LAYOUT(
-        KC_P7, KC_P8, KC_P4,
-        KC_P5, S_PARROT
-    )
-    [KICAD] = LAYOUT(
-        KC_P7, KC_P8, KC_P4,
-        KC_P5, KC_P6
-    )
-    [ONSHAPE] = LAYOUT(
-        KC_P7, KC_P8, KC_P4,
-        KC_P5, KC_P6
+    [base] = LAYOUT(
+        KC_A, KC_B,   QK_BOOT,   KC_ENC, \
+        KC_F, KC_G,   KC_H,   KC_ENC, \
+        KC_K, KC_L,   KC_M,   KC_N
     )
 };
 
-const uint16_t PROGMEM encoder_map[][1][2] = {
-    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
+    [1] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU)  },
+    [2] = { ENCODER_CCW_CW(UG_VALD, UG_VALU)  },
+    [3] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT) },
 };
-
-
-#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
-    }
-
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-    
-    return false;
-}
-
-// Encoder Function
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (IS_LAYER_ON(_BL)) {
-        if (clockwise) {
-            tap_code(KC_VOLU);  // Volume Up on base layer
-        } else {
-            tap_code(KC_VOLD);  // Volume Down on base layer
-        }
-    } else if (IS_LAYER_ON(_SL)) {
-        if (clockwise) {
-            tap_code(KC_BRIU);  // Brightness Up on second layer
-        } else {
-            tap_code(KC_BRID);  // Brightness Down on second layer
-        }
-    }
-
-    return true; // Return true to indicate the encoder event was handled
-}
-
-// OLED Function
-#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    // Display the active layer
-    oled_write_ln_P(PSTR("Layer"), false);
-    switch (get_highest_layer(layer_state)) {
-        case _BL:
-            oled_write_ln_P(PSTR("Layer: Ctrl"), false);
-            break;
-        case _SL:
-            oled_write_ln_P(PSTR("Layer: Func"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undefined"), false);
-    }
-
-    // Display encoder functionality
-    if (IS_LAYER_ON(_BL)) {
-        oled_write_ln_P(PSTR("Vol Ctrl"), false);
-    } else if (IS_LAYER_ON(_SL)) {
-        oled_write_ln_P(PSTR("Bright Ctrl"), false);
-    }
-
-    return false;
-}
-
 #endif
+
+#ifdef RGB_MATRIX_ENABLE
+/*led_config_t g_led_config = { {
+  // Key Matrix to LED Index
+  { 9,  2, 10, NO_LED },
+  { 1,  6,  3,     4   },
+  { 8,  7,  5, NO_LED }
+}, {
+  // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
+  { 1,  1 }, { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }, { 1,  2 }, { 0,  2 }, { 0,  0 }, { 4,  0 }
+}, {
+  // LED Index to Flag (bitmask). I enabled all flags just because
+  255, 255, 255, 255, 255, 255, 255, 255, 255, 255
+} };*/
+
+led_config_t g_led_config = { {
+  // Key Matrix to LED Index
+  { NO_LED,  2, NO_LED, NO_LED },
+  {   1   ,  5,  3,     NO_LED },
+  { NO_LED,  6,  4,     NO_LED }
+}, {
+  // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
+  { 1,  1 }, { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }
+}, {
+  // LED Index to Flag (bitmask). See https://docs.qmk.fm/features/rgb_matrix#flags
+  255, 255, 255, 255, 255, 255
+} };
+#endif
+
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable_noeeprom(); // enables Rgb, without saving settings
+    rgb_matrix_sethsv_noeeprom(106, 255, 80);// green, full saturation, low brightness
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    printf("Encoder %d turned %s\n", index, clockwise ? "clockwise" : "counterclockwise");
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_DOWN);
+        } else {
+            tap_code(KC_UP);
+        }
+    }
+    return true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_SEND_MSG:
+      if (record->event.pressed) {
+        // Do something when pressed
+        print("Hello World!\n");
+      } else {
+        // Do something else when release
+      }
+      return false; // Skip all further processing of this key
+    default:
+      return true; // Process all other keycodes normally
+  }
+}

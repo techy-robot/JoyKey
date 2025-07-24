@@ -2,7 +2,7 @@
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -58,14 +58,14 @@ led_config_t g_led_config = { {
   // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
   { 1,  1 }, { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }
 }, {
-  // LED Index to Flag (bitmask). I enabled all flags just because
+ // LED Index to Flag (bitmask). See https://docs.qmk.fm/features/rgb_matrix#flags
   255, 255, 255, 255, 255, 255
 } };
 #endif
 
 void keyboard_post_init_user(void) {
     rgb_matrix_enable_noeeprom(); // enables Rgb, without saving settings
-    rgb_matrix_sethsv_noeeprom(106, 255, 50);// green, full saturation, low brightness
+    rgb_matrix_sethsv_noeeprom(106, 255, 80);// green, full saturation, low brightness
     rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
 }
 

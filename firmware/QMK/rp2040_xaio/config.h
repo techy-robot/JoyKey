@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define ENCODER_MAP_KEY_DELAY 10
 
 #define ENCODER_COUNT 1
+#define ENCODER_RESOLUTION 2
+#define ENCODER_DIRECTION_FLIP
 
 /* LED matrix*/
 #define WS2812_DI_PIN GP3
