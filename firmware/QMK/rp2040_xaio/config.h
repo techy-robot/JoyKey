@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { GP28, GP29, GP0 }
 #define MATRIX_COL_PINS { GP4, GP1, GP2, GP27 } // GP27 is hyjacked joystick y pin.
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8
+
 /* COL2ROW for me, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
