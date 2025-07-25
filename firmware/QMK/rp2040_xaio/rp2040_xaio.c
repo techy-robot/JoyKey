@@ -11,9 +11,6 @@
 extern row_col_t encoder_index_to_row_col[ENCODER_COUNT*2];
 
 void keyboard_post_init_kb(void) {
-    //layer_on(1);//change layers
-
-    debug_enable=true;
 
     generate_encoder_index_to_row_col(encoder_index_to_row_col);
     keyboard_post_init_user();

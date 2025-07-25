@@ -70,8 +70,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_ROW 0
 #define BOOTMAGIC_COLUMN 0
 
-#undef NO_PRINT
-#undef NO_DEBUG
+//#undef NO_PRINT
+//#undef NO_DEBUG
 
 //DFU only, RP2040 has UF2
 //#define QMK_LED GP3
