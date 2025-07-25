@@ -16,9 +16,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "dynamic_keymap": {
-        "layer_count": 8
-    },
     "processor": "RP2040",
     "url": "https://github.com/techy-robot/JoyKey",
     "usb": {

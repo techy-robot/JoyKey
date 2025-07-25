@@ -19,7 +19,20 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    keypos_t keypos = record->event.key;
 
+    // ignore the encoder keys, because we will process the keycodes assigned in the encoder section
+    if ((keypos.row == 0 || keypos.row == 1) && keypos.col == 3) {
+        return false;
+    }
+
+    if (!process_record_user(keycode, record)) {
+      return false; /* Don't process further events if user function exists and returns false */
+    }
+
+    return true;
+}
 
 //Encoder main purpose is to switch key layers and input modes (game controller, macropad, mouse, remote)
 

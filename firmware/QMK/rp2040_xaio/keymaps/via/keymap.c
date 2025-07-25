@@ -16,8 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  KC_ENC = SAFE_RANGE,
-  KC_SEND_MSG
+  LAYER_CHNG_TGGL = SAFE_RANGE,
 };
 
 enum layer_names {
@@ -31,23 +30,37 @@ enum layer_names {
     layer7
 };
 
+bool layer_change_toggle = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [base] = LAYOUT(
-        KC_A, KC_B,   QK_BOOT,   KC_ENC, \
-        KC_F, KC_G,   KC_H,   KC_ENC, \
-        KC_K, KC_L,   KC_M,   KC_N
-    )
+
+  /* Keymap 0: Basic layer
+  *
+  * ,---------.             ,---------.
+  * |  KC_A   |             | QK_BOOT |
+  * `---------+-------------+---------'
+  *                                         MS_WHLU
+  *                                          * * *
+  *                                       *         *
+  *          | Del    |   Q  |   W  |  _ *           *
+  *          |--------+------+------+ [_  Encoder    *
+  * Joystick |   B    |   E  |   R  |    *           *
+  *          | K      |   A  |   S  |     *         *
+  *          |--------+------+------+        * * *
+  *                                         MS_WHLD
+  *                                      
+  *    
+  */
+
+  [base] = LAYOUT(
+      KC_A, KC_B,   QK_BOOT,   MS_WHLU, \
+      KC_F, KC_G,   KC_H,   MS_WHLD, \
+      KC_K, KC_L,   KC_M,   LAYER_CHNG_TGGL
+  )
 };
 
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
-    [1] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU)  },
-    [2] = { ENCODER_CCW_CW(UG_VALD, UG_VALU)  },
-    [3] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT) },
-};
-#endif
+// Cannot do encoder map with VIA, because the map overrides our custom menu handling.
+// There will be two extra keys in VIA because of this.
 
 #ifdef RGB_MATRIX_ENABLE
 /*led_config_t g_led_config = { {
@@ -78,30 +91,89 @@ led_config_t g_led_config = { {
 #endif
 
 void keyboard_post_init_user(void) {
-    rgb_matrix_enable_noeeprom(); // enables Rgb, without saving settings
-    rgb_matrix_sethsv_noeeprom(106, 255, 80);// green, full saturation, low brightness
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+    layer_change_toggle = false;
+}
+
+void LED_indicate_layer(uint8_t layer) {
+
+  // Variables to store the color components and the number of LEDs to light.
+  uint8_t target_hue, target_sat, target_val;
+  uint8_t leds_to_illuminate;
+
+  // Layers > 5 (rollover): Stacking effect resets, and color changes
+  // The stacking count rolls over from 1 to NUM_LAYER_LEDS based on the layer modulo NUM_LAYER_LEDS.
+  leds_to_illuminate = (layer % RGB_MATRIX_LED_COUNT) + 1;
+
+  // Calculate the hue based on the layer offset for color cycling.
+  uint8_t layer_offset_for_hue = layer / RGB_MATRIX_LED_COUNT;//rounds down naturally with truncate
+
+  // QMK's 0-255 range.
+  target_hue = (layer_offset_for_hue * 20) % 255; // 20-point increments, wrap at 255
+  target_sat = 255; // Full saturation for vibrant colors
+  target_val = 255; // Full brightness
+  
+  // Iterate through all the layer indicator LEDs.
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+      // If the current LED index is less than the number of LEDs we want to light for stacking
+      if (i < leds_to_illuminate) {
+              // If using HSV, set the color with the calculated HSV values.
+              rgb_t rgb = hsv_to_rgb((hsv_t){target_hue, target_sat, target_val});
+              rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+      } else {
+          // If the current LED index is beyond the number of LEDs to light, turn it off.
+          rgb_matrix_set_color(i, 0, 0, 0);
+      }
+  }
+}
+
+bool rgb_matrix_indicators_user(void) {
+  if (layer_change_toggle) {
+    LED_indicate_layer(get_highest_layer(layer_state));
+    return false;
+  }
+
+  return true;
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    printf("Encoder %d turned %s\n", index, clockwise ? "clockwise" : "counterclockwise");
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_DOWN);
-        } else {
-            tap_code(KC_UP);
-        }
+  uint8_t current_layer = get_highest_layer(layer_state);
+
+  if (index == 0) { /* First encoder */
+    if (layer_change_toggle) {/* If the encoder changes layers, disable further processing*/
+
+      // Check if we are within the range, if not quit
+      if (current_layer > DYNAMIC_KEYMAP_LAYER_COUNT || current_layer < 0) {
+        return false;
+      }
+
+      uint8_t next_layer;
+
+      if (clockwise) {
+        next_layer = MAX(current_layer - 1, 0);//ensure that we don't go below 0
+      } else {
+        next_layer = MIN(current_layer + 1, DYNAMIC_KEYMAP_LAYER_COUNT);//ensure that we don't go above max layer count
+      }
+      layer_move(next_layer);
+
+      return false;
     }
-    return true;
+
+    //VIA handler, gets whatever key on the current layer for the encoder
+    if (clockwise) {
+      tap_code(dynamic_keymap_get_keycode(current_layer, 1, 3));//lower key
+    } else {
+      tap_code(dynamic_keymap_get_keycode(current_layer, 0, 3));//upper key
+    }
+  }
+  return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case KC_SEND_MSG:
+    case LAYER_CHNG_TGGL:
       if (record->event.pressed) {
-        
-      } else {
-        // Do something else when release
+        // toggles if the encoder changes layers or not
+        layer_change_toggle = !layer_change_toggle;
       }
       return false; // Skip all further processing of this key
     default:
