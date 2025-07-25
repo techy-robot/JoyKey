@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  LAYER_CHNG_TGGL = SAFE_RANGE,
+  LAYR_CHNG_TGGL = SAFE_RANGE,
 };
 
 enum layer_names {
@@ -36,26 +36,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap 0: Basic layer
   *
-  * ,---------.             ,---------.
-  * |  KC_A   |             | QK_BOOT |
-  * `---------+-------------+---------'
-  *                                         MS_WHLU
-  *                                          * * *
-  *                                       *         *
-  *          | Del    |   Q  |   W  |  _ *           *
-  *          |--------+------+------+ [_  Encoder    *
-  * Joystick |   B    |   E  |   R  |    *           *
-  *          | K      |   A  |   S  |     *         *
-  *          |--------+------+------+        * * *
-  *                                         MS_WHLD
-  *                                      
-  *    
+  *                 .------------.             .------------.                               
+  *    _____________|    KC_A    |_____________|  QK_BOOT   |____________ 
+  *  /              '------------'             '------------'    MS_WHLU  \
+  * |                                                              _  _    |
+  * |   Joystick                                                =        = |
+  * |    .-------.    .-----------.-----------.-----------.   =            =
+  * |  /    _ _    \  |     F     |     B     |     H     |  =              =
+  * | .  .''   ''.  . |           |           |           |  =LAYR_CHNG_TGGL=
+  * | | (    K    ) | |-----------+-----------+-----------|   =            =
+  * | '  '.._ _..'  ' |     L     |     G     |     M     |     =        = |
+  * |  \           /  |           |           |           |        ~  ~    |
+  * '    '-------'    '-----------'-----------'-----------'       MS_WHLD  '
+  *  \                                                                    /
+  *    `-- .________________________________________________________. --'
   */
-
   [base] = LAYOUT(
       KC_A, KC_B,   QK_BOOT,   MS_WHLU, \
       KC_F, KC_G,   KC_H,   MS_WHLD, \
-      KC_K, KC_L,   KC_M,   LAYER_CHNG_TGGL
+      KC_K, KC_L,   KC_M,   LAYR_CHNG_TGGL
   )
 };
 
@@ -170,7 +169,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case LAYER_CHNG_TGGL:
+    case LAYR_CHNG_TGGL:
       if (record->event.pressed) {
         // toggles if the encoder changes layers or not
         layer_change_toggle = !layer_change_toggle;
