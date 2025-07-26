@@ -37,26 +37,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap 0: Basic layer
   *
   *                 .------------.             .------------.                               
-  *    _____________|    KC_A    |_____________|  QK_BOOT   |____________ 
+  *    _____________|   MS_BTN1  |_____________|  MS_BTN2   |____________ 
   *  /              '------------'             '------------'    MS_WHLU  \
   * |                                                              _  _    |
   * |   Joystick                                                =        = |
   * |    .-------.    .-----------.-----------.-----------.   =            =
-  * |  /    _ _    \  |     F     |     B     |     H     |  =              =
+  * |  /    _ _    \  |  MS_WHLL  |   MS_UP   |  MS_WHLR  |  =              =
   * | .  .''   ''.  . |           |           |           |  =LAYR_CHNG_TGGL=
   * | | (    K    ) | |-----------+-----------+-----------|   =            =
-  * | '  '.._ _..'  ' |     L     |     G     |     M     |     =        = |
+  * | '  '.._ _..'  ' |  MS_LEFT  |  MS_DOWN  |  MS_RGHT  |     =        = |
   * |  \           /  |           |           |           |        ~  ~    |
   * '    '-------'    '-----------'-----------'-----------'       MS_WHLD  '
   *  \                                                                    /
   *    `-- .________________________________________________________. --'
   */
   [base] = LAYOUT(
-      KC_A, KC_B,   QK_BOOT,   MS_WHLU, \
-      KC_F, KC_G,   KC_H,   MS_WHLD, \
-      KC_K, KC_L,   KC_M,   LAYR_CHNG_TGGL
+      MS_BTN1, MS_UP,   MS_BTN1,   MS_WHLU, \
+      MS_WHLL, KC_MS_DOWN,   MS_WHLR,   MS_WHLD, \
+      KC_K, MS_LEFT,   MS_RGHT,   LAYR_CHNG_TGGL
   )
 };
+
+// TODO: Add custom lighting layer functionality to the keymap.
+// TODO: Add custom VIA settings & effect per key per layer that can tell you what the key does
 
 // Cannot do encoder map with VIA, because the map overrides our custom menu handling.
 // There will be two extra keys in VIA because of this.
