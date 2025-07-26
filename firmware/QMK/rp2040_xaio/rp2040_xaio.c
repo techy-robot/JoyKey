@@ -13,6 +13,10 @@ extern row_col_t encoder_index_to_row_col[ENCODER_COUNT*2];
 void keyboard_post_init_kb(void) {
 
     generate_encoder_index_to_row_col(encoder_index_to_row_col);
+    //disable the multicolor LED that always turns on at boot
+    gpio_set_pin_input_high(INDICATOR_RED);
+    gpio_set_pin_input_high(INDICATOR_GREEN);
+    gpio_set_pin_input_high(INDICATOR_BLUE);
     keyboard_post_init_user();
 }
 
