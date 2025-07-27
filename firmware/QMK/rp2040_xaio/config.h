@@ -79,7 +79,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT
 #define ENABLE_RGB_MATRIX_RIVERFLOW
 
-#define ENABLE_RGB_MATRIX_DIGITAL_RAIN	Enables RGB_MATRIX_DIGITAL_RAIN
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
 
 // These require additional memory
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
@@ -94,6 +95,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+// disable backlight when USB suspended (sleep/hibernate/shutdown)
+#define RGB_MATRIX_SLEEP
+
+// 5 minute timeout in milliseconds
+#define RGB_MATRIX_TIMEOUT 300000
 
 /* Single Neopixel, 2 LED lines not supported in QMK*/
 
