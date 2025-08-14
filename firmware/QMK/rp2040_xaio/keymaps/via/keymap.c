@@ -65,30 +65,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // There will be two extra keys in VIA because of this.
 
 #ifdef RGB_MATRIX_ENABLE
-/*led_config_t g_led_config = { {
-  // Key Matrix to LED Index
-  { 9,  2, 10, NO_LED },
-  { 1,  6,  3,     4   },
-  { 8,  7,  5, NO_LED }
-}, {
-  // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
-  { 1,  1 }, { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }, { 1,  2 }, { 0,  2 }, { 0,  0 }, { 4,  0 }
-}, {
-  // LED Index to Flag (bitmask). I enabled all flags just because
-  255, 255, 255, 255, 255, 255, 255, 255, 255, 255
-} };*/
 
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
-  { NO_LED,  2, NO_LED, NO_LED },
+  {   7   ,  2,  8 ,    NO_LED },
   {   1   ,  5,  3,     NO_LED },
   { NO_LED,  6,  4,     NO_LED }
 }, {
   // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
-  { 1,  1 }, { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }
+  { 1,  1 }, { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }, { 1,  0 }, { 4,  0 }
 }, {
   // LED Index to Flag (bitmask). See https://docs.qmk.fm/features/rgb_matrix#flags
-  255, 255, 255, 255, 255, 255
+  255, 255, 255, 255, 255, 255, 255, 255
 } };
 #endif
 

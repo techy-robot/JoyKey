@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LED matrix*/
 #define WS2812_DI_PIN GP3
 //6 for basic, 10 for radio one
-#define RGB_MATRIX_LED_COUNT 6
+#define RGB_MATRIX_LED_COUNT 8
 //Key 2. For accurate animations I need it in center of { 0..224, 0..64 }
 #define RGB_MATRIX_CENTER { 2, 1 }
 
