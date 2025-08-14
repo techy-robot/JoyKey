@@ -109,9 +109,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define INDICATOR_GREEN GP16
 #define INDICATOR_BLUE GP25
 
-//#define I2C_DRIVER I2CD1
-//#define I2C1_SDA_PIN GP6
-//#define I2C1_SCL_PIN GP7
+#define I2C_DRIVER I2CD1
+#define I2C1_SDA_PIN GP6
+#define I2C1_SCL_PIN GP7
+
+#define OLED_BRIGHTNESS 128
+#define OLED_DISPLAY_128X64
+
 
 // Min 0, max 32
 //#define JOYSTICK_BUTTON_COUNT 1
