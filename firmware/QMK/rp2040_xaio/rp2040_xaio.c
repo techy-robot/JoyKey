@@ -8,6 +8,8 @@
 #include QMK_KEYBOARD_H
 #include "rp2040_xaio.h"
 
+painter_device_t oled;
+
 extern row_col_t encoder_index_to_row_col[ENCODER_COUNT*2];
 
 void keyboard_post_init_kb(void) {
@@ -17,6 +19,20 @@ void keyboard_post_init_kb(void) {
     gpio_set_pin_input_high(INDICATOR_RED);
     gpio_set_pin_input_high(INDICATOR_GREEN);
     gpio_set_pin_input_high(INDICATOR_BLUE);
+
+    //Display timeout for initialization
+    wait_ms(QP_WAIT_TIME);
+
+    oled = qp_sh1106_make_i2c_device(QP_WIDTH, QP_HEIGHT, 0x3c);//width, height, i2c address
+    qp_init(oled, QP_ROTATION_180);
+
+    // Display offset
+    qp_set_viewport_offsets(oled, QP_OFFSET_X, QP_OFFSET_Y);
+
+    // Power on display, fill with white
+    qp_power(oled, 1);
+    qp_rect(oled, 0, 0, QP_HEIGHT, QP_WIDTH, HSV_WHITE, 1);
+
     keyboard_post_init_user();
 }
 
