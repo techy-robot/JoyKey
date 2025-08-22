@@ -15,6 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
+#include <string.h>
+
 enum my_keycodes {
   LAYR_CHNG_TGGL = SAFE_RANGE,
 };
@@ -142,6 +144,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }
       layer_move(next_layer);
 
+      oled_clear();//layer chanes need the whole display refreshed.
+
       return false;
     }
   }
@@ -166,7 +170,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;  // flips the display 180 degrees because its upside down.
 }
 
-static void render_logo(void) {
+/*static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
         0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
@@ -174,10 +178,23 @@ static void render_logo(void) {
     };
 
     oled_write_P(qmk_logo, false);
-}
+}*/
 
-bool oled_task_user(void) {
-    render_logo();
+// Draw to OLED
+bool oled_task_user() {
+    // Set cursor position to middle top
+    oled_set_cursor((oled_max_chars() - 8) / 2, 2); //Max width minus space taken by text, divided by 2
+
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR("Layer:"), false);
+
+    //convert Int to string to show layer number
+    char layer_str[10];
+    snprintf(layer_str, sizeof(layer_str), "%d", get_highest_layer(layer_state));
+    oled_write(layer_str, false);
+        
+    //write layer name.
+
     return false;
 }
 
