@@ -9,7 +9,6 @@ WS2812_DRIVER = vendor # This driver is RP2040 specific, use pwm for other
 
 ENCODER_ENABLE = yes
 SRC += utils/encoder_handler.c
-# SRC += utils/robotomono20.qff.c
 
 # required for rp2040
 LTO_ENABLE = yes

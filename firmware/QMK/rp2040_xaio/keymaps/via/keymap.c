@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 #include <string.h>
-#include "utils/robotomono20.qff.c"
+#include "media/fonts/thintel15.qff.c"
 
 enum my_keycodes {
   LAYR_CHNG_TGGL = SAFE_RANGE,
@@ -175,6 +175,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true; // Process all other keycodes normally
   }
 }
+
+void housekeeping_task_user(void) {
+  static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+        last_draw = timer_read32();
+        
+        qp_flush(oled);
+    }
+}
+
 
 /*
 #ifdef OLED_ENABLE

@@ -8,4 +8,4 @@
 #include <qp.h>
 
 extern const uint32_t font_robotomono20_length;
-extern const uint8_t  font_robotomono20[2396];
+extern const uint8_t font_robotomono20[2396];

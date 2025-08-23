@@ -9,6 +9,7 @@
 #include "rp2040_xaio.h"
 
 painter_device_t oled;
+painter_font_handle_t default_font;
 
 extern row_col_t encoder_index_to_row_col[ENCODER_COUNT*2];
 
@@ -23,15 +24,22 @@ void keyboard_post_init_kb(void) {
     //Display timeout for initialization
     wait_ms(QP_WAIT_TIME);
 
+    default_font = qp_load_font_mem(font_thintel15);
+
     oled = qp_sh1106_make_i2c_device(QP_WIDTH, QP_HEIGHT, 0x3c);//width, height, i2c address
     qp_init(oled, QP_ROTATION_180);
 
     // Display offset
     qp_set_viewport_offsets(oled, QP_OFFSET_X, QP_OFFSET_Y);
 
-    // Power on display, fill with white
+    // Power on display
     qp_power(oled, 1);
-    qp_rect(oled, 0, 0, QP_HEIGHT, QP_WIDTH, HSV_WHITE, 1);
+
+    if (default_font != NULL) {
+        static const char *text = "Hello QMK!";
+        int16_t width = qp_textwidth(default_font, text);
+        qp_drawtext(oled, (QP_WIDTH - width), (QP_HEIGHT - default_font->line_height), default_font, text);
+    }
 
     keyboard_post_init_user();
 }
