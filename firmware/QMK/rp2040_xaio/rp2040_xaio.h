@@ -14,6 +14,8 @@
 extern painter_device_t oled;
 extern painter_font_handle_t default_font;
 
+extern bool update_oled;
+
 void keyboard_post_init_kb(void);
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record);

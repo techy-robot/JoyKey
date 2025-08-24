@@ -21,9 +21,6 @@ void keyboard_post_init_kb(void) {
     gpio_set_pin_input_high(INDICATOR_GREEN);
     gpio_set_pin_input_high(INDICATOR_BLUE);
 
-    //Display timeout for initialization
-    wait_ms(QP_WAIT_TIME);
-
     default_font = qp_load_font_mem(font_thintel15);
 
     oled = qp_sh1106_make_i2c_device(QP_WIDTH, QP_HEIGHT, 0x3c);//width, height, i2c address
@@ -34,12 +31,6 @@ void keyboard_post_init_kb(void) {
 
     // Power on display
     qp_power(oled, 1);
-
-    if (default_font != NULL) {
-        static const char *text = "Hello QMK!";
-        int16_t width = qp_textwidth(default_font, text);
-        qp_drawtext(oled, (QP_WIDTH - width), (QP_HEIGHT - default_font->line_height), default_font, text);
-    }
 
     keyboard_post_init_user();
 }

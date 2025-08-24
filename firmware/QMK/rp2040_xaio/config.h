@@ -116,7 +116,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_BRIGHTNESS 128
 #define OLED_DISPLAY_128X64
 
-#define QP_WAIT_TIME 150
 #define QP_OFFSET_X 0
 #define QP_OFFSET_Y 0
 #define QP_WIDTH 128

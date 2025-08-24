@@ -34,6 +34,7 @@ enum layer_names {
 };
 
 bool layer_change_toggle = false;
+bool update_oled;//external variable
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -85,6 +86,7 @@ led_config_t g_led_config = { {
 
 void keyboard_post_init_user(void) {
     layer_change_toggle = false;
+    update_oled = true;
 }
 
 void LED_indicate_layer(uint8_t layer) {
@@ -148,7 +150,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }
       layer_move(next_layer);
 
-      //oled_clear();//layer chanes need the whole display refreshed.
+      update_oled = true;//layer chanes need the whole display refreshed, so numbers aren't erased
 
       return false;
     }
@@ -176,15 +178,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-void housekeeping_task_user(void) {
-  static uint32_t last_draw = 0;
-    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
-        last_draw = timer_read32();
-        
-        qp_flush(oled);
-    }
+void display_task(void) {
+  qp_clear(oled);//clean slate, it may be a little slower but I don't want to do selective overwrite.
+  
+  static const char *text = "Layer: ";
+  int16_t width = qp_textwidth(default_font, text); //(QP_HEIGHT - default_font->line_height)
+  qp_drawtext(oled, (QP_WIDTH - width) / 2, 0, default_font, text);
+
+  //convert Int to string to show layer number
+  char layer_str[3];
+  snprintf(layer_str, sizeof(layer_str), "%d", get_highest_layer(layer_state));
+  qp_drawtext(oled, (QP_WIDTH - width) / 2 + width, 0, default_font, layer_str);
+
+  qp_flush(oled);
 }
 
+void housekeeping_task_user(void) {
+  static uint32_t last_draw = 0;
+
+  if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+    last_draw = timer_read32();
+
+    //variable refresh rate, only refresh if something has changed. Cuts down on i2c usage
+    if (update_oled) {
+      display_task();
+      update_oled = false;
+    }
+  }
+}
 
 /*
 #ifdef OLED_ENABLE
