@@ -180,15 +180,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void display_task(void) {
   qp_clear(oled);//clean slate, it may be a little slower but I don't want to do selective overwrite.
-  
-  static const char *text = "Layer: ";
-  int16_t width = qp_textwidth(default_font, text); //(QP_HEIGHT - default_font->line_height)
-  qp_drawtext(oled, (QP_WIDTH - width) / 2, 0, default_font, text);
+  //Note that clear prevents the display from sleeping
+
+  //string to fill and combine
+  char layer_str[10];
 
   //convert Int to string to show layer number
-  char layer_str[3];
-  snprintf(layer_str, sizeof(layer_str), "%d", get_highest_layer(layer_state));
-  qp_drawtext(oled, (QP_WIDTH - width) / 2 + width, 0, default_font, layer_str);
+  snprintf(layer_str, sizeof(layer_str), "Layer: %d", get_highest_layer(layer_state));
+  
+  //get width
+  //default_font->line_height is the way to get the height of the font, like qp_textwidth for width
+  int16_t width = qp_textwidth(default_font, layer_str);
+
+  qp_drawtext(oled, (QP_WIDTH - width) / 2, 0, default_font, layer_str);
 
   qp_flush(oled);
 }
