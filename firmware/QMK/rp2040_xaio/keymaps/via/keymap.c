@@ -17,6 +17,7 @@
 
 #include <string.h>
 #include "media/fonts/thintel15.qff.c"
+#include "utils/keyname_map.c"
 
 enum my_keycodes {
   LAYR_CHNG_TGGL = SAFE_RANGE,
@@ -32,6 +33,25 @@ enum layer_names {
     layer6,
     layer7
 };
+
+
+// Each layer has a number (above enum), but this should have a defined name,
+// and a name/picture for each key. So at each index in array there is a class defining the
+// name, with an array of keys; each key will have a name, a picture, and an orientation (top or front)
+
+/* KeynameMap myKeyboard({
+    // Layer 0: Base Layer
+    { "Base", { 
+        {"Escape", "esc_icon.bin"},
+        {"Tab", "tab_icon.bin"}
+    }},
+    // Layer 1: Function Layer
+    { "Function", {
+        {"F1", "f1_icon.bin"},
+        {"F2", "f2_icon.bin"}
+    }}
+}); */
+
 
 bool layer_change_toggle = false;
 bool update_oled;//external variable
@@ -87,6 +107,21 @@ led_config_t g_led_config = { {
 void keyboard_post_init_user(void) {
     layer_change_toggle = false;
     update_oled = true;
+
+    keyname_map_init();
+
+    // ---- DEFINE KEYMAP DATA ----
+
+    // Layer 0: Base Layer
+    keyname_map_set_layer_name(0, "Base");
+    keyname_map_set_key_data(0, 0, "Escape", "esc.bin");
+    keyname_map_set_key_data(0, 1, "Tab", "tab.bin");
+    keyname_map_set_key_data(0, 14, "Backspace", "bspc.bin");
+
+    // Layer 1: Function Layer
+    keyname_map_set_layer_name(1, "Function");
+    keyname_map_set_key_data(1, 0, "F1", "f1.bin");
+    keyname_map_set_key_data(1, 1, "F2", "f2.bin");
 }
 
 void LED_indicate_layer(uint8_t layer) {
