@@ -4,6 +4,8 @@ modified: 2025-02-20T21:09:22-07:00
 # JoyKey
 This is a small macropad that simultaneously acts as game controller and an entertainment device. 
 
+![](media/Real%20Life%20Photo.jpg)
+
 The name is inspired by the Nintendo JoyCon portmanteau (Joystick Controller) except I have replaced the 2nd word with "Keypad" (Joystick Keypad). See [name ideas](name%20ideas.md) for other things I came up with.
 
 My main repo were development will continue: https://github.com/techy-robot/JoyKey
