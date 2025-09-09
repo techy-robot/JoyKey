@@ -1,0 +1,3 @@
+[submodule "firmware/zmk-config-joykey"]
+	path = firmware/zmk-config-joykey
+	url = git@github.com:techy-robot/zmk-config-joykey.git
