@@ -56,7 +56,7 @@ const screen_key_pos_t PROGMEM SCREEN_LAYOUT[] = {
  * Requires a loaded font.
  */
 
-static int get_centered_text_pos(int container_pos, int container_size, int text_size) {
+static int get_centered_start(int container_pos, int container_size, int text_size) {
     return container_pos + (container_size - text_size) / 2;
 }
 
@@ -70,6 +70,69 @@ void gui_elements_init(painter_device_t oled, painter_font_handle_t font) {
 
         // Clear screen.
         qp_clear(display_device);
+    }
+}
+
+/**
+ * @brief Fits text into a box by truncating or wrapping.
+ * * @param str The string to draw.
+ * @param x Top-left X of the box.
+ * @param y Top-left Y of the box.
+ * @param w Width of the box.
+ * @param h Height of the box.
+ * @param fg_hsv Hue/Sat/Val for foreground text.
+ * @param bg_hsv Hue/Sat/Val for background (antialiasing).
+ */
+void draw_text_confined(const char* str, int x, int y, int w, int h, 
+                        uint8_t h_fg, uint8_t s_fg, uint8_t v_fg,
+                        uint8_t h_bg, uint8_t s_bg, uint8_t v_bg) {
+    
+    if (!gui_font || !str) return;
+
+    // Local buffer to modify string without touching source
+    char buffer[16]; 
+    strncpy(buffer, str, 15);
+    buffer[15] = '\0'; // Ensure null term
+
+    int line_height = gui_font->line_height;
+    int padding = 2; // Pixel padding on sides
+    int max_w = w - (padding * 2);
+
+    // --- STRATEGY 1: Check for Line Wrap (Space split) ---
+    // Only if the box is tall enough for 2 lines
+    char* space_ptr = strchr(buffer, ' ');
+    if (space_ptr != NULL && h >= (line_height * 2)) {
+        // Split into two strings
+        *space_ptr = '\0'; // Terminate first word
+        char* second_line = space_ptr + 1;
+
+        // Recursive call for top half
+        // We give it the top half of the box
+        draw_text_confined(buffer, x, y, w, h/2, h_fg, s_fg, v_fg, h_bg, s_bg, v_bg);
+        
+        // Recursive call for bottom half
+        draw_text_confined(second_line, x, y + (h/2), w, h/2, h_fg, s_fg, v_fg, h_bg, s_bg, v_bg);
+        return;
+    }
+
+    // --- STRATEGY 2: Single Line Truncation ---
+    // If we are here, it's one line (or the split line from above).
+    // Loop until it fits the width.
+    int len = strlen(buffer);
+    while (len > 0) {
+        int text_w = qp_textwidth(gui_font, buffer);
+        
+        if (text_w <= max_w) {
+            // It fits! Draw it centered.
+            int text_x = get_centered_start(x, w, text_w);
+            int text_y = get_centered_start(y, h, line_height);
+            qp_drawtext_recolor(display_device, text_x, text_y, gui_font, buffer, h_fg, s_fg, v_fg, h_bg, s_bg, v_bg);
+            return;
+        }
+
+        // It doesn't fit. Shorten by 1 char.
+        len--;
+        buffer[len] = '\0';
     }
 }
 
@@ -90,18 +153,13 @@ void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const 
     // Draw Text (Recolored based on state)
     // We skip drawing text on small encoder/joystick buttons (w < 10)
     if (name && gui_font && w > 10) { 
-        int text_w = qp_textwidth(gui_font, name);
-        int text_h = gui_font->line_height; 
-        
-        int text_x = get_centered_text_pos(x, w, text_w);
-        int text_y = get_centered_text_pos(y, h, text_h);
         
         if (pressed) {
-            // PRESSED: Text is Black (FG) on White (BG)
-            qp_drawtext_recolor(display_device, text_x, text_y, gui_font, name, HSV_BLACK, HSV_WHITE);
+            // Black Text on White BG
+            draw_text_confined(name, x, y, w, h, HSV_BLACK, HSV_WHITE);
         } else {
-            // IDLE: Text is White (FG) on Black (BG)
-            qp_drawtext_recolor(display_device, text_x, text_y, gui_font, name, HSV_WHITE, HSV_BLACK);
+            // White Text on Black BG
+            draw_text_confined(name, x, y, w, h, HSV_WHITE, HSV_BLACK);
         }
     }
 }
