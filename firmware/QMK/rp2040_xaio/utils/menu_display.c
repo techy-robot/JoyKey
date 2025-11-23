@@ -4,5 +4,5 @@
 
 void init() {
 
-    qp_flush(oled);
+    //qp_flush(oled);
 };
