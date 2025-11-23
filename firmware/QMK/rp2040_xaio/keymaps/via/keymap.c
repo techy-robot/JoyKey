@@ -25,14 +25,22 @@ enum my_keycodes {
 };
 
 enum layer_names {
-    base,
-    layer1,
-    layer2,
-    layer3,
-    layer4,
-    layer5,
-    layer6,
-    layer7
+    L0,
+    L1,
+    L2,
+    L3,
+    L4,
+    L5,
+    L6,
+    L7,
+    L8,
+    L9,
+    L10,
+    L11,
+    L12,
+    L13,
+    L14,
+    L15
 };
 
 
@@ -42,12 +50,12 @@ enum layer_names {
 
 /* KeynameMap myKeyboard({
     // Layer 0: Base Layer
-    { "Base", { 
+    { "L0", { 
         {"Escape", "esc_icon.bin"},
         {"Tab", "tab_icon.bin"}
     }},
     // Layer 1: Function Layer
-    { "Function", {
+    { "L1", {
         {"F1", "f1_icon.bin"},
         {"F2", "f2_icon.bin"}
     }}
@@ -76,11 +84,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *  \                                                                    /
   *    `-- .________________________________________________________. --'
   */
-  [base] = LAYOUT(
-      MS_BTN1, MS_UP,   MS_BTN1,   MS_WHLU, \
+  [L0] = LAYOUT(
+      MS_BTN1, MS_UP,   MS_BTN2,   MS_WHLU, \
+      MS_WHLL, KC_MS_DOWN,   MS_WHLR,   MS_WHLD, \
+      KC_K, MS_LEFT,   MS_RGHT,   LAYR_CHNG_TGGL
+  ),
+  [L15] = LAYOUT(
+      MS_BTN1, MS_UP,   QK_BOOT,   MS_WHLU, \
       MS_WHLL, KC_MS_DOWN,   MS_WHLR,   MS_WHLD, \
       KC_K, MS_LEFT,   MS_RGHT,   LAYR_CHNG_TGGL
   )
+
 };
 
 // TODO: Add custom lighting layer functionality to the keymap.
@@ -205,6 +219,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  update_oled = true;//keycode changes need the display refreshed
   switch (keycode) {
     case LAYR_CHNG_TGGL:
       if (record->event.pressed) {
@@ -218,7 +233,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void display_task(void) {
-  qp_clear(oled);//clean slate, it may be a little slower but I don't want to do selective overwrite.
+  //qp_clear(oled);//clean slate, it may be a little slower but I don't want to do selective overwrite.
   //Note that clear prevents the display from sleeping
 
   uint8_t current_layer = get_highest_layer(layer_state);

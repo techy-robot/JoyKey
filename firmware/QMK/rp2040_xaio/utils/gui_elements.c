@@ -1,11 +1,13 @@
 #include "gui_elements.h"
 #include <string.h>
 #include <stdio.h>
+#include "keyname_map.h"
 
 // --- Configuration ---
-// For Monochrome OLED: 0 = Black (Off), 1 = White (On)
-#define QP_COLOR_BG  0
-#define QP_COLOR_FG  1
+
+// HSV Values
+#define HSV_WHITE 0, 0, 255
+#define HSV_BLACK 0, 0, 0
 
 
 // Global reference to the loaded font
@@ -26,23 +28,23 @@ typedef struct {
 
 // --- Layout Definition ---
 // Scaled for 128x64: ~22px per 1u. 
-// Offsets: X+6, Y+2 to center on screen.
+// Offsets: X+6 to center on screen.
 const screen_key_pos_t PROGMEM SCREEN_LAYOUT[] = {
-    // {X, Y, Width, Height}
-    // Note: W/H are slightly smaller than the grid step (22px) to create a 2px gap.
     
-    {0, 0,   6,  2, 20, 20}, // Index 0:  Left Trigger (1u)
-    {0, 1,  50, 24, 20, 20}, // Index 1:  Key 2        (1u)
-    {0, 2,  94,  2, 20, 20}, // Index 2:  Right Trigger(1u)
-    {0, 3, 110, 29,  9,  9}, // Index 3:  EncA         (0.5u)
-    {1, 0,  28, 24, 20, 20}, // Index 4:  Key 1        (1u)
-    {1, 1,  50, 46, 20, 20}, // Index 5:  Key 5        (1u)
-    {1, 2,  72, 24, 20, 20}, // Index 6:  Key 3        (1u)
-    {1, 3, 110, 51,  9,  9}, // Index 7:  EncB         (0.5u)
-    {2, 0,  11, 40,  9,  9}, // Index 8:  JoystickBtn  (0.5u)
-    {2, 1,  28, 46, 20, 20}, // Index 9:  Key 4        (1u)
-    {2, 2,  72, 46, 20, 20}, // Index 10: Key 6        (1u)
-    {2, 3,  99, 40,  9,  9}  // Index 11: EncBtn       (0.5u)
+    // Note: W/H are slightly smaller than the grid step (22px) to create a 2px gap.
+// {Row, Col, X, Y, W,  H}
+    {0, 0,   6,  0, 20, 20}, // Index 0:  Left Trigger (1u)
+    {0, 1,  50, 20, 20, 20}, // Index 1:  Key 2        (1u)
+    {0, 2,  94,  0, 20, 20}, // Index 2:  Right Trigger(1u)
+    {0, 3, 99, 22,  20, 20}, // Index 3:  EncA         (0.5u)
+    {1, 0,  28, 20, 20, 20}, // Index 4:  Key 1        (1u)
+    {1, 1,  50, 42, 20, 20}, // Index 5:  Key 5        (1u)
+    {1, 2,  72, 20, 20, 20}, // Index 6:  Key 3        (1u)
+    {1, 3, 99, 42,  20, 20}, // Index 7:  EncB         (0.5u)
+    //{2, 0,  11, 38,  20, 20}, // Index 8:  JoystickBtn. Does not exist in case yet
+    {2, 1,  28, 42, 20, 20}, // Index 9:  Key 4        (1u)
+    {2, 2,  72, 42, 20, 20}, // Index 10: Key 6        (1u)
+    //{2, 3,  99, 38,  20, 20}  // Index 11: EncBtn. Held hostage by layer change code, we don't need key press
 };
 
 #define SCREEN_LAYOUT_SIZE (sizeof(SCREEN_LAYOUT) / sizeof(screen_key_pos_t))
@@ -74,34 +76,33 @@ void gui_elements_init(painter_device_t oled, painter_font_handle_t font) {
 void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const char* imageName) {
     if (!display_device) return;
 
-    // Default corner radius
-    //int corner_radius = 3;
-
-    // Determine colors based on state
-    //int border_color = QP_COLOR_FG;
-    //int fill_color   = pressed ? QP_COLOR_FG : QP_COLOR_BG;
-    //int text_color   = pressed ? QP_COLOR_BG : QP_COLOR_FG;
-
-    // Draw Key Outline/Body
-    // Note: QMK QP coordinates are typically left/top/right/bottom for shapes, not w/h.
-    qp_rect(display_device, x, y, x + w, y + h, 255, 255, 255, false);
-
-    // If pressed, fill the rectangle
+    // Draw The Box
     if (pressed) {
-        qp_rect(display_device, x + 1, y + 1, x + w - 1, y + h - 1, 255, 255, 255, true);
+        // PRESSED: Filled White Box
+        qp_rect(display_device, x, y, x + w, y + h, HSV_WHITE, true);
+    } else {
+        // IDLE: White Outline, Black Interior
+        qp_rect(display_device, x, y, x + w, y + h, HSV_WHITE, false);
     }
 
-    // We ignore imageName for now, but could use qp_drawimage with a lookup table if needed.
-    
-    // Draw Text (Only if fits and font exists)
+    //ignoring image display for now.
+
+    // Draw Text (Recolored based on state)
     // We skip drawing text on small encoder/joystick buttons (w < 10)
     if (name && gui_font && w > 10) { 
         int text_w = qp_textwidth(gui_font, name);
-        int text_h = gui_font->line_height; // qp_lineheight(gui_font) does not exist
+        int text_h = gui_font->line_height; 
+        
         int text_x = get_centered_text_pos(x, w, text_w);
         int text_y = get_centered_text_pos(y, h, text_h);
         
-        qp_drawtext(display_device, text_x, text_y, gui_font, name);
+        if (pressed) {
+            // PRESSED: Text is Black (FG) on White (BG)
+            qp_drawtext_recolor(display_device, text_x, text_y, gui_font, name, HSV_BLACK, HSV_WHITE);
+        } else {
+            // IDLE: Text is White (FG) on Black (BG)
+            qp_drawtext_recolor(display_device, text_x, text_y, gui_font, name, HSV_WHITE, HSV_BLACK);
+        }
     }
 }
 
@@ -122,7 +123,7 @@ void draw_layer(int layerIndex) {
 
         // Get Physical State
         bool is_pressed = matrix_is_on(item.matrix_row, item.matrix_col);
-        const char* label = "test";
+        const char* label = keyname_map_get_key_data(layerIndex, i)->name;
 
         // Draw using standard X/Y coordinates
         draw_key(is_pressed, item.x, item.y, item.w, item.h, label, NULL);
@@ -136,29 +137,44 @@ void draw_layer_name(const char* name) {
     // Center strictly based on screen width, 2px padding from top
     int text_x = (QP_WIDTH - text_w) / 2; 
     
-    qp_drawtext(display_device, text_x, 2, gui_font, name);
+    //draw white text
+    qp_drawtext_recolor(display_device, text_x, 2, gui_font, name, HSV_WHITE, HSV_BLACK);
 }
 
 void draw_menu_item(const char* text, int x, int y, bool highlighted, bool selected) {
     if (!display_device) return;
 
-    int item_height = 12; // Approx line height
-    int item_width = 100; // Fixed width menu or calculate based on screen
+    int item_height = 12; 
+    int item_width = 100; 
 
-    //int bg_color = highlighted ? QP_COLOR_FG : QP_COLOR_BG;
-    //int text_color = highlighted ? QP_COLOR_BG : QP_COLOR_FG;
-
-    // Draw background strip for the item
-    qp_rect(display_device, x, y, x + item_width, y + item_height, 255, 255, 0, true);//bg color
-
-    // If selected (e.g., confirmed/active option), maybe draw a marker or border
-    if (selected) {
-        qp_rect(display_device, x, y, x + 2, y + item_height, 255, 255, 255, true); // Side bar marker, color foreground
+    // 1. Draw Background
+    if (highlighted) {
+        // Highlighted: Filled White Bar
+        qp_rect(display_device, x, y, x + item_width, y + item_height, HSV_WHITE, true);
+    } else {
+        // Normal: Clear/Black Background
+        qp_rect(display_device, x, y, x + item_width, y + item_height, HSV_BLACK, true);
     }
 
+    // 2. Draw Selection Marker (if active)
+    if (selected) {
+        // If highlighted, marker needs to be contrasting (Black), otherwise White
+        uint8_t h, s, v;
+        if (highlighted) { h=0; s=0; v=0; } // Black
+        else             { h=0; s=0; v=255; } // White
+        
+        qp_rect(display_device, x, y, x + 2, y + item_height, h, s, v, true); 
+    }
+
+    // 3. Draw Text
     if (gui_font) {
-        // Padding of 4px on the left
-        qp_drawtext(display_device, x + 4, y + 1, gui_font, text);
+        if (highlighted) {
+            // Highlighted: Black Text on White BG
+            qp_drawtext_recolor(display_device, x + 4, y + 1, gui_font, text, HSV_BLACK, HSV_WHITE);
+        } else {
+            // Normal: White Text on Black BG
+            qp_drawtext_recolor(display_device, x + 4, y + 1, gui_font, text, HSV_WHITE, HSV_BLACK);
+        }
     }
 }
 
