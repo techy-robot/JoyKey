@@ -89,10 +89,80 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MS_WHLL, MS_DOWN,   MS_WHLR,   MS_WHLD, \
       KC_K, MS_LEFT,   MS_RGHT,   LAYR_CHNG_TGGL
   ),
+  [L1] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L2] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L3] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L4] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L5] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L6] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L7] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L8] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L9] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L10] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L11] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L12] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L13] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
+  [L14] = LAYOUT(
+      KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
+  ),
   [L15] = LAYOUT(
-      MS_BTN1, MS_UP,   QK_BOOT,   MS_WHLU, \
-      MS_WHLL, MS_DOWN,   MS_WHLR,   MS_WHLD, \
-      KC_K, MS_LEFT,   MS_RGHT,   LAYR_CHNG_TGGL
+      QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+      KC_TRNS, KC_TRNS, KC_TRNS, LAYR_CHNG_TGGL
   )
 
 };
@@ -226,7 +296,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // toggles if the encoder changes layers or not
         layer_change_toggle = !layer_change_toggle;
       }
-      return false; // Skip all further processing of this key
+      //return false; // Skip all further processing of this key
     default:
       return true; // Process all other keycodes normally
   }
