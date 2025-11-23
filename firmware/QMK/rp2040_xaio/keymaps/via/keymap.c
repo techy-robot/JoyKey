@@ -86,12 +86,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [L0] = LAYOUT(
       MS_BTN1, MS_UP,   MS_BTN2,   MS_WHLU, \
-      MS_WHLL, KC_MS_DOWN,   MS_WHLR,   MS_WHLD, \
+      MS_WHLL, MS_DOWN,   MS_WHLR,   MS_WHLD, \
       KC_K, MS_LEFT,   MS_RGHT,   LAYR_CHNG_TGGL
   ),
   [L15] = LAYOUT(
       MS_BTN1, MS_UP,   QK_BOOT,   MS_WHLU, \
-      MS_WHLL, KC_MS_DOWN,   MS_WHLR,   MS_WHLD, \
+      MS_WHLL, MS_DOWN,   MS_WHLR,   MS_WHLD, \
       KC_K, MS_LEFT,   MS_RGHT,   LAYR_CHNG_TGGL
   )
 
