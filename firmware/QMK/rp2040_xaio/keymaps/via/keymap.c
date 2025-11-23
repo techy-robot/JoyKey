@@ -18,6 +18,7 @@
 #include <string.h>
 #include "media/fonts/thintel15.qff.c"
 #include "utils/keyname_map.c"
+#include "utils/gui_elements.c"
 
 enum my_keycodes {
   LAYR_CHNG_TGGL = SAFE_RANGE,
@@ -122,6 +123,9 @@ void keyboard_post_init_user(void) {
     keyname_map_set_layer_name(1, "Function");
     keyname_map_set_key_data(1, 0, "F1", "f1.bin");
     keyname_map_set_key_data(1, 1, "F2", "f2.bin");
+
+    gui_elements_init(oled, default_font);//font_arial_12 option??
+
 }
 
 void LED_indicate_layer(uint8_t layer) {
@@ -217,17 +221,22 @@ void display_task(void) {
   qp_clear(oled);//clean slate, it may be a little slower but I don't want to do selective overwrite.
   //Note that clear prevents the display from sleeping
 
+  uint8_t current_layer = get_highest_layer(layer_state);
+  /*
   //string to fill and combine
   char layer_str[10];
 
   //convert Int to string to show layer number
-  snprintf(layer_str, sizeof(layer_str), "Layer: %d", get_highest_layer(layer_state));
+  snprintf(layer_str, sizeof(layer_str), "Layer: %d", current_layer);
   
   //get width
   //default_font->line_height is the way to get the height of the font, like qp_textwidth for width
   int16_t width = qp_textwidth(default_font, layer_str);
 
   qp_drawtext(oled, (QP_WIDTH - width) / 2, 0, default_font, layer_str);
+  */
+
+  draw_layer(current_layer);
 
   qp_flush(oled);
 }
