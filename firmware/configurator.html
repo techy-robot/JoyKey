@@ -6,90 +6,107 @@
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f4f4f9; color: #333; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        h2 { margin-top: 0; }
-        label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.9em; }
+        h2 { margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.85em; color: #555; }
         input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-top: 15px; width: 100%; font-size: 1em; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-top: 15px; width: 100%; font-size: 1em; transition: background 0.2s;}
         button:hover { background: #0056b3; }
-        button:disabled { background: #ccc; cursor: not-allowed; }
-        .status { font-size: 0.9em; color: #666; margin-top: 10px; text-align: center; }
+        .row { display: flex; gap: 10px; }
+        .col { flex: 1; }
+        .status { font-size: 0.9em; color: #666; margin-top: 10px; text-align: center; height: 1.2em; }
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h2>Device Connection</h2>
-        <p>Connect your keyboard. Ensure <code>RAW_ENABLE = yes</code> is in your rules.mk.</p>
+        <h2>Connection</h2>
         <button id="connectBtn">Connect Keyboard</button>
-        <div id="statusMsg" class="status">Not connected</div>
+        <div id="statusMsg" class="status">Waiting for device...</div>
     </div>
 
     <div id="controls" class="hidden">
         <div class="card">
-            <h2>Layer Settings</h2>
-            <label for="layerSelect">Select Layer (0-9)</label>
-            <select id="layerSelect">
-                </select>
+            <h2>Layer Config</h2>
+            <label>Select Layer</label>
+            <select id="layerSelect" onchange="fetchLayerInfo()"></select>
 
-            <label for="layerName">Layer Name (Max 9 chars)</label>
-            <input type="text" id="layerName" maxlength="9" placeholder="e.g., Gaming, Photoshop">
+            <div class="row">
+                <div class="col">
+                    <label>Layer Name (Max 10)</label>
+                    <input type="text" id="layerName" maxlength="10">
+                </div>
+                <div class="col">
+                    <label>Image Asset (Max 10)</label>
+                    <input type="text" id="layerImage" maxlength="10">
+                </div>
+            </div>
             
-            <button onclick="sendLayerName()">Update Layer Name</button>
+            <button onclick="sendLayerInfo()">Update Layer</button>
         </div>
 
         <div class="card">
-            <h2>Key Settings</h2>
-            <label for="keySelect">Select Key (0-11)</label>
-            <select id="keySelect">
-                </select>
+            <h2>Key Config</h2>
+            <label>Select Key</label>
+            <select id="keySelect" onchange="fetchKeyInfo()"></select>
 
-            <label for="keyName">Key Name (Max 9 chars)</label>
-            <input type="text" id="keyName" maxlength="9" placeholder="e.g., Macro 1, Launch App">
+            <div class="row">
+                <div class="col">
+                    <label>Key Name (Max 10)</label>
+                    <input type="text" id="keyName" maxlength="10">
+                </div>
+                <div class="col">
+                    <label>Key Image (Max 10)</label>
+                    <input type="text" id="keyImage" maxlength="10">
+                </div>
+            </div>
 
-            <label for="imageName">Image Name (Max 9 chars)</label>
-            <input type="text" id="imageName" maxlength="9" placeholder="e.g., icon_mail.bmp">
-            
-            <button onclick="sendKeyData()">Update Key Data</button>
+            <button onclick="sendKeyInfo()">Update Key</button>
         </div>
 
         <div class="card">
-            <h2>Memory</h2>
-            <button onclick="saveToEEPROM()" style="background-color: #28a745;">Save to Flash/EEPROM</button>
-            <p style="font-size:0.8em; color:#666; margin-top:5px;">*Required if you want settings to survive a reboot.</p>
+            <h2>Actions</h2>
+            <button onclick="saveToEEPROM()" style="background-color: #28a745;">Save Changes to Flash</button>
         </div>
     </div>
 
     <script>
         let device = null;
-        const QMK_USAGE_PAGE = 0xFF60; // Standard QMK Raw HID Usage Page
+        const QMK_USAGE_PAGE = 0xFF60;
 
-        // Populate Dropdowns
+        // Command IDs matches C code
+        const CMD_GET_LAYER = 0x50;
+        const CMD_SET_LAYER = 0x51;
+        const CMD_GET_KEY   = 0x52;
+        const CMD_SET_KEY   = 0x53;
+        const CMD_SAVE      = 0x54;
+
+        // --- Init UI ---
         const layerSelect = document.getElementById('layerSelect');
         for(let i=0; i<16; i++) layerSelect.add(new Option(`Layer ${i}`, i));
 
         const keySelect = document.getElementById('keySelect');
         for(let i=0; i<12; i++) keySelect.add(new Option(`Key ${i}`, i));
 
+        // --- Connection ---
         document.getElementById('connectBtn').addEventListener('click', async () => {
             try {
-                // Request device with specific Usage Page filter
-                const devices = await navigator.hid.requestDevice({
-                    filters: [{ usagePage: QMK_USAGE_PAGE }]
-                });
-
+                const devices = await navigator.hid.requestDevice({ filters: [{ usagePage: QMK_USAGE_PAGE }] });
                 if (devices.length === 0) return;
                 
                 device = devices[0];
                 await device.open();
+                
+                // Set up listener for incoming data
+                device.addEventListener('inputreport', handleInputReport);
 
                 document.getElementById('statusMsg').textContent = `Connected: ${device.productName}`;
                 document.getElementById('statusMsg').style.color = "green";
                 document.getElementById('controls').classList.remove('hidden');
                 document.getElementById('connectBtn').classList.add('hidden');
 
-                // Listen for input reports (optional, if you implement getters later)
-                device.addEventListener('inputreport', handleInputReport);
+                // Initial Fetch
+                fetchLayerInfo();
 
             } catch (err) {
                 console.error(err);
@@ -97,66 +114,112 @@
             }
         });
 
-        async function sendLayerName() {
-            if (!device) return;
-            const layerIndex = parseInt(document.getElementById('layerSelect').value);
-            const name = document.getElementById('layerName').value;
-
-            // Packet Structure: [CMD] [Layer] [Name Bytes...]
-            const packet = new Uint8Array(32);
-            packet[0] = 0x51; // id_custom_set_layer_name
-            packet[1] = layerIndex;
-            
-            // Encode string
-            for (let i = 0; i < name.length && i < 15; i++) {
-                packet[i + 2] = name.charCodeAt(i);
+        // --- Helpers ---
+        function stringFromBytes(data, start, maxLength) {
+            let str = "";
+            for (let i = 0; i < maxLength; i++) {
+                const charCode = data[start + i];
+                if (charCode === 0) break; // Stop at null terminator
+                str += String.fromCharCode(charCode);
             }
-
-            await device.sendReport(0, packet);
-            console.log(`Sent Layer ${layerIndex} Name: ${name}`);
+            return str;
         }
 
-        async function sendKeyData() {
-            if (!device) return;
-            const layerIndex = parseInt(document.getElementById('layerSelect').value);
-            const keyIndex = parseInt(document.getElementById('keySelect').value);
-            const keyName = document.getElementById('keyName').value;
-            const imgName = document.getElementById('imageName').value;
-
-            // Note: In the previous C code example, I simplified the Key Data packet to just Name.
-            // If you need to send BOTH, you likely need two separate commands or a larger logic.
-            // Assuming standard packet logic here: [CMD] [Layer] [Key] [Name...]
-            
-            const packet = new Uint8Array(32);
-            packet[0] = 0x53; // id_custom_set_key_data
-            packet[1] = layerIndex;
-            packet[2] = keyIndex;
-
-            // For this example, we are packing the Key Name starting at byte 3
-            for (let i = 0; i < keyName.length && i < 15; i++) {
-                packet[i + 3] = keyName.charCodeAt(i);
+        function bytesFromString(str, maxLength) {
+            const bytes = [];
+            for (let i = 0; i < maxLength; i++) {
+                bytes.push(i < str.length ? str.charCodeAt(i) : 0);
             }
-            
-            // NOTE: If your C code expects Image Name in the same packet, 
-            // it won't fit (16+16 > 32). You likely need a separate "Set Image" command (e.g. 0x55).
-            // If you updated your C code to handle two packets, repeat this block with the new ID.
+            return bytes;
+        }
+
+        // --- Sending Requests (Getters) ---
+        async function fetchLayerInfo() {
+            if (!device) return;
+            const layer = parseInt(layerSelect.value);
+            const packet = new Uint8Array(32);
+            packet[0] = CMD_GET_LAYER;
+            packet[1] = layer;
+            await device.sendReport(0, packet);
+            // The response will trigger handleInputReport, which updates the UI
+            // Also fetch the key info for the currently selected key on this layer
+            setTimeout(fetchKeyInfo, 50); 
+        }
+
+        async function fetchKeyInfo() {
+            if (!device) return;
+            const layer = parseInt(layerSelect.value);
+            const key = parseInt(keySelect.value);
+            const packet = new Uint8Array(32);
+            packet[0] = CMD_GET_KEY;
+            packet[1] = layer;
+            packet[2] = key;
+            await device.sendReport(0, packet);
+        }
+
+        // --- Sending Updates (Setters) ---
+        async function sendLayerInfo() {
+            const layer = parseInt(layerSelect.value);
+            const nameBytes = bytesFromString(document.getElementById('layerName').value, 10);
+            const imgBytes = bytesFromString(document.getElementById('layerImage').value, 10);
+
+            const packet = new Uint8Array(32);
+            packet[0] = CMD_SET_LAYER;
+            packet[1] = layer;
+            packet.set(nameBytes, 2);  // Offset 2
+            packet.set(imgBytes, 12);  // Offset 12
+            // packet[22] = effect... (if implemented)
 
             await device.sendReport(0, packet);
-            console.log(`Sent Key ${keyIndex} on Layer ${layerIndex}`);
+            console.log("Layer updated");
+        }
+
+        async function sendKeyInfo() {
+            const layer = parseInt(layerSelect.value);
+            const key = parseInt(keySelect.value);
+            const nameBytes = bytesFromString(document.getElementById('keyName').value, 10);
+            const imgBytes = bytesFromString(document.getElementById('keyImage').value, 10);
+
+            const packet = new Uint8Array(32);
+            packet[0] = CMD_SET_KEY;
+            packet[1] = layer;
+            packet[2] = key;
+            packet.set(nameBytes, 3);  // Offset 3
+            packet.set(imgBytes, 13);  // Offset 13
+
+            await device.sendReport(0, packet);
+            console.log("Key updated");
         }
 
         async function saveToEEPROM() {
-            if (!device) return;
             const packet = new Uint8Array(32);
-            packet[0] = 0x54; // id_custom_save_eeprom
+            packet[0] = CMD_SAVE;
             await device.sendReport(0, packet);
             alert("Save command sent!");
         }
 
+        // --- Receiving Data ---
         function handleInputReport(e) {
-            // Handle data sent FROM keyboard here if needed
-            // const data = new Uint8Array(e.data.buffer);
-            // console.log("Received:", data);
+            const data = new Uint8Array(e.data.buffer);
+            const cmd = data[0];
+
+            if (cmd === CMD_GET_LAYER) {
+                // Check if this response matches current UI selection to avoid race conditions
+                const layerIdx = data[1];
+                if (layerIdx == layerSelect.value) {
+                    document.getElementById('layerName').value = stringFromBytes(data, 2, 10);
+                    document.getElementById('layerImage').value = stringFromBytes(data, 12, 10);
+                }
+            } 
+            else if (cmd === CMD_GET_KEY) {
+                const layerIdx = data[1];
+                const keyIdx = data[2];
+                // Only update if it matches current selection
+                if (layerIdx == layerSelect.value && keyIdx == keySelect.value) {
+                    document.getElementById('keyName').value = stringFromBytes(data, 3, 10);
+                    document.getElementById('keyImage').value = stringFromBytes(data, 13, 10);
+                }
+            }
         }
     </script>
 </body>

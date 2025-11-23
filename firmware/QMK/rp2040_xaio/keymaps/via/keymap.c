@@ -171,8 +171,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 enum my_custom_via_commands {
-    id_custom_get_layer_name = 0x50, // Start IDs high to avoid VIA conflicts
-    id_custom_set_layer_name = 0x51,
+    id_custom_get_layer_info = 0x50, // Start IDs high to avoid VIA conflicts
+    id_custom_set_layer_info = 0x51,
     id_custom_get_key_data   = 0x52,
     id_custom_set_key_data   = 0x53,
     id_custom_save_eeprom    = 0x54  // Optional: Explicit save command
@@ -184,56 +184,94 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     uint8_t command_id = data[0];
     
     // Buffer to send back to host
-    uint8_t response[32];
-    memset(response, 0, 32);
+    uint8_t response[32]; 
+    memset(response, 0, 32); // Clear buffer
     response[0] = command_id; // Echo command ID
 
     update_oled = true;
 
     switch (command_id) {
-        case id_custom_set_layer_name: {
-            // Format: [CMD] [LayerIdx] [Name string (16 bytes)...]
+        // --- LAYER GETTER ---
+        case id_custom_get_layer_info: {
             uint8_t layer = data[1];
-            char *name_ptr = (char *)&data[2];
-            keyname_map_set_layer_name(layer, name_ptr);
-            break;
-        }
+            if (layer >= KEYNAME_MAP_MAX_LAYERS) break;
 
-        case id_custom_get_layer_name: {
-            // Format: [CMD] [LayerIdx]
-            // Return: [CMD] [LayerIdx] [Name string...]
-            uint8_t layer = data[1];
-            const char *name = keyname_map_get_layer_name(layer);
-            if (name) {
-                response[1] = layer;
-                strncpy((char*)&response[2], name, 16); // Safe copy
-            }
+            response[1] = layer;
+            
+            // Get pointer to layer data
+            // Structure: [CMD] [Layer] [Name(10)] [Image(10)] [Effect(1)]
+            // Offsets:   0      1        2          12          22
+            strncpy((char*)&response[2], keyname_map[layer].name, 10);
+            strncpy((char*)&response[12], keyname_map[layer].imageName, 10);
+            response[22] = keyname_map[layer].defaultLightingEffect;
+            
             raw_hid_send(response, 32);
             break;
         }
 
-        case id_custom_set_key_data: {
-            // Packet A: Set Name & Image (Might need 2 packets if data > 30 bytes)
-            // Let's assume we just set the Name for this example to fit in 32 bytes.
-            // Format: [CMD] [Layer] [Key] [Name(16)]
+        // --- LAYER SETTER ---
+        case id_custom_set_layer_info: {
+            uint8_t layer = data[1];
+            if (layer >= KEYNAME_MAP_MAX_LAYERS) break;
+
+            // Extract data from packet
+            char* namePtr = (char*)&data[2];
+            char* imgPtr  = (char*)&data[12];
+            uint8_t eff   = data[22];
+
+            // Save to RAM struct
+            strncpy(keyname_map[layer].name, namePtr, 10);
+            // Ensure null termination just in case
+            keyname_map[layer].name[9] = '\0'; 
+
+            strncpy(keyname_map[layer].imageName, imgPtr, 10);
+            keyname_map[layer].imageName[9] = '\0';
+
+            keyname_map[layer].defaultLightingEffect = eff;
+            break;
+        }
+
+        // --- KEY GETTER ---
+        case id_custom_get_key_data: {
             uint8_t layer = data[1];
             uint8_t key_idx = data[2];
-            char *key_name = (char *)&data[3];
+            if (layer >= KEYNAME_MAP_MAX_LAYERS || key_idx >= KEYNAME_MAP_MAX_KEYS_PER_LAYER) break;
+
+            response[1] = layer;
+            response[2] = key_idx;
+
+            // Structure: [CMD] [Layer] [Key] [Name(10)] [Image(10)]
+            // Offsets:   0      1       2     3          13
+            KeyData_t* k = &keyname_map[layer].keys[key_idx];
+            strncpy((char*)&response[3], k->name, 10);
+            strncpy((char*)&response[13], k->imageName, 10);
             
-            // Note: You might need a separate command for ImageName 
-            // if you can't fit both in one packet.
-            // For now, passing empty string for image to reuse your function, 
-            // or create a specific setter for just the key name.
-            keyname_map_set_key_data(layer, key_idx, key_name, ""); 
+            raw_hid_send(response, 32);
+            break;
+        }
+
+        // --- KEY SETTER ---
+        case id_custom_set_key_data: {
+            uint8_t layer = data[1];
+            uint8_t key_idx = data[2];
+            if (layer >= KEYNAME_MAP_MAX_LAYERS || key_idx >= KEYNAME_MAP_MAX_KEYS_PER_LAYER) break;
+
+            char* namePtr = (char*)&data[3];
+            char* imgPtr  = (char*)&data[13];
+
+            KeyData_t* k = &keyname_map[layer].keys[key_idx];
+            
+            strncpy(k->name, namePtr, 10);
+            k->name[9] = '\0';
+
+            strncpy(k->imageName, imgPtr, 10);
+            k->imageName[9] = '\0';
             break;
         }
 
         case id_custom_save_eeprom:
-            // Logic to write your struct to EEPROM (see Step D)
-            custom_eeprom_save(); 
+            custom_eeprom_save();
             break;
-            
-        // ... implement other getters/setters ...
     }
 }
 
