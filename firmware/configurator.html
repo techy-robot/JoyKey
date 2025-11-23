@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QMK Keyname Configurator</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f4f4f9; color: #333; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h2 { margin-top: 0; }
+        label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.9em; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-top: 15px; width: 100%; font-size: 1em; }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .status { font-size: 0.9em; color: #666; margin-top: 10px; text-align: center; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Device Connection</h2>
+        <p>Connect your keyboard. Ensure <code>RAW_ENABLE = yes</code> is in your rules.mk.</p>
+        <button id="connectBtn">Connect Keyboard</button>
+        <div id="statusMsg" class="status">Not connected</div>
+    </div>
+
+    <div id="controls" class="hidden">
+        <div class="card">
+            <h2>Layer Settings</h2>
+            <label for="layerSelect">Select Layer (0-15)</label>
+            <select id="layerSelect">
+                </select>
+
+            <label for="layerName">Layer Name (Max 15 chars)</label>
+            <input type="text" id="layerName" maxlength="15" placeholder="e.g., Gaming, Photoshop">
+            
+            <button onclick="sendLayerName()">Update Layer Name</button>
+        </div>
+
+        <div class="card">
+            <h2>Key Settings</h2>
+            <label for="keySelect">Select Key (0-11)</label>
+            <select id="keySelect">
+                </select>
+
+            <label for="keyName">Key Name (Max 15 chars)</label>
+            <input type="text" id="keyName" maxlength="15" placeholder="e.g., Macro 1, Launch App">
+
+            <label for="imageName">Image Name (Max 15 chars)</label>
+            <input type="text" id="imageName" maxlength="15" placeholder="e.g., icon_mail.bmp">
+            
+            <button onclick="sendKeyData()">Update Key Data</button>
+        </div>
+
+        <div class="card">
+            <h2>Memory</h2>
+            <button onclick="saveToEEPROM()" style="background-color: #28a745;">Save to Flash/EEPROM</button>
+            <p style="font-size:0.8em; color:#666; margin-top:5px;">*Required if you want settings to survive a reboot.</p>
+        </div>
+    </div>
+
+    <script>
+        let device = null;
+        const QMK_USAGE_PAGE = 0xFF60; // Standard QMK Raw HID Usage Page
+
+        // Populate Dropdowns
+        const layerSelect = document.getElementById('layerSelect');
+        for(let i=0; i<16; i++) layerSelect.add(new Option(`Layer ${i}`, i));
+
+        const keySelect = document.getElementById('keySelect');
+        for(let i=0; i<12; i++) keySelect.add(new Option(`Key ${i}`, i));
+
+        document.getElementById('connectBtn').addEventListener('click', async () => {
+            try {
+                // Request device with specific Usage Page filter
+                const devices = await navigator.hid.requestDevice({
+                    filters: [{ usagePage: QMK_USAGE_PAGE }]
+                });
+
+                if (devices.length === 0) return;
+                
+                device = devices[0];
+                await device.open();
+
+                document.getElementById('statusMsg').textContent = `Connected: ${device.productName}`;
+                document.getElementById('statusMsg').style.color = "green";
+                document.getElementById('controls').classList.remove('hidden');
+                document.getElementById('connectBtn').classList.add('hidden');
+
+                // Listen for input reports (optional, if you implement getters later)
+                device.addEventListener('inputreport', handleInputReport);
+
+            } catch (err) {
+                console.error(err);
+                alert("Connection failed: " + err.message);
+            }
+        });
+
+        async function sendLayerName() {
+            if (!device) return;
+            const layerIndex = parseInt(document.getElementById('layerSelect').value);
+            const name = document.getElementById('layerName').value;
+
+            // Packet Structure: [CMD] [Layer] [Name Bytes...]
+            const packet = new Uint8Array(32);
+            packet[0] = 0x51; // id_custom_set_layer_name
+            packet[1] = layerIndex;
+            
+            // Encode string
+            for (let i = 0; i < name.length && i < 15; i++) {
+                packet[i + 2] = name.charCodeAt(i);
+            }
+
+            await device.sendReport(0, packet);
+            console.log(`Sent Layer ${layerIndex} Name: ${name}`);
+        }
+
+        async function sendKeyData() {
+            if (!device) return;
+            const layerIndex = parseInt(document.getElementById('layerSelect').value);
+            const keyIndex = parseInt(document.getElementById('keySelect').value);
+            const keyName = document.getElementById('keyName').value;
+            const imgName = document.getElementById('imageName').value;
+
+            // Note: In the previous C code example, I simplified the Key Data packet to just Name.
+            // If you need to send BOTH, you likely need two separate commands or a larger logic.
+            // Assuming standard packet logic here: [CMD] [Layer] [Key] [Name...]
+            
+            const packet = new Uint8Array(32);
+            packet[0] = 0x53; // id_custom_set_key_data
+            packet[1] = layerIndex;
+            packet[2] = keyIndex;
+
+            // For this example, we are packing the Key Name starting at byte 3
+            for (let i = 0; i < keyName.length && i < 15; i++) {
+                packet[i + 3] = keyName.charCodeAt(i);
+            }
+            
+            // NOTE: If your C code expects Image Name in the same packet, 
+            // it won't fit (16+16 > 32). You likely need a separate "Set Image" command (e.g. 0x55).
+            // If you updated your C code to handle two packets, repeat this block with the new ID.
+
+            await device.sendReport(0, packet);
+            console.log(`Sent Key ${keyIndex} on Layer ${layerIndex}`);
+        }
+
+        async function saveToEEPROM() {
+            if (!device) return;
+            const packet = new Uint8Array(32);
+            packet[0] = 0x54; // id_custom_save_eeprom
+            await device.sendReport(0, packet);
+            alert("Save command sent!");
+        }
+
+        function handleInputReport(e) {
+            // Handle data sent FROM keyboard here if needed
+            // const data = new Uint8Array(e.data.buffer);
+            // console.log("Received:", data);
+        }
+    </script>
+</body>
+</html>
