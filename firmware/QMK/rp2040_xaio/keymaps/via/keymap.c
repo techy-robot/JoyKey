@@ -19,6 +19,8 @@
 #include "media/fonts/thintel15.qff.c"
 #include "utils/keyname_map.c"
 #include "utils/gui_elements.c"
+#include "utils/settings.c"
+ 
 
 enum my_keycodes {
   LAYR_CHNG_TGGL = SAFE_RANGE,
@@ -167,6 +169,72 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+enum my_custom_via_commands {
+    id_custom_get_layer_name = 0x50, // Start IDs high to avoid VIA conflicts
+    id_custom_set_layer_name = 0x51,
+    id_custom_get_key_data   = 0x52,
+    id_custom_set_key_data   = 0x53,
+    id_custom_save_eeprom    = 0x54  // Optional: Explicit save command
+};
+
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    // data[0] is usually the command ID
+    uint8_t command_id = data[0];
+    
+    // Buffer to send back to host
+    uint8_t response[32];
+    memset(response, 0, 32);
+    response[0] = command_id; // Echo command ID
+
+    switch (command_id) {
+        case id_custom_set_layer_name: {
+            // Format: [CMD] [LayerIdx] [Name string (16 bytes)...]
+            uint8_t layer = data[1];
+            char *name_ptr = (char *)&data[2];
+            keyname_map_set_layer_name(layer, name_ptr);
+            break;
+        }
+
+        case id_custom_get_layer_name: {
+            // Format: [CMD] [LayerIdx]
+            // Return: [CMD] [LayerIdx] [Name string...]
+            uint8_t layer = data[1];
+            const char *name = keyname_map_get_layer_name(layer);
+            if (name) {
+                response[1] = layer;
+                strncpy((char*)&response[2], name, 16); // Safe copy
+            }
+            raw_hid_send(response, 32);
+            break;
+        }
+
+        case id_custom_set_key_data: {
+            // Packet A: Set Name & Image (Might need 2 packets if data > 30 bytes)
+            // Let's assume we just set the Name for this example to fit in 32 bytes.
+            // Format: [CMD] [Layer] [Key] [Name(16)]
+            uint8_t layer = data[1];
+            uint8_t key_idx = data[2];
+            char *key_name = (char *)&data[3];
+            
+            // Note: You might need a separate command for ImageName 
+            // if you can't fit both in one packet.
+            // For now, passing empty string for image to reuse your function, 
+            // or create a specific setter for just the key name.
+            keyname_map_set_key_data(layer, key_idx, key_name, ""); 
+            break;
+        }
+
+        case id_custom_save_eeprom:
+            // Logic to write your struct to EEPROM (see Step D)
+            custom_eeprom_save(); 
+            break;
+            
+        // ... implement other getters/setters ...
+    }
+}
+
 // TODO: Add custom lighting layer functionality to the keymap.
 // TODO: Add custom VIA settings & effect per key per layer that can tell you what the key does
 
@@ -190,10 +258,12 @@ led_config_t g_led_config = { {
 #endif
 
 void keyboard_post_init_user(void) {
+
+    keyname_map_init(); // Zero out RAM
+    //custom_eeprom_load(); // Load from Flash
+
     layer_change_toggle = false;
     update_oled = true;
-
-    keyname_map_init();
 
     // ---- DEFINE KEYMAP DATA ----
 
@@ -279,11 +349,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
 
     //VIA handler, gets whatever key on the current layer for the encoder
-    if (clockwise) {
+    /*if (clockwise) {
       tap_code(dynamic_keymap_get_keycode(current_layer, 1, 3));//lower key
     } else {
       tap_code(dynamic_keymap_get_keycode(current_layer, 0, 3));//upper key
-    }
+    }*/
   }
   return true;
 }
