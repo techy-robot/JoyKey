@@ -28,12 +28,12 @@
     <div id="controls" class="hidden">
         <div class="card">
             <h2>Layer Settings</h2>
-            <label for="layerSelect">Select Layer (0-15)</label>
+            <label for="layerSelect">Select Layer (0-9)</label>
             <select id="layerSelect">
                 </select>
 
-            <label for="layerName">Layer Name (Max 15 chars)</label>
-            <input type="text" id="layerName" maxlength="15" placeholder="e.g., Gaming, Photoshop">
+            <label for="layerName">Layer Name (Max 9 chars)</label>
+            <input type="text" id="layerName" maxlength="9" placeholder="e.g., Gaming, Photoshop">
             
             <button onclick="sendLayerName()">Update Layer Name</button>
         </div>
@@ -44,11 +44,11 @@
             <select id="keySelect">
                 </select>
 
-            <label for="keyName">Key Name (Max 15 chars)</label>
-            <input type="text" id="keyName" maxlength="15" placeholder="e.g., Macro 1, Launch App">
+            <label for="keyName">Key Name (Max 9 chars)</label>
+            <input type="text" id="keyName" maxlength="9" placeholder="e.g., Macro 1, Launch App">
 
-            <label for="imageName">Image Name (Max 15 chars)</label>
-            <input type="text" id="imageName" maxlength="15" placeholder="e.g., icon_mail.bmp">
+            <label for="imageName">Image Name (Max 9 chars)</label>
+            <input type="text" id="imageName" maxlength="9" placeholder="e.g., icon_mail.bmp">
             
             <button onclick="sendKeyData()">Update Key Data</button>
         </div>

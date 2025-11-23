@@ -188,6 +188,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     memset(response, 0, 32);
     response[0] = command_id; // Echo command ID
 
+    update_oled = true;
+
     switch (command_id) {
         case id_custom_set_layer_name: {
             // Format: [CMD] [LayerIdx] [Name string (16 bytes)...]
@@ -260,7 +262,7 @@ led_config_t g_led_config = { {
 void keyboard_post_init_user(void) {
 
     keyname_map_init(); // Zero out RAM
-    //custom_eeprom_load(); // Load from Flash
+    custom_eeprom_load(); // Load from Flash
 
     layer_change_toggle = false;
     update_oled = true;

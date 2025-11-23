@@ -121,6 +121,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QP_WIDTH 128
 #define QP_HEIGHT 64
 
+
+// The size of the "fake" EEPROM exposed to your code
+#define WEAR_LEVELING_LOGICAL_SIZE 8192
+#define WEAR_LEVELING_BACKING_SIZE 16384
+
 // Timeout configuration, default 30000 (30 seconds). 0 = No timeout.
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 30000
 
