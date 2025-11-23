@@ -1,6 +1,8 @@
 #ifndef KEYNAME_MAP_H
 #define KEYNAME_MAP_H
 
+#include "color.h"
+
 // --- Configuration Macros ---
 // Adjust these values based on your firmware's needs.
 #define KEYNAME_MAP_MAX_LAYERS 4
@@ -16,6 +18,7 @@
 typedef struct {
     char name[KEYNAME_MAP_NAME_LENGTH];
     char imageName[KEYNAME_MAP_NAME_LENGTH];
+    hsv_t color;
 } KeyData_t;
 
 /**
