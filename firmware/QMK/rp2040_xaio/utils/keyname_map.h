@@ -4,7 +4,7 @@
 #include "color.h"
 
 // --- Configuration Macros ---
-// Adjust these values based on your firmware's needs.
+#define KEYNAME_MAP_MAX_LAYERS 16
 #define KEYNAME_MAP_MAX_LAYERS 4
 #define KEYNAME_MAP_MAX_KEYS_PER_LAYER 16
 #define KEYNAME_MAP_NAME_LENGTH 16 // Max length for names (including null terminator)
@@ -30,6 +30,11 @@ typedef struct {
     KeyData_t keys[KEYNAME_MAP_MAX_KEYS_PER_LAYER];
 } LayerData_t;
 
+/**
+ * @brief The global, static data structure for the entire keyname map.
+ * This single block of memory is what would be saved to/loaded from EEPROM.
+ */
+static LayerData_t keyname_map[KEYNAME_MAP_MAX_LAYERS];
 
 // --- Public API Functions ---
 
