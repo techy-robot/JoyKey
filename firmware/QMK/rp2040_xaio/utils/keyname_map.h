@@ -5,8 +5,7 @@
 
 // --- Configuration Macros ---
 #define KEYNAME_MAP_MAX_LAYERS 16
-#define KEYNAME_MAP_MAX_LAYERS 4
-#define KEYNAME_MAP_MAX_KEYS_PER_LAYER 16
+#define KEYNAME_MAP_MAX_KEYS_PER_LAYER 12
 #define KEYNAME_MAP_NAME_LENGTH 16 // Max length for names (including null terminator)
 
 // --- Data Structures ---
@@ -27,6 +26,8 @@ typedef struct {
  */
 typedef struct {
     char name[KEYNAME_MAP_NAME_LENGTH];
+    char imageName[KEYNAME_MAP_NAME_LENGTH];
+    char defaultLightingEffect[KEYNAME_MAP_NAME_LENGTH];
     KeyData_t keys[KEYNAME_MAP_MAX_KEYS_PER_LAYER];
 } LayerData_t;
 
