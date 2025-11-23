@@ -197,9 +197,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       uint8_t next_layer;
 
       if (clockwise) {
-        next_layer = MAX(current_layer - 1, 0);//ensure that we don't go below 0
+        next_layer = (current_layer + 1) % DYNAMIC_KEYMAP_LAYER_COUNT; // Roll over to the next layer
       } else {
-        next_layer = MIN(current_layer + 1, DYNAMIC_KEYMAP_LAYER_COUNT);//ensure that we don't go above max layer count
+        next_layer = (current_layer - 1 + DYNAMIC_KEYMAP_LAYER_COUNT) % DYNAMIC_KEYMAP_LAYER_COUNT; // Roll over to the previous layer
       }
       layer_move(next_layer);
 
