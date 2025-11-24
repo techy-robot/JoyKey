@@ -20,8 +20,7 @@
 #include "utils/keyname_map.c"
 #include "utils/gui_elements.c"
 #include "utils/settings.c"
-#include "via.h"
- 
+#include "dynamic_keymap.h"
 
 enum my_keycodes {
   LAYR_CHNG_TGGL = SAFE_RANGE,
@@ -49,10 +48,6 @@ enum layer_names {
 // --- Globals ---
 bool layer_change_toggle = false;
 bool update_oled;//external variable
-
-// Track which layers have changed since the last save
-static bool layer_dirty[KEYNAME_MAP_MAX_LAYERS] = {false};
-static bool save_requested = false; // Trigger from VIA
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -156,13 +151,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// --- Helper: Mark Dirty ---
-void mark_layer_dirty(int layer) {
-    if (layer >= 0 && layer < KEYNAME_MAP_MAX_LAYERS) {
-        layer_dirty[layer] = true;
-    }
-}
-
 // --- Tunneling Protocol ---
 // VIA uses ID 0x07 for "Custom Set Value". 
 // We will wrap our commands inside this ID.
@@ -213,8 +201,6 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
 
             // OPTIMIZATION: Mark this layer as needing a save
             mark_layer_dirty(layer);
-            // Just flag it. Don't write here (it blocks interrupts).
-            save_requested = true;
             break;
         }
 
@@ -250,8 +236,6 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
 
             // OPTIMIZATION: Mark this layer as needing a save
             mark_layer_dirty(layer);
-            // Just flag it. Don't write here (it blocks interrupts).
-            save_requested = true;
             break;
         }
     }
@@ -305,10 +289,10 @@ void keyboard_post_init_user(void) {
         keyname_map_set_key_data(1, 0, "F1", "f1.bin");
         keyname_map_set_key_data(1, 1, "F2", "f2.bin");
         
-        // OPTIONAL: Force an immediate save of these defaults
-        // mark_layer_dirty(0);
-        // mark_layer_dirty(1);
-        // save_requested = true;
+        // Save
+        mark_layer_dirty(0);
+        mark_layer_dirty(1);
+        save_requested = true;
     }
 
     gui_elements_init(oled, default_font);//font_arial_12 option??
@@ -429,29 +413,7 @@ void housekeeping_task_user(void) {
     }
   }
 
-  //save data
-  if (save_requested) {
-    save_requested = false; // Reset trigger
-
-    // Base EEPROM address
-    uintptr_t base_addr = CUSTOM_MAP_EEPROM_OFFSET;
-    size_t layer_size = sizeof(LayerData_t);
-
-    for (int i = 0; i < KEYNAME_MAP_MAX_LAYERS; i++) {
-      // ONLY write if this specific layer was touched
-      if (layer_dirty[i]) {
-        
-        // Calculate where this layer lives in EEPROM
-        // Address = Base + (LayerIndex * SizeOfLayer)
-        void* dest = (void*)(base_addr + (i * layer_size));
-        void* src  = (void*)&keyname_map[i];
-
-        // Write just this ~300 byte chunk
-        eeprom_update_block(src, dest, layer_size);
-        
-        // Clear the flag
-        layer_dirty[i] = false;
-      }
-    }
-  }
+  //save data if it changed, make sure it is kept up to date
+  refresh_settings();
+  
 }
