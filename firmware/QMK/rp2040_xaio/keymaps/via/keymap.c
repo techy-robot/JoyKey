@@ -46,21 +46,6 @@ enum layer_names {
     L15
 };
 
-
-/* KeynameMap myKeyboard({
-    // Layer 0: Base Layer
-    { "L0", { 
-        {"Escape", "esc_icon.bin"},
-        {"Tab", "tab_icon.bin"}
-    }},
-    // Layer 1: Function Layer
-    { "L1", {
-        {"F1", "f1_icon.bin"},
-        {"F2", "f2_icon.bin"}
-    }}
-}); */
-
-
 // --- Globals ---
 bool layer_change_toggle = false;
 bool update_oled;//external variable
@@ -397,11 +382,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
 
     //VIA handler, gets whatever key on the current layer for the encoder
-    /*if (clockwise) {
+    if (clockwise) {
       tap_code(dynamic_keymap_get_keycode(current_layer, 1, 3));//lower key
     } else {
       tap_code(dynamic_keymap_get_keycode(current_layer, 0, 3));//upper key
-    }*/
+    }
   }
   return true;
 }
