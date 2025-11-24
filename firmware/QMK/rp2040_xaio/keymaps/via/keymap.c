@@ -47,10 +47,6 @@ enum layer_names {
 };
 
 
-// Each layer has a number (above enum), but this should have a defined name,
-// and a name/picture for each key. So at each index in array there is a class defining the
-// name, with an array of keys; each key will have a name, a picture, and an orientation (top or front)
-
 /* KeynameMap myKeyboard({
     // Layer 0: Base Layer
     { "L0", { 
@@ -65,8 +61,13 @@ enum layer_names {
 }); */
 
 
+// --- Globals ---
 bool layer_change_toggle = false;
 bool update_oled;//external variable
+
+// Track which layers have changed since the last save
+static bool layer_dirty[KEYNAME_MAP_MAX_LAYERS] = {false};
+static bool save_requested = false; // Trigger from VIA
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -170,6 +171,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+// --- Helper: Mark Dirty ---
+void mark_layer_dirty(int layer) {
+    if (layer >= 0 && layer < KEYNAME_MAP_MAX_LAYERS) {
+        layer_dirty[layer] = true;
+    }
+}
+
 // --- Tunneling Protocol ---
 // VIA uses ID 0x07 for "Custom Set Value". 
 // We will wrap our commands inside this ID.
@@ -217,6 +225,11 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
 
             strncpy(keyname_map[layer].imageName, imgPtr, 10);
             keyname_map[layer].imageName[9] = '\0';
+
+            // OPTIMIZATION: Mark this layer as needing a save
+            mark_layer_dirty(layer);
+            // Just flag it. Don't write here (it blocks interrupts).
+            save_requested = true;
             break;
         }
 
@@ -249,13 +262,13 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
             
             strncpy(k->imageName, imgPtr, 10);
             k->imageName[9] = '\0';
+
+            // OPTIMIZATION: Mark this layer as needing a save
+            mark_layer_dirty(layer);
+            // Just flag it. Don't write here (it blocks interrupts).
+            save_requested = true;
             break;
         }
-
-        // --- SAVE ---
-        case id_custom_eeprom_save:
-            custom_eeprom_save();
-            break;
     }
 }
 
@@ -290,17 +303,28 @@ void keyboard_post_init_user(void) {
     update_oled = true;
 
     // ---- DEFINE KEYMAP DATA ----
+    // If Layer 0 has no name, assume this is a fresh install and apply defaults.
+    // We check the first character of the name string.
+    if (keyname_map_get_layer_name(0)[0] == '\0') {
+        
+        // ---- DEFINE DEFAULTS (Only runs once) ----
+        
+        // Layer 0: Base Layer
+        keyname_map_set_layer_name(0, "Base");
+        keyname_map_set_key_data(0, 0, "Escape", "esc.bin");
+        keyname_map_set_key_data(0, 1, "Tab", "tab.bin");
+        keyname_map_set_key_data(0, 14, "Backspace", "bspc.bin");
 
-    // Layer 0: Base Layer
-    keyname_map_set_layer_name(0, "Base");
-    keyname_map_set_key_data(0, 0, "Escape", "esc.bin");
-    keyname_map_set_key_data(0, 1, "Tab", "tab.bin");
-    keyname_map_set_key_data(0, 14, "Backspace", "bspc.bin");
-
-    // Layer 1: Function Layer
-    keyname_map_set_layer_name(1, "Function");
-    keyname_map_set_key_data(1, 0, "F1", "f1.bin");
-    keyname_map_set_key_data(1, 1, "F2", "f2.bin");
+        // Layer 1: Function Layer
+        keyname_map_set_layer_name(1, "Function");
+        keyname_map_set_key_data(1, 0, "F1", "f1.bin");
+        keyname_map_set_key_data(1, 1, "F2", "f2.bin");
+        
+        // OPTIONAL: Force an immediate save of these defaults
+        // mark_layer_dirty(0);
+        // mark_layer_dirty(1);
+        // save_requested = true;
+    }
 
     gui_elements_init(oled, default_font);//font_arial_12 option??
 
@@ -401,19 +425,6 @@ void display_task(void) {
   //Note that clear prevents the display from sleeping
 
   uint8_t current_layer = get_highest_layer(layer_state);
-  /*
-  //string to fill and combine
-  char layer_str[10];
-
-  //convert Int to string to show layer number
-  snprintf(layer_str, sizeof(layer_str), "Layer: %d", current_layer);
-  
-  //get width
-  //default_font->line_height is the way to get the height of the font, like qp_textwidth for width
-  int16_t width = qp_textwidth(default_font, layer_str);
-
-  qp_drawtext(oled, (QP_WIDTH - width) / 2, 0, default_font, layer_str);
-  */
 
   draw_layer(current_layer);
 
@@ -430,6 +441,32 @@ void housekeeping_task_user(void) {
     if (update_oled) {
       display_task();
       update_oled = false;
+    }
+  }
+
+  //save data
+  if (save_requested) {
+    save_requested = false; // Reset trigger
+
+    // Base EEPROM address
+    uintptr_t base_addr = CUSTOM_MAP_EEPROM_OFFSET;
+    size_t layer_size = sizeof(LayerData_t);
+
+    for (int i = 0; i < KEYNAME_MAP_MAX_LAYERS; i++) {
+      // ONLY write if this specific layer was touched
+      if (layer_dirty[i]) {
+        
+        // Calculate where this layer lives in EEPROM
+        // Address = Base + (LayerIndex * SizeOfLayer)
+        void* dest = (void*)(base_addr + (i * layer_size));
+        void* src  = (void*)&keyname_map[i];
+
+        // Write just this ~300 byte chunk
+        eeprom_update_block(src, dest, layer_size);
+        
+        // Clear the flag
+        layer_dirty[i] = false;
+      }
     }
   }
 }

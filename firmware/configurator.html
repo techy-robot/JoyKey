@@ -63,11 +63,6 @@
 
             <button onclick="sendKeyInfo()">Update Key</button>
         </div>
-
-        <div class="card">
-            <h2>Actions</h2>
-            <button onclick="saveToEEPROM()" style="background-color: #28a745;">Save Changes to Flash</button>
-        </div>
     </div>
 
     <script>
@@ -196,14 +191,6 @@
 
             await device.sendReport(0, packet);
             console.log("Key updated");
-        }
-
-        async function saveToEEPROM() {
-            const packet = new Uint8Array(32);
-            packet[0] = VIA_CMD_CUSTOM;
-            packet[1] = SUB_SAVE;
-            await device.sendReport(0, packet);
-            alert("Save command sent!");
         }
 
         function handleInputReport(e) {

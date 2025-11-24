@@ -34,6 +34,10 @@ typedef struct {
 /**
  * @brief The global, static data structure for the entire keyname map.
  * This single block of memory is what would be saved to/loaded from EEPROM.
+ * 
+ * Each layer has a number (an enum), but this should also have a defined name,
+ * and a name/picture for each key. So at each index in array there is a class defining the
+ * name, with an array of keys; each key will have a name, a picture, an orientation (top or front), and an LED color
  */
 static LayerData_t keyname_map[KEYNAME_MAP_MAX_LAYERS];
 
