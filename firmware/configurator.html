@@ -2,19 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>QMK Keyname Configurator</title>
+    <title>QMK Advanced Configurator</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f4f4f9; color: #333; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 650px; margin: 40px auto; padding: 20px; background: #f4f4f9; color: #333; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        h2 { margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 { margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; font-size: 1.2em; }
         label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.85em; color: #555; }
         input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        
         button { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-top: 15px; width: 100%; font-size: 1em; transition: background 0.2s;}
         button:hover { background: #0056b3; }
-        .row { display: flex; gap: 10px; }
+        button.save { background: #28a745; }
+        button.save:hover { background: #218838; }
+
+        .row { display: flex; gap: 10px; align-items: flex-end; }
         .col { flex: 1; }
-        .status { font-size: 0.9em; color: #666; margin-top: 10px; text-align: center; height: 1.2em; }
+        .color-preview { width: 100%; height: 36px; border-radius: 4px; border: 1px solid #ccc; background-color: #000; margin-top: 5px; }
+        
+        .status { font-size: 0.9em; color: #666; margin-top: 10px; text-align: center; }
         .hidden { display: none; }
+        .section-header { font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-top: 15px; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -26,23 +33,48 @@
     </div>
 
     <div id="controls" class="hidden">
+        
         <div class="card">
             <h2>Layer Config</h2>
             <label>Select Layer</label>
             <select id="layerSelect" onchange="fetchLayerInfo()"></select>
 
+            <div class="section-header">Metadata</div>
             <div class="row">
                 <div class="col">
-                    <label>Layer Name (Max 10)</label>
+                    <label>Layer Name (10)</label>
                     <input type="text" id="layerName" maxlength="10">
                 </div>
                 <div class="col">
-                    <label>Image Asset (Max 10)</label>
+                    <label>Image Asset (10)</label>
                     <input type="text" id="layerImage" maxlength="10">
                 </div>
             </div>
+
+            <div class="section-header">Lighting Effect</div>
+            <div class="row">
+                <div class="col">
+                    <label>Effect ID (0-255)</label>
+                    <input type="number" id="layerEffect" min="0" max="255" value="0">
+                </div>
+                <div class="col">
+                    <label>Speed (0-255)</label>
+                    <input type="number" id="layerSpeed" min="0" max="255" value="128">
+                </div>
+            </div>
+
+            <div class="section-header">Base Color (HSV)</div>
+            <div class="row">
+                <div class="col"><label>Hue</label><input type="number" id="layerH" min="0" max="255" oninput="updateColorPreview('layer')"></div>
+                <div class="col"><label>Sat</label><input type="number" id="layerS" min="0" max="255" oninput="updateColorPreview('layer')"></div>
+                <div class="col"><label>Val</label><input type="number" id="layerV" min="0" max="255" oninput="updateColorPreview('layer')"></div>
+                <div class="col" style="flex: 0.5;">
+                    <label>Preview</label>
+                    <div id="layerColorPrev" class="color-preview"></div>
+                </div>
+            </div>
             
-            <button onclick="sendLayerInfo()">Update Layer</button>
+            <button onclick="sendLayerInfo()">Update Layer Settings</button>
         </div>
 
         <div class="card">
@@ -50,36 +82,46 @@
             <label>Select Key</label>
             <select id="keySelect" onchange="fetchKeyInfo()"></select>
 
+            <div class="section-header">Metadata</div>
             <div class="row">
                 <div class="col">
-                    <label>Key Name (Max 10)</label>
+                    <label>Key Name (10)</label>
                     <input type="text" id="keyName" maxlength="10">
                 </div>
                 <div class="col">
-                    <label>Key Image (Max 10)</label>
+                    <label>Image Asset (10)</label>
                     <input type="text" id="keyImage" maxlength="10">
                 </div>
             </div>
 
-            <button onclick="sendKeyInfo()">Update Key</button>
+            <div class="section-header">Override Color (HSV)</div>
+            <div class="row">
+                <div class="col"><label>Hue</label><input type="number" id="keyH" min="0" max="255" oninput="updateColorPreview('key')"></div>
+                <div class="col"><label>Sat</label><input type="number" id="keyS" min="0" max="255" oninput="updateColorPreview('key')"></div>
+                <div class="col"><label>Val</label><input type="number" id="keyV" min="0" max="255" oninput="updateColorPreview('key')"></div>
+                <div class="col" style="flex: 0.5;">
+                    <label>Preview</label>
+                    <div id="keyColorPrev" class="color-preview"></div>
+                </div>
+            </div>
+
+            <button onclick="sendKeyInfo()">Update Key Settings</button>
         </div>
     </div>
 
     <script>
         let device = null;
         const QMK_USAGE_PAGE = 0xFF60;
-
-        // VIA CONSTANT
-        const VIA_CMD_CUSTOM = 0x07; 
-
-        // OUR SUB-COMMANDS
+        
+        // Protocol Constants
+        const VIA_CMD_CUSTOM = 0x07;
         const SUB_GET_LAYER = 0x01;
         const SUB_SET_LAYER = 0x02;
         const SUB_GET_KEY   = 0x03;
         const SUB_SET_KEY   = 0x04;
         const SUB_SAVE      = 0x05;
 
-        // --- Init UI ---
+        // Populate Dropdowns
         const layerSelect = document.getElementById('layerSelect');
         for(let i=0; i<16; i++) layerSelect.add(new Option(`Layer ${i}`, i));
 
@@ -95,7 +137,6 @@
                 device = devices[0];
                 await device.open();
                 
-                // Set up listener for incoming data
                 device.addEventListener('inputreport', handleInputReport);
 
                 document.getElementById('statusMsg').textContent = `Connected: ${device.productName}`;
@@ -103,7 +144,6 @@
                 document.getElementById('controls').classList.remove('hidden');
                 document.getElementById('connectBtn').classList.add('hidden');
 
-                // Initial Fetch
                 fetchLayerInfo();
 
             } catch (err) {
@@ -117,7 +157,7 @@
             let str = "";
             for (let i = 0; i < maxLength; i++) {
                 const charCode = data[start + i];
-                if (charCode === 0) break; // Stop at null terminator
+                if (charCode === 0) break;
                 str += String.fromCharCode(charCode);
             }
             return str;
@@ -131,17 +171,34 @@
             return bytes;
         }
 
-        // --- Sending Requests (Getters) ---
+        // --- Color Preview Logic (HSV 0-255 to CSS HSL) ---
+        function updateColorPreview(type) {
+            const h = parseInt(document.getElementById(`${type}H`).value) || 0;
+            const s = parseInt(document.getElementById(`${type}S`).value) || 0;
+            const v = parseInt(document.getElementById(`${type}V`).value) || 0;
+
+            // QMK Hue is 0-255, CSS Hue is 0-360
+            const cssH = Math.round((h / 255) * 360);
+            // QMK Sat is 0-255, CSS Sat is 0-100%
+            const cssS = Math.round((s / 255) * 100);
+            // QMK Val is 0-255, CSS Lightness is approx related but not identical.
+            // Simplified conversion for preview:
+            const cssL = Math.round(((v / 255) - ( (s/255) * (v/255) / 2 )) * 100);
+
+            const div = document.getElementById(`${type}ColorPrev`);
+            div.style.backgroundColor = `hsl(${cssH}, ${cssS}%, ${cssL}%)`;
+        }
+
+        // --- Fetch Functions ---
         async function fetchLayerInfo() {
             if (!device) return;
             const layer = parseInt(layerSelect.value);
             const packet = new Uint8Array(32);
-            
             packet[0] = VIA_CMD_CUSTOM; 
-            packet[1] = SUB_GET_LAYER; // Offset 1
-            packet[2] = layer;         // Offset 2
-            
+            packet[1] = SUB_GET_LAYER; 
+            packet[2] = layer;         
             await device.sendReport(0, packet);
+            // Wait slightly before fetching key info to prevent HID collision
             setTimeout(fetchKeyInfo, 50); 
         }
 
@@ -150,29 +207,38 @@
             const layer = parseInt(layerSelect.value);
             const key = parseInt(keySelect.value);
             const packet = new Uint8Array(32);
-            
             packet[0] = VIA_CMD_CUSTOM;
-            packet[1] = SUB_GET_KEY;   // Offset 1
-            packet[2] = layer;         // Offset 2
-            packet[3] = key;           // Offset 3
-            
+            packet[1] = SUB_GET_KEY;
+            packet[2] = layer;
+            packet[3] = key;
             await device.sendReport(0, packet);
         }
 
+        // --- Send Functions ---
         async function sendLayerInfo() {
             const layer = parseInt(layerSelect.value);
             const nameBytes = bytesFromString(document.getElementById('layerName').value, 10);
             const imgBytes = bytesFromString(document.getElementById('layerImage').value, 10);
+            const eff = parseInt(document.getElementById('layerEffect').value) || 0;
+            const spd = parseInt(document.getElementById('layerSpeed').value) || 0;
+            const h = parseInt(document.getElementById('layerH').value) || 0;
+            const s = parseInt(document.getElementById('layerS').value) || 0;
+            const v = parseInt(document.getElementById('layerV').value) || 0;
 
             const packet = new Uint8Array(32);
             packet[0] = VIA_CMD_CUSTOM;
             packet[1] = SUB_SET_LAYER;
             packet[2] = layer;
-            packet.set(nameBytes, 3);   // Name starts at 3
-            packet.set(imgBytes, 13);   // Image starts at 13
-            
+            packet.set(nameBytes, 3);
+            packet.set(imgBytes, 13);
+            packet[23] = eff;
+            packet[24] = spd;
+            packet[25] = h;
+            packet[26] = s;
+            packet[27] = v;
+
             await device.sendReport(0, packet);
-            console.log("Layer updated");
+            console.log("Layer sent");
         }
 
         async function sendKeyInfo() {
@@ -180,40 +246,52 @@
             const key = parseInt(keySelect.value);
             const nameBytes = bytesFromString(document.getElementById('keyName').value, 10);
             const imgBytes = bytesFromString(document.getElementById('keyImage').value, 10);
+            const h = parseInt(document.getElementById('keyH').value) || 0;
+            const s = parseInt(document.getElementById('keyS').value) || 0;
+            const v = parseInt(document.getElementById('keyV').value) || 0;
 
             const packet = new Uint8Array(32);
             packet[0] = VIA_CMD_CUSTOM;
             packet[1] = SUB_SET_KEY;
             packet[2] = layer;
             packet[3] = key;
-            packet.set(nameBytes, 4);  // Name starts at 4
-            packet.set(imgBytes, 14);  // Image starts at 14
+            packet.set(nameBytes, 4);
+            packet.set(imgBytes, 14);
+            packet[24] = h;
+            packet[25] = s;
+            packet[26] = v;
 
             await device.sendReport(0, packet);
-            console.log("Key updated");
+            console.log("Key sent");
         }
 
+        // --- Handle Incoming ---
         function handleInputReport(e) {
             const data = new Uint8Array(e.data.buffer);
-            
-            // Basic Check: Must be [0x07, ...]
             if (data[0] !== VIA_CMD_CUSTOM) return;
 
             const subCmd = data[1];
 
             if (subCmd === SUB_GET_LAYER) {
-                const layerIdx = data[2];
-                if (layerIdx == layerSelect.value) {
+                if (data[2] == layerSelect.value) {
                     document.getElementById('layerName').value = stringFromBytes(data, 3, 10);
                     document.getElementById('layerImage').value = stringFromBytes(data, 13, 10);
+                    document.getElementById('layerEffect').value = data[23];
+                    document.getElementById('layerSpeed').value = data[24];
+                    document.getElementById('layerH').value = data[25];
+                    document.getElementById('layerS').value = data[26];
+                    document.getElementById('layerV').value = data[27];
+                    updateColorPreview('layer');
                 }
             } 
             else if (subCmd === SUB_GET_KEY) {
-                const layerIdx = data[2];
-                const keyIdx = data[3];
-                if (layerIdx == layerSelect.value && keyIdx == keySelect.value) {
+                if (data[2] == layerSelect.value && data[3] == keySelect.value) {
                     document.getElementById('keyName').value = stringFromBytes(data, 4, 10);
                     document.getElementById('keyImage').value = stringFromBytes(data, 14, 10);
+                    document.getElementById('keyH').value = data[24];
+                    document.getElementById('keyS').value = data[25];
+                    document.getElementById('keyV').value = data[26];
+                    updateColorPreview('key');
                 }
             }
         }

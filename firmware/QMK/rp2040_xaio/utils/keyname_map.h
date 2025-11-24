@@ -27,8 +27,10 @@ typedef struct {
 typedef struct {
     char name[KEYNAME_MAP_NAME_LENGTH];
     char imageName[KEYNAME_MAP_NAME_LENGTH];
-    uint8_t defaultLightingEffect;
     KeyData_t keys[KEYNAME_MAP_MAX_KEYS_PER_LAYER];
+    uint8_t lightingEffect;
+    uint8_t effectSpeed;
+    hsv_t color;
 } LayerData_t;
 
 /**

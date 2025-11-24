@@ -47,7 +47,10 @@ enum layer_names {
 
 // --- Globals ---
 bool layer_change_toggle = false;
+
+// --- Optimization: Track state to prevent unnecessary refreshes ---
 bool update_oled;//external variable
+static uint8_t last_rgb_mode = 255;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -160,8 +163,7 @@ enum my_custom_commands {
     id_custom_get_layer   = 0x01,
     id_custom_set_layer   = 0x02,
     id_custom_get_key     = 0x03,
-    id_custom_set_key     = 0x04,
-    id_custom_eeprom_save = 0x05
+    id_custom_set_key     = 0x04
 };
 
 void via_custom_value_command(uint8_t *data, uint8_t length) {
@@ -182,6 +184,12 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
             // Payload starts at byte 3
             strncpy((char*)&data[3], keyname_map[layer].name, 10);
             strncpy((char*)&data[13], keyname_map[layer].imageName, 10);
+            data[23] = keyname_map[layer].lightingEffect;
+            data[24] = keyname_map[layer].effectSpeed;
+            data[25] = keyname_map[layer].color.h;
+            data[26] = keyname_map[layer].color.s;
+            data[27] = keyname_map[layer].color.v;
+
             break;
         }
 
@@ -192,12 +200,21 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
 
             char* namePtr = (char*)&data[3];
             char* imgPtr  = (char*)&data[13];
+            uint8_t effect = data[23];
+            uint8_t speed  = data[24];
+            uint8_t hue    = data[25];
+            uint8_t sat    = data[26];
+            uint8_t val    = data[27];
 
             strncpy(keyname_map[layer].name, namePtr, 10);
             keyname_map[layer].name[9] = '\0'; 
 
             strncpy(keyname_map[layer].imageName, imgPtr, 10);
             keyname_map[layer].imageName[9] = '\0';
+
+            keyname_map[layer].lightingEffect = effect;
+            keyname_map[layer].effectSpeed = speed;
+            keyname_map[layer].color = (hsv_t){hue, sat, val};
 
             // OPTIMIZATION: Mark this layer as needing a save
             mark_layer_dirty(layer);
@@ -215,6 +232,11 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
             KeyData_t* k = &keyname_map[layer].keys[key_idx];
             strncpy((char*)&data[4], k->name, 10);
             strncpy((char*)&data[14], k->imageName, 10);
+
+            data[24] = k->color.h;
+            data[25] = k->color.s;
+            data[26] = k->color.v;
+
             break;
         }
 
@@ -227,6 +249,11 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
             char* namePtr = (char*)&data[4];
             char* imgPtr  = (char*)&data[14];
 
+            // Extract HSV
+            uint8_t h = data[24];
+            uint8_t s = data[25];
+            uint8_t v = data[26];
+
             KeyData_t* k = &keyname_map[layer].keys[key_idx];
             strncpy(k->name, namePtr, 10);
             k->name[9] = '\0';
@@ -234,6 +261,8 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
             strncpy(k->imageName, imgPtr, 10);
             k->imageName[9] = '\0';
 
+            // Assign HSV
+            k->color = (hsv_t){h, s, v};
             // OPTIMIZATION: Mark this layer as needing a save
             mark_layer_dirty(layer);
             break;
@@ -241,7 +270,6 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
     }
 }
 
-// TODO: Add custom lighting layer functionality to the keymap.
 // TODO: Add custom VIA settings & effect per key per layer that can tell you what the key does
 
 // Cannot do encoder map with VIA, because the map overrides our custom menu handling.
@@ -332,9 +360,46 @@ void LED_indicate_layer(uint8_t layer) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-  if (layer_change_toggle) {
-    LED_indicate_layer(get_highest_layer(layer_state));
-    return false;
+
+  uint8_t current_layer = get_highest_layer(layer_state);
+  LayerData_t *layer_ptr = &keyname_map[current_layer]; // Use pointer to save stack memory
+
+  // GLOBAL LAYER EFFECT
+  // Only update mode/speed/hsv if the mode actually changed.
+  // Otherwise, we reset the animation timer constantly, freezing the effect.
+  if (last_rgb_mode != rgb_matrix_get_mode()) {
+      rgb_matrix_mode_noeeprom(layer_ptr->lightingEffect);
+      rgb_matrix_set_speed_noeeprom(layer_ptr->effectSpeed);
+      rgb_matrix_sethsv_noeeprom(layer_ptr->color.h, layer_ptr->color.s, layer_ptr->color.v);
+      
+      last_rgb_mode = rgb_matrix_get_mode();
+  }
+
+  // PER-KEY OVERRIDES
+  // This must run every frame to overlay on top of the active animation
+  for (uint8_t i = 0; i < KEYNAME_MAP_MAX_KEYS_PER_LAYER; i++) {
+    KeyData_t *key = &layer_ptr->keys[i];
+
+    // Check for "Empty" color (Black). 
+    // Assuming 0,0,0 means "Follow Layer Default".
+    if (key->color.h == 0 && key->color.s == 0 && key->color.v == 0) {
+      continue;
+    }
+
+    // Safety check: Ensure we don't go out of bounds of your LED config
+    // defined in g_led_config
+    uint8_t row = i / 4; // Hardcoding 4 (Cols) is often safer than MATRIX_COLS for visual layouts
+    uint8_t col = i % 4;
+    
+    if (row >= 3) continue; // Safety break
+
+    uint8_t LED_index = g_led_config.matrix_co[row][col];
+    
+    if (LED_index != NO_LED) {
+        // Calculate RGB and set
+        rgb_t rgb = hsv_to_rgb(key->color);
+        rgb_matrix_set_color(LED_index, rgb.r, rgb.g, rgb.b);
+    }
   }
 
   return true;
