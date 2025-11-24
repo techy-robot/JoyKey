@@ -218,6 +218,7 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
 
             // OPTIMIZATION: Mark this layer as needing a save
             mark_layer_dirty(layer);
+            last_rgb_mode = 255;
             break;
         }
 
@@ -279,9 +280,9 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
 
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
-  {   7   ,  2,  8 ,    NO_LED },
-  {   1   ,  5,  3,     NO_LED },
-  { NO_LED,  6,  4,     NO_LED }
+  {   6   ,  1,  7 ,    NO_LED },
+  {   0   ,  4,  2,     NO_LED },
+  { NO_LED,  5,  3,     NO_LED }
 }, {
   // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
   { 1,  1 }, { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }, { 1,  0 }, { 4,  0 }
@@ -367,12 +368,12 @@ bool rgb_matrix_indicators_user(void) {
   // GLOBAL LAYER EFFECT
   // Only update mode/speed/hsv if the mode actually changed.
   // Otherwise, we reset the animation timer constantly, freezing the effect.
-  if (last_rgb_mode != rgb_matrix_get_mode()) {
+  if (last_rgb_mode != layer_ptr->lightingEffect) {
       rgb_matrix_mode_noeeprom(layer_ptr->lightingEffect);
       rgb_matrix_set_speed_noeeprom(layer_ptr->effectSpeed);
       rgb_matrix_sethsv_noeeprom(layer_ptr->color.h, layer_ptr->color.s, layer_ptr->color.v);
       
-      last_rgb_mode = rgb_matrix_get_mode();
+      last_rgb_mode = layer_ptr->lightingEffect;
   }
 
   // PER-KEY OVERRIDES
@@ -388,8 +389,8 @@ bool rgb_matrix_indicators_user(void) {
 
     // Safety check: Ensure we don't go out of bounds of your LED config
     // defined in g_led_config
-    uint8_t row = i / 4; // Hardcoding 4 (Cols) is often safer than MATRIX_COLS for visual layouts
-    uint8_t col = i % 4;
+    uint8_t row = i / MATRIX_COLS; // Hardcoding 4 (Cols) is often safer than MATRIX_COLS for visual layouts
+    uint8_t col = i % MATRIX_COLS;
     
     if (row >= 3) continue; // Safety break
 
