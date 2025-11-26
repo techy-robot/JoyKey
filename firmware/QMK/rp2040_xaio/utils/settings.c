@@ -1,15 +1,12 @@
-#include <string.h>
-#include "keyname_map.h"
-#include "eeprom.h"
-
+#include "settings.h"
 
 // Define a safe offset. Standard QMK usage rarely exceeds 1KB. 
 // 2KB offset is usually safe on large flash chips.
 #define CUSTOM_MAP_EEPROM_OFFSET 2048 
 
 // Track which layers have changed since the last save
-static bool layer_dirty[KEYNAME_MAP_MAX_LAYERS] = {false};
-static bool save_requested = false; // Trigger from VIA
+bool layer_dirty[KEYNAME_MAP_MAX_LAYERS] = {false};
+bool save_requested = false; // Trigger from VIA
 
 void custom_eeprom_save(void) {
   // Write the entire raw struct to EEPROM

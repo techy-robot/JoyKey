@@ -13,6 +13,22 @@ painter_font_handle_t default_font;
 
 extern row_col_t encoder_index_to_row_col[ENCODER_COUNT*2];
 
+#ifdef RGB_MATRIX_ENABLE
+
+led_config_t g_led_config = { {
+  // Key Matrix to LED Index. [1][0] had to be swapped for faulty, so there is one less LED
+  {   5   ,  0,  6 ,    NO_LED },
+  {   0   ,  3,  1,     NO_LED },
+  { NO_LED,  4,  2,     NO_LED }
+}, {
+  // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
+  { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }, { 1,  0 }, { 4,  0 }
+}, {
+  // LED Index to Flag (bitmask). See https://docs.qmk.fm/features/rgb_matrix#flags
+  255, 255, 255, 255, 255, 255, 255
+} };
+#endif
+
 void keyboard_post_init_kb(void) {
 
     generate_encoder_index_to_row_col(encoder_index_to_row_col);

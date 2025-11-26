@@ -1,8 +1,4 @@
 #include "gui_elements.h"
-#include <string.h>
-#include <stdio.h>
-#include "keyname_map.h"
-
 // --- Configuration ---
 
 // HSV Values

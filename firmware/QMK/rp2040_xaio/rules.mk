@@ -8,7 +8,13 @@ RGB_MATRIX_DRIVER = ws2812
 WS2812_DRIVER = vendor # This driver is RP2040 specific, use pwm for other
 
 ENCODER_ENABLE = yes
-SRC += utils/encoder_handler.c
+SRC += utils/encoder_handler.c \
+       utils/keyname_map.c \
+       utils/settings.c \
+       utils/via_handler.c \
+       utils/gui_elements.c \
+       utils/menu_display.c \
+       media/fonts/thintel15.qff.c
 
 # required for rp2040
 LTO_ENABLE = yes

@@ -1,4 +1,4 @@
-
+#pragma once
 #include "utils/encoder_handler.h"
 #include "print.h"
 
@@ -10,6 +10,10 @@
 #include "config.h"
 
 #include "media/fonts/thintel15.qff.h"
+
+#include "utils/settings.h"
+#include "dynamic_keymap.h"
+#include "utils/keyname_map.h"
 
 extern painter_device_t oled;
 extern painter_font_handle_t default_font;

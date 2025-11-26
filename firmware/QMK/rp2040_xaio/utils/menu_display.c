@@ -2,7 +2,7 @@
 #include "utils/gui_elements.h"
 
 
-void init() {
+/*void init() {
 
     //qp_flush(oled);
-};
+};*/

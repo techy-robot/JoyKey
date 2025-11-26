@@ -1,6 +1,8 @@
 #include "keyname_map.h"
 #include <string.h> // For strncpy and memset
 
+LayerData_t keyname_map[KEYNAME_MAP_MAX_LAYERS];
+
 void keyname_map_init(void) {
     // Zero out the entire data structure to ensure all names start as empty strings.
     memset(keyname_map, 0, sizeof(keyname_map));

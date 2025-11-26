@@ -1,5 +1,4 @@
-#ifndef KEYNAME_MAP_H
-#define KEYNAME_MAP_H
+#pragma once // Use pragma once for header guards
 
 #include "color.h"
 
@@ -41,7 +40,7 @@ typedef struct {
  * and a name/picture for each key. So at each index in array there is a class defining the
  * name, with an array of keys; each key will have a name, a picture, an orientation (top or front), and an LED color
  */
-static LayerData_t keyname_map[KEYNAME_MAP_MAX_LAYERS];
+extern LayerData_t keyname_map[KEYNAME_MAP_MAX_LAYERS];
 
 // --- Public API Functions ---
 
@@ -92,5 +91,3 @@ const KeyData_t* keyname_map_get_key_data(int layerIndex, int keyIndex);
  * @return 1 (true) if the key exists, 0 (false) otherwise.
  */
 int keyname_map_key_exists(int layerIndex, int keyIndex);
-
-#endif // KEYNAME_MAP_H

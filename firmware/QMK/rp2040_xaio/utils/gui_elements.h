@@ -1,4 +1,8 @@
+#pragma once
 #include <qp.h> // QMK quantum painter library
+#include <string.h>
+#include <stdio.h>
+#include "keyname_map.h"
 
 /**
  * @brief Initializes the GUI elements.
