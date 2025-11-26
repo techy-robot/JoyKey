@@ -8,20 +8,34 @@
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
         h2 { margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; font-size: 1.2em; }
         label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.85em; color: #555; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         
+        /* Color Picker Styling */
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 100%;
+            height: 40px;
+            cursor: pointer;
+            padding: 0;
+            background: none;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: 1px solid #ccc; border-radius: 4px; }
+
+        input[type="range"] { width: 100%; margin-top: 5px; }
+
         button { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-top: 15px; width: 100%; font-size: 1em; transition: background 0.2s;}
         button:hover { background: #0056b3; }
-        button.save { background: #28a745; }
-        button.save:hover { background: #218838; }
 
         .row { display: flex; gap: 10px; align-items: flex-end; }
         .col { flex: 1; }
-        .color-preview { width: 100%; height: 36px; border-radius: 4px; border: 1px solid #ccc; background-color: #000; margin-top: 5px; }
         
         .status { font-size: 0.9em; color: #666; margin-top: 10px; text-align: center; }
         .hidden { display: none; }
         .section-header { font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-top: 15px; margin-bottom: 5px; }
+        
+        .val-display { float: right; font-weight: normal; font-size: 0.9em; color: #888; }
     </style>
 </head>
 <body>
@@ -63,14 +77,15 @@
                 </div>
             </div>
 
-            <div class="section-header">Base Color (HSV)</div>
+            <div class="section-header">Base Color</div>
             <div class="row">
-                <div class="col"><label>Hue</label><input type="number" id="layerH" min="0" max="255" oninput="updateColorPreview('layer')"></div>
-                <div class="col"><label>Sat</label><input type="number" id="layerS" min="0" max="255" oninput="updateColorPreview('layer')"></div>
-                <div class="col"><label>Val</label><input type="number" id="layerV" min="0" max="255" oninput="updateColorPreview('layer')"></div>
-                <div class="col" style="flex: 0.5;">
-                    <label>Preview</label>
-                    <div id="layerColorPrev" class="color-preview"></div>
+                <div class="col" style="flex: 0.4;">
+                    <label>Color</label>
+                    <input type="color" id="layerColorInput" value="#ff0000" oninput="onColorPickerChange('layer')">
+                </div>
+                <div class="col">
+                    <label>Brightness (Val) <span id="layerValDisp" class="val-display">255</span></label>
+                    <input type="range" id="layerValSlider" min="0" max="255" value="255" oninput="onBrightnessChange('layer')">
                 </div>
             </div>
             
@@ -94,18 +109,23 @@
                 </div>
             </div>
 
-            <div class="section-header">Override Color (HSV)</div>
+            <div class="section-header">Override Color</div>
             <div class="row">
-                <div class="col"><label>Hue</label><input type="number" id="keyH" min="0" max="255" oninput="updateColorPreview('key')"></div>
-                <div class="col"><label>Sat</label><input type="number" id="keyS" min="0" max="255" oninput="updateColorPreview('key')"></div>
-                <div class="col"><label>Val</label><input type="number" id="keyV" min="0" max="255" oninput="updateColorPreview('key')"></div>
-                <div class="col" style="flex: 0.5;">
-                    <label>Preview</label>
-                    <div id="keyColorPrev" class="color-preview"></div>
+                <div class="col" style="flex: 0.4;">
+                    <label>Color</label>
+                    <input type="color" id="keyColorInput" value="#ff0000" oninput="onColorPickerChange('key')">
+                </div>
+                <div class="col">
+                    <label>Brightness (Val) <span id="keyValDisp" class="val-display">255</span></label>
+                    <input type="range" id="keyValSlider" min="0" max="255" value="255" oninput="onBrightnessChange('key')">
                 </div>
             </div>
 
             <button onclick="sendKeyInfo()">Update Key Settings</button>
+        </div>
+        
+        <div class="card">
+             <button class="save" onclick="saveToEEPROM()">Save Changes to Memory</button>
         </div>
     </div>
 
@@ -118,10 +138,15 @@
         const CMD_GET  = 0x08;
         const CMD_SAVE = 0x09;
         
-        const CHANNEL_ID = 0; // Byte 1
+        const CHANNEL_ID = 0;
+        const ID_BULK_LAYER = 1;
+        const ID_BULK_KEY   = 2;
 
-        const ID_BULK_LAYER = 1; // Byte 2
-        const ID_BULK_KEY   = 2; // Byte 2
+        // Current state objects to hold QMK HSV values
+        const state = {
+            layer: { h: 0, s: 0, v: 0 },
+            key: { h: 0, s: 0, v: 0 }
+        };
 
         // Populate Dropdowns
         const layerSelect = document.getElementById('layerSelect');
@@ -138,7 +163,6 @@
                 
                 device = devices[0];
                 await device.open();
-                
                 device.addEventListener('inputreport', handleInputReport);
 
                 document.getElementById('statusMsg').textContent = `Connected: ${device.productName}`;
@@ -154,13 +178,101 @@
             }
         });
 
-        // --- Helpers ---
+        // --- Color Math Helpers ---
+        
+        // Convert QMK HSV (0-255, 0-255, 0-255) to Hex for Color Picker
+        function qmkHsvToHex(h, s, v) {
+            // 1. QMK H(0-255) -> Deg(0-360)
+            const h_deg = (h / 255) * 360;
+            const s_norm = s / 255;
+            const v_norm = v / 255;
+
+            // HSV to RGB
+            const f = (n, k=(n+h_deg/60)%6) => v_norm - v_norm*s_norm*Math.max(Math.min(k, 4-k, 1), 0);
+            
+            const r = Math.round(f(5) * 255);
+            const g = Math.round(f(3) * 255);
+            const b = Math.round(f(1) * 255);
+
+            // RGB to Hex
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+
+        // Convert Hex to QMK HSV
+        function hexToQmkHsv(hex) {
+            let r = 0, g = 0, b = 0;
+            if (hex.length === 4) {
+                r = "0x" + hex[1] + hex[1];
+                g = "0x" + hex[2] + hex[2];
+                b = "0x" + hex[3] + hex[3];
+            } else if (hex.length === 7) {
+                r = "0x" + hex[1] + hex[2];
+                g = "0x" + hex[3] + hex[4];
+                b = "0x" + hex[5] + hex[6];
+            }
+            r /= 255; g /= 255; b /= 255;
+
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, v = max;
+            const d = max - min;
+            s = max === 0 ? 0 : d / max;
+
+            if (max === min) {
+                h = 0; 
+            } else {
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+
+            // Scale to QMK 0-255
+            return {
+                h: Math.round(h * 255),
+                s: Math.round(s * 255),
+                v: Math.round(v * 255)
+            };
+        }
+
+        // --- UI Logic ---
+        
+        // Triggered when User moves the Color Picker
+        function onColorPickerChange(type) {
+            const hex = document.getElementById(`${type}ColorInput`).value;
+            const qmkHSV = hexToQmkHsv(hex);
+            
+            // Note: The Color Picker inherently calculates a Value based on the color picked.
+            // If the user picked a bright red, V is 255. If they picked dark red, V is lower.
+            // We update our state:
+            state[type].h = qmkHSV.h;
+            state[type].s = qmkHSV.s;
+            state[type].v = qmkHSV.v;
+
+            // Sync the slider to the picker's implicit brightness
+            document.getElementById(`${type}ValSlider`).value = state[type].v;
+            document.getElementById(`${type}ValDisp`).textContent = state[type].v;
+        }
+
+        // Triggered when User moves the Brightness Slider
+        function onBrightnessChange(type) {
+            const newVal = parseInt(document.getElementById(`${type}ValSlider`).value);
+            state[type].v = newVal;
+            document.getElementById(`${type}ValDisp`).textContent = newVal;
+
+            // Update the Color Picker visual to match the new brightness
+            // We keep the old H and S, but apply the new V
+            const newHex = qmkHsvToHex(state[type].h, state[type].s, state[type].v);
+            document.getElementById(`${type}ColorInput`).value = newHex;
+        }
+
+        // Helpers for String bytes
         function stringFromBytes(data, start, maxLength) {
             let str = "";
             for (let i = 0; i < maxLength; i++) {
-                const charCode = data[start + i];
-                if (charCode === 0) break;
-                str += String.fromCharCode(charCode);
+                if (data[start + i] === 0) break;
+                str += String.fromCharCode(data[start + i]);
             }
             return str;
         }
@@ -173,51 +285,29 @@
             return bytes;
         }
 
-        // --- Color Preview Logic (HSV 0-255 to CSS HSL) ---
-        function updateColorPreview(type) {
-            const h = parseInt(document.getElementById(`${type}H`).value) || 0;
-            const s = parseInt(document.getElementById(`${type}S`).value) || 0;
-            const v = parseInt(document.getElementById(`${type}V`).value) || 0;
-
-            // QMK Hue is 0-255, CSS Hue is 0-360
-            const cssH = Math.round((h / 255) * 360);
-            // QMK Sat is 0-255, CSS Sat is 0-100%
-            const cssS = Math.round((s / 255) * 100);
-            // QMK Val is 0-255, CSS Lightness is approx related but not identical.
-            // Simplified conversion for preview:
-            const cssL = Math.round(((v / 255) - ( (s/255) * (v/255) / 2 )) * 100);
-
-            const div = document.getElementById(`${type}ColorPrev`);
-            div.style.backgroundColor = `hsl(${cssH}, ${cssS}%, ${cssL}%)`;
-        }
-
         // --- Fetch Functions ---
-        // --- FETCH LAYER (GET) ---
         async function fetchLayerInfo() {
+            if(!device) return;
             const layer = parseInt(layerSelect.value);
             const packet = new Uint8Array(32);
-            
             packet[0] = CMD_GET; 
             packet[1] = CHANNEL_ID; 
             packet[2] = ID_BULK_LAYER; 
-            packet[3] = layer; // Send request for this layer
-            
+            packet[3] = layer; 
             await device.sendReport(0, packet);
             setTimeout(fetchKeyInfo, 50); 
         }
 
-        // --- FETCH KEY (GET) ---
         async function fetchKeyInfo() {
+            if(!device) return;
             const layer = parseInt(layerSelect.value);
             const key = parseInt(keySelect.value);
             const packet = new Uint8Array(32);
-
             packet[0] = CMD_GET;
             packet[1] = CHANNEL_ID;
             packet[2] = ID_BULK_KEY;
             packet[3] = layer;
             packet[4] = key;
-
             await device.sendReport(0, packet);
         }
 
@@ -228,9 +318,6 @@
             const imgBytes = bytesFromString(document.getElementById('layerImage').value, 10);
             const eff = parseInt(document.getElementById('layerEffect').value) || 0;
             const spd = parseInt(document.getElementById('layerSpeed').value) || 0;
-            const h = parseInt(document.getElementById('layerH').value) || 0;
-            const s = parseInt(document.getElementById('layerS').value) || 0;
-            const v = parseInt(document.getElementById('layerV').value) || 0;
 
             const packet = new Uint8Array(32);
             packet[0] = CMD_SET;
@@ -238,16 +325,18 @@
             packet[2] = ID_BULK_LAYER;
             packet[3] = layer;
 
-            packet.set(nameBytes, 4);   // Offset 4
-            packet.set(imgBytes, 14);   // Offset 14
+            packet.set(nameBytes, 4);   
+            packet.set(imgBytes, 14);   
             packet[24] = eff;
             packet[25] = spd;
-            packet[26] = h;
-            packet[27] = s;
-            packet[28] = v;
+            
+            // Use stored state
+            packet[26] = state.layer.h;
+            packet[27] = state.layer.s;
+            packet[28] = state.layer.v;
 
             await device.sendReport(0, packet);
-            console.log("Layer sent");
+            console.log(`Layer Sent: H${state.layer.h} S${state.layer.s} V${state.layer.v}`);
         }
 
         async function sendKeyInfo() {
@@ -255,9 +344,6 @@
             const key = parseInt(keySelect.value);
             const nameBytes = bytesFromString(document.getElementById('keyName').value, 10);
             const imgBytes = bytesFromString(document.getElementById('keyImage').value, 10);
-            const h = parseInt(document.getElementById('keyH').value) || 0;
-            const s = parseInt(document.getElementById('keyS').value) || 0;
-            const v = parseInt(document.getElementById('keyV').value) || 0;
 
             const packet = new Uint8Array(32);
             packet[0] = CMD_SET;
@@ -266,17 +352,18 @@
             packet[3] = layer;
             packet[4] = key;
 
-            packet.set(nameBytes, 5);  // Offset 5
-            packet.set(imgBytes, 15);  // Offset 15
-            packet[25] = h;
-            packet[26] = s;
-            packet[27] = v;
+            packet.set(nameBytes, 5);
+            packet.set(imgBytes, 15);
+            
+            // Use stored state
+            packet[25] = state.key.h;
+            packet[26] = state.key.s;
+            packet[27] = state.key.v;
 
             await device.sendReport(0, packet);
-            console.log("Key sent");
+            console.log(`Key Sent: H${state.key.h} S${state.key.s} V${state.key.v}`);
         }
 
-        // --- SAVE ---
         async function saveToEEPROM() {
             const packet = new Uint8Array(32);
             packet[0] = CMD_SAVE;
@@ -288,8 +375,6 @@
         // --- Handle Incoming ---
         function handleInputReport(e) {
             const data = new Uint8Array(e.data.buffer);
-            
-            // Only parse if it's a GET response on Channel 0
             if (data[0] !== CMD_GET || data[1] !== CHANNEL_ID) return;
 
             if (data[2] === ID_BULK_LAYER) {
@@ -297,18 +382,32 @@
                 document.getElementById('layerImage').value = stringFromBytes(data, 14, 10);
                 document.getElementById('layerEffect').value = data[24];
                 document.getElementById('layerSpeed').value = data[25];
-                document.getElementById('layerH').value = data[26];
-                document.getElementById('layerS').value = data[27];
-                document.getElementById('layerV').value = data[28];
-                updateColorPreview('layer');
+                
+                // Update State
+                state.layer.h = data[26];
+                state.layer.s = data[27];
+                state.layer.v = data[28];
+
+                // Update UI
+                const hex = qmkHsvToHex(state.layer.h, state.layer.s, state.layer.v);
+                document.getElementById('layerColorInput').value = hex;
+                document.getElementById('layerValSlider').value = state.layer.v;
+                document.getElementById('layerValDisp').textContent = state.layer.v;
             } 
             else if (data[2] === ID_BULK_KEY) {
                 document.getElementById('keyName').value = stringFromBytes(data, 5, 10);
                 document.getElementById('keyImage').value = stringFromBytes(data, 15, 10);
-                document.getElementById('keyH').value = data[25];
-                document.getElementById('keyS').value = data[26];
-                document.getElementById('keyV').value = data[27];
-                updateColorPreview('key');
+                
+                // Update State
+                state.key.h = data[25];
+                state.key.s = data[26];
+                state.key.v = data[27];
+
+                // Update UI
+                const hex = qmkHsvToHex(state.key.h, state.key.s, state.key.v);
+                document.getElementById('keyColorInput').value = hex;
+                document.getElementById('keyValSlider').value = state.key.v;
+                document.getElementById('keyValDisp').textContent = state.key.v;
             }
         }
     </script>
