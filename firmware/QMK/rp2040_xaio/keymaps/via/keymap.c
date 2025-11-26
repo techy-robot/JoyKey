@@ -21,6 +21,7 @@
 #include "utils/gui_elements.c"
 #include "utils/settings.c"
 #include "dynamic_keymap.h"
+#include "via.h"
 
 enum my_keycodes {
   LAYR_CHNG_TGGL = SAFE_RANGE,
@@ -51,6 +52,8 @@ bool layer_change_toggle = false;
 // --- Optimization: Track state to prevent unnecessary refreshes ---
 bool update_oled;//external variable
 static uint8_t last_rgb_mode = 255;
+uint8_t via_selected_layer = 0; // Which layer is VIA currently editing?
+uint8_t via_selected_key = 0; // Which key is VIA currently editing?
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -154,121 +157,180 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// --- Tunneling Protocol ---
-// VIA uses ID 0x07 for "Custom Set Value". 
-// We will wrap our commands inside this ID.
-// Packet Structure: [0x07] [My_CMD] [Layer] [Key] [Data...]
+// --- Value IDs (Shared between Web Tool and VIA UI) ---
+enum custom_value_ids {
+    // 0x01 - 0x1F: Bulk Data (Web Tool)
+    id_bulk_layer_data      = 0x01,
+    id_bulk_key_data        = 0x02,
 
-enum my_custom_commands {
-    id_custom_get_layer   = 0x01,
-    id_custom_set_layer   = 0x02,
-    id_custom_get_key     = 0x03,
-    id_custom_set_key     = 0x04
+    // 0x20 - 0x2F: VIA UI Layer Controls
+    id_via_layer_select     = 0x20,
+    id_via_layer_effect     = 0x21,
+    id_via_layer_speed      = 0x22,
+    id_via_layer_hue        = 0x23,
+    id_via_layer_sat        = 0x24,
+    id_via_layer_val        = 0x25,
+
+    // 0x30 - 0x3F: VIA UI Key Controls
+    id_via_key_select       = 0x30,
+    id_via_key_hue          = 0x31,
+    id_via_key_sat          = 0x32,
+    id_via_key_val          = 0x33
 };
 
-void via_custom_value_command(uint8_t *data, uint8_t length) {
-    // Packet Structure: [0x07] [CMD] [Layer] [Data...]
-    // Offsets:          0      1     2       3...
+// =============================================================================
+// HELPER: PROCESS SET (0x07)
+// =============================================================================
+void process_via_set(uint8_t *data) {
+    // Format: [0x07] [Channel(0)] [ValueID] [Data...]
+    if (data[1] != 0) return; // Enforce Channel 0
+    
+    uint8_t value_id = data[2];
 
-    uint8_t my_cmd = data[1];
-
-    update_oled = true;
-
-    switch (my_cmd) {
-        // --- GET LAYER ---
-        case id_custom_get_layer: {
-            uint8_t layer = data[2];
+    switch (value_id) {
+        // --- BULK SET (Web Tool) ---
+        case id_bulk_layer_data: {
+            uint8_t layer = data[3];
             if (layer >= KEYNAME_MAP_MAX_LAYERS) break;
-
-            // [0]=0x07, [1]=CMD, [2]=Layer
-            // Payload starts at byte 3
-            strncpy((char*)&data[3], keyname_map[layer].name, 10);
-            strncpy((char*)&data[13], keyname_map[layer].imageName, 10);
-            data[23] = keyname_map[layer].lightingEffect;
-            data[24] = keyname_map[layer].effectSpeed;
-            data[25] = keyname_map[layer].color.h;
-            data[26] = keyname_map[layer].color.s;
-            data[27] = keyname_map[layer].color.v;
-
-            break;
-        }
-
-        // --- SET LAYER ---
-        case id_custom_set_layer: {
-            uint8_t layer = data[2];
-            if (layer >= KEYNAME_MAP_MAX_LAYERS) break;
-
-            char* namePtr = (char*)&data[3];
-            char* imgPtr  = (char*)&data[13];
-            uint8_t effect = data[23];
-            uint8_t speed  = data[24];
-            uint8_t hue    = data[25];
-            uint8_t sat    = data[26];
-            uint8_t val    = data[27];
-
-            strncpy(keyname_map[layer].name, namePtr, 10);
-            keyname_map[layer].name[9] = '\0'; 
-
-            strncpy(keyname_map[layer].imageName, imgPtr, 10);
-            keyname_map[layer].imageName[9] = '\0';
-
-            keyname_map[layer].lightingEffect = effect;
-            keyname_map[layer].effectSpeed = speed;
-            keyname_map[layer].color = (hsv_t){hue, sat, val};
-
-            // OPTIMIZATION: Mark this layer as needing a save
-            mark_layer_dirty(layer);
-            last_rgb_mode = 255;
-            break;
-        }
-
-        // --- GET KEY ---
-        case id_custom_get_key: {
-            uint8_t layer = data[2];
-            uint8_t key_idx = data[3];
-            if (layer >= KEYNAME_MAP_MAX_LAYERS || key_idx >= KEYNAME_MAP_MAX_KEYS_PER_LAYER) break;
-
-            // [0]=0x07, [1]=CMD, [2]=Layer, [3]=Key
-            // Payload starts at byte 4
-            KeyData_t* k = &keyname_map[layer].keys[key_idx];
-            strncpy((char*)&data[4], k->name, 10);
-            strncpy((char*)&data[14], k->imageName, 10);
-
-            data[24] = k->color.h;
-            data[25] = k->color.s;
-            data[26] = k->color.v;
-
-            break;
-        }
-
-        // --- SET KEY ---
-        case id_custom_set_key: {
-            uint8_t layer = data[2];
-            uint8_t key_idx = data[3];
-            if (layer >= KEYNAME_MAP_MAX_LAYERS || key_idx >= KEYNAME_MAP_MAX_KEYS_PER_LAYER) break;
 
             char* namePtr = (char*)&data[4];
             char* imgPtr  = (char*)&data[14];
 
-            // Extract HSV
-            uint8_t h = data[24];
-            uint8_t s = data[25];
-            uint8_t v = data[26];
+            strncpy(keyname_map[layer].name, namePtr, 10);
+            keyname_map[layer].name[9] = '\0';
+            strncpy(keyname_map[layer].imageName, imgPtr, 10);
+            keyname_map[layer].imageName[9] = '\0';
 
-            KeyData_t* k = &keyname_map[layer].keys[key_idx];
-            strncpy(k->name, namePtr, 10);
-            k->name[9] = '\0';
-            
-            strncpy(k->imageName, imgPtr, 10);
-            k->imageName[9] = '\0';
+            keyname_map[layer].lightingEffect = data[24];
+            keyname_map[layer].effectSpeed    = data[25];
+            keyname_map[layer].color.h        = data[26];
+            keyname_map[layer].color.s        = data[27];
+            keyname_map[layer].color.v        = data[28];
 
-            // Assign HSV
-            k->color = (hsv_t){h, s, v};
-            // OPTIMIZATION: Mark this layer as needing a save
             mark_layer_dirty(layer);
             break;
         }
+        case id_bulk_key_data: {
+            uint8_t layer = data[3];
+            uint8_t key_idx = data[4];
+            if (layer >= KEYNAME_MAP_MAX_LAYERS || key_idx >= KEYNAME_MAP_MAX_KEYS_PER_LAYER) break;
+
+            char* namePtr = (char*)&data[5];
+            char* imgPtr  = (char*)&data[15];
+            KeyData_t* k = &keyname_map[layer].keys[key_idx];
+
+            strncpy(k->name, namePtr, 10);
+            k->name[9] = '\0';
+            strncpy(k->imageName, imgPtr, 10);
+            k->imageName[9] = '\0';
+
+            k->color.h = data[25];
+            k->color.s = data[26];
+            k->color.v = data[27];
+
+            mark_layer_dirty(layer);
+            break;
+        }
+
+        // --- GRANULAR SET (VIA UI) ---
+        // Format: [0x07] [0] [ID] [Value]
+        case id_via_layer_select: if(data[3] < KEYNAME_MAP_MAX_LAYERS) via_selected_layer = data[3]; break;
+        case id_via_layer_effect: keyname_map[via_selected_layer].lightingEffect = data[3]; mark_layer_dirty(via_selected_layer); break;
+        case id_via_layer_speed:  keyname_map[via_selected_layer].effectSpeed = data[3]; mark_layer_dirty(via_selected_layer); break;
+        case id_via_layer_hue:    keyname_map[via_selected_layer].color.h = data[3]; mark_layer_dirty(via_selected_layer); break;
+        case id_via_layer_sat:    keyname_map[via_selected_layer].color.s = data[3]; mark_layer_dirty(via_selected_layer); break;
+        case id_via_layer_val:    keyname_map[via_selected_layer].color.v = data[3]; mark_layer_dirty(via_selected_layer); break;
+
+        case id_via_key_select:   if(data[3] < KEYNAME_MAP_MAX_KEYS_PER_LAYER) via_selected_key = data[3]; break;
+        case id_via_key_hue:      keyname_map[via_selected_layer].keys[via_selected_key].color.h = data[3]; mark_layer_dirty(via_selected_layer); break;
+        case id_via_key_sat:      keyname_map[via_selected_layer].keys[via_selected_key].color.s = data[3]; mark_layer_dirty(via_selected_layer); break;
+        case id_via_key_val:      keyname_map[via_selected_layer].keys[via_selected_key].color.v = data[3]; mark_layer_dirty(via_selected_layer); break;
     }
+}
+
+// =============================================================================
+// HELPER: PROCESS GET (0x08)
+// =============================================================================
+void process_via_get(uint8_t *data) {
+    // Format: [0x08] [Channel(0)] [ValueID] [Data...]
+    if (data[1] != 0) return;
+
+    uint8_t value_id = data[2];
+
+    switch (value_id) {
+        // --- BULK GET (Web Tool) ---
+        case id_bulk_layer_data: {
+            uint8_t layer = data[3]; // Request comes with layer index
+            if (layer >= KEYNAME_MAP_MAX_LAYERS) break;
+
+            strncpy((char*)&data[4], keyname_map[layer].name, 10);
+            strncpy((char*)&data[14], keyname_map[layer].imageName, 10);
+            data[24] = keyname_map[layer].lightingEffect;
+            data[25] = keyname_map[layer].effectSpeed;
+            data[26] = keyname_map[layer].color.h;
+            data[27] = keyname_map[layer].color.s;
+            data[28] = keyname_map[layer].color.v;
+            break;
+        }
+        case id_bulk_key_data: {
+            uint8_t layer = data[3];
+            uint8_t key_idx = data[4];
+            if (layer >= KEYNAME_MAP_MAX_LAYERS || key_idx >= KEYNAME_MAP_MAX_KEYS_PER_LAYER) break;
+
+            KeyData_t* k = &keyname_map[layer].keys[key_idx];
+            strncpy((char*)&data[5], k->name, 10);
+            strncpy((char*)&data[15], k->imageName, 10);
+            data[25] = k->color.h;
+            data[26] = k->color.s;
+            data[27] = k->color.v;
+            break;
+        }
+
+        // --- GRANULAR GET (VIA UI Polling) ---
+        // VIA might ask "What is the current value of ID 32?"
+        case id_via_layer_select: data[3] = via_selected_layer; break;
+        case id_via_layer_effect: data[3] = keyname_map[via_selected_layer].lightingEffect; break;
+        case id_via_layer_speed:  data[3] = keyname_map[via_selected_layer].effectSpeed; break;
+        case id_via_layer_hue:    data[3] = keyname_map[via_selected_layer].color.h; break;
+        case id_via_layer_sat:    data[3] = keyname_map[via_selected_layer].color.s; break;
+        case id_via_layer_val:    data[3] = keyname_map[via_selected_layer].color.v; break;
+
+        case id_via_key_select:   data[3] = via_selected_key; break;
+        case id_via_key_hue:      data[3] = keyname_map[via_selected_layer].keys[via_selected_key].color.h; break;
+        case id_via_key_sat:      data[3] = keyname_map[via_selected_layer].keys[via_selected_key].color.s; break;
+        case id_via_key_val:      data[3] = keyname_map[via_selected_layer].keys[via_selected_key].color.v; break;
+        
+    }
+}
+
+// =============================================================================
+// HELPER: PROCESS SAVE (0x09)
+// =============================================================================
+void process_via_save(uint8_t *data) {
+    if (data[1] != 0) return;
+    save_requested = true;
+}
+
+// =============================================================================
+// MAIN DISPATCHER
+// =============================================================================
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    // data[0] contains the Command ID (Set, Get, or Save)
+    
+    switch (data[0]) {
+        case id_custom_set_value: // 0x07
+            process_via_set(data);
+            break;
+            
+        case id_custom_get_value: // 0x08
+            process_via_get(data);
+            break;
+            
+        case id_custom_save:      // 0x09
+            process_via_save(data);
+            break;
+    }
+    // Note: No raw_hid_send() here. QMK core handles the return.
 }
 
 // TODO: Add custom VIA settings & effect per key per layer that can tell you what the key does

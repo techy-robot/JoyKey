@@ -8,9 +8,89 @@
       "rows": 3,
       "cols": 4
   },
-  
-  "menus": ["qmk_rgb_matrix" ],
-
+  "menus": [
+    {
+      "label": "Layer Lighting",
+      "content": [
+        {
+          "label": "Layer Lighting",
+          "content": [
+            {
+              "label": "Select Layer",
+              "type": "dropdown",
+              "options": ["L0","L1","L2","L3","L4","L5","L6","L7","L8","L9","L10","L11","L12","L13","L14","L15"],
+              "content": ["id_custom_set_value", 0, 32]
+            },
+            { 
+              "label": "Effect",
+              "type": "dropdown",
+              "options": ["VIA Default (0)", "Solid (1)", "Breathing (2)", "Rainbow (3)"],
+              "content": ["id_layer_effect", 0, 33]
+            },
+            {
+              "showIf": "{id_layer_effect} >= 2",
+              "label": "Speed",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_custom_set_value", 0, 34]
+            },
+            {
+              "label": "Hue",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_custom_set_value", 0, 35]
+            },
+            {
+              "label": "Sat", 
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_custom_set_value", 0, 36]
+            },
+            {
+              "label": "Val", 
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_custom_set_value", 0, 37]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Key Lighting",
+      "content": [
+        {
+          "label": "Key Overrides",
+          "content": [
+            {
+              "label": "Select Key",
+              "type": "dropdown",
+              "options": ["K0","K1","K2","K3","K4","K5","K6","K7","K8","K9","K10","K11"],
+              "content": ["id_custom_set_value", 0, 48]
+            },
+            {
+              "label": "Key Hue",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_custom_set_value", 0, 49]
+            },
+            {
+              "label": "Key Sat",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_custom_set_value", 0, 50]
+            },
+            {
+              "label": "Key Val",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_custom_set_value", 0, 51]
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "layouts": {
       "keymap": [
         [

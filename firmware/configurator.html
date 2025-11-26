@@ -113,13 +113,15 @@
         let device = null;
         const QMK_USAGE_PAGE = 0xFF60;
         
-        // Protocol Constants
-        const VIA_CMD_CUSTOM = 0x07;
-        const SUB_GET_LAYER = 0x01;
-        const SUB_SET_LAYER = 0x02;
-        const SUB_GET_KEY   = 0x03;
-        const SUB_SET_KEY   = 0x04;
-        const SUB_SAVE      = 0x05;
+        // --- CONSTANTS ---
+        const CMD_SET  = 0x07;
+        const CMD_GET  = 0x08;
+        const CMD_SAVE = 0x09;
+        
+        const CHANNEL_ID = 0x00; // Byte 1
+
+        const ID_BULK_LAYER = 0x01; // Byte 2
+        const ID_BULK_KEY   = 0x02; // Byte 2
 
         // Populate Dropdowns
         const layerSelect = document.getElementById('layerSelect');
@@ -190,27 +192,32 @@
         }
 
         // --- Fetch Functions ---
+        // --- FETCH LAYER (GET) ---
         async function fetchLayerInfo() {
-            if (!device) return;
             const layer = parseInt(layerSelect.value);
             const packet = new Uint8Array(32);
-            packet[0] = VIA_CMD_CUSTOM; 
-            packet[1] = SUB_GET_LAYER; 
-            packet[2] = layer;         
+            
+            packet[0] = CMD_GET; 
+            packet[1] = CHANNEL_ID; 
+            packet[2] = ID_BULK_LAYER; 
+            packet[3] = layer; // Send request for this layer
+            
             await device.sendReport(0, packet);
-            // Wait slightly before fetching key info to prevent HID collision
             setTimeout(fetchKeyInfo, 50); 
         }
 
+        // --- FETCH KEY (GET) ---
         async function fetchKeyInfo() {
-            if (!device) return;
             const layer = parseInt(layerSelect.value);
             const key = parseInt(keySelect.value);
             const packet = new Uint8Array(32);
-            packet[0] = VIA_CMD_CUSTOM;
-            packet[1] = SUB_GET_KEY;
-            packet[2] = layer;
-            packet[3] = key;
+
+            packet[0] = CMD_GET;
+            packet[1] = CHANNEL_ID;
+            packet[2] = ID_BULK_KEY;
+            packet[3] = layer;
+            packet[4] = key;
+
             await device.sendReport(0, packet);
         }
 
@@ -226,16 +233,18 @@
             const v = parseInt(document.getElementById('layerV').value) || 0;
 
             const packet = new Uint8Array(32);
-            packet[0] = VIA_CMD_CUSTOM;
-            packet[1] = SUB_SET_LAYER;
-            packet[2] = layer;
-            packet.set(nameBytes, 3);
-            packet.set(imgBytes, 13);
-            packet[23] = eff;
-            packet[24] = spd;
-            packet[25] = h;
-            packet[26] = s;
-            packet[27] = v;
+            packet[0] = CMD_SET;
+            packet[1] = CHANNEL_ID;
+            packet[2] = ID_BULK_LAYER;
+            packet[3] = layer;
+
+            packet.set(nameBytes, 4);   // Offset 4
+            packet.set(imgBytes, 14);   // Offset 14
+            packet[24] = eff;
+            packet[25] = spd;
+            packet[26] = h;
+            packet[27] = s;
+            packet[28] = v;
 
             await device.sendReport(0, packet);
             console.log("Layer sent");
@@ -251,48 +260,55 @@
             const v = parseInt(document.getElementById('keyV').value) || 0;
 
             const packet = new Uint8Array(32);
-            packet[0] = VIA_CMD_CUSTOM;
-            packet[1] = SUB_SET_KEY;
-            packet[2] = layer;
-            packet[3] = key;
-            packet.set(nameBytes, 4);
-            packet.set(imgBytes, 14);
-            packet[24] = h;
-            packet[25] = s;
-            packet[26] = v;
+            packet[0] = CMD_SET;
+            packet[1] = CHANNEL_ID;
+            packet[2] = ID_BULK_KEY;
+            packet[3] = layer;
+            packet[4] = key;
+
+            packet.set(nameBytes, 5);  // Offset 5
+            packet.set(imgBytes, 15);  // Offset 15
+            packet[25] = h;
+            packet[26] = s;
+            packet[27] = v;
 
             await device.sendReport(0, packet);
             console.log("Key sent");
         }
 
+        // --- SAVE ---
+        async function saveToEEPROM() {
+            const packet = new Uint8Array(32);
+            packet[0] = CMD_SAVE;
+            packet[1] = CHANNEL_ID;
+            await device.sendReport(0, packet);
+            alert("Save command sent!");
+        }
+
         // --- Handle Incoming ---
         function handleInputReport(e) {
             const data = new Uint8Array(e.data.buffer);
-            if (data[0] !== VIA_CMD_CUSTOM) return;
+            
+            // Only parse if it's a GET response on Channel 0
+            if (data[0] !== CMD_GET || data[1] !== CHANNEL_ID) return;
 
-            const subCmd = data[1];
-
-            if (subCmd === SUB_GET_LAYER) {
-                if (data[2] == layerSelect.value) {
-                    document.getElementById('layerName').value = stringFromBytes(data, 3, 10);
-                    document.getElementById('layerImage').value = stringFromBytes(data, 13, 10);
-                    document.getElementById('layerEffect').value = data[23];
-                    document.getElementById('layerSpeed').value = data[24];
-                    document.getElementById('layerH').value = data[25];
-                    document.getElementById('layerS').value = data[26];
-                    document.getElementById('layerV').value = data[27];
-                    updateColorPreview('layer');
-                }
+            if (data[2] === ID_BULK_LAYER) {
+                document.getElementById('layerName').value = stringFromBytes(data, 4, 10);
+                document.getElementById('layerImage').value = stringFromBytes(data, 14, 10);
+                document.getElementById('layerEffect').value = data[24];
+                document.getElementById('layerSpeed').value = data[25];
+                document.getElementById('layerH').value = data[26];
+                document.getElementById('layerS').value = data[27];
+                document.getElementById('layerV').value = data[28];
+                updateColorPreview('layer');
             } 
-            else if (subCmd === SUB_GET_KEY) {
-                if (data[2] == layerSelect.value && data[3] == keySelect.value) {
-                    document.getElementById('keyName').value = stringFromBytes(data, 4, 10);
-                    document.getElementById('keyImage').value = stringFromBytes(data, 14, 10);
-                    document.getElementById('keyH').value = data[24];
-                    document.getElementById('keyS').value = data[25];
-                    document.getElementById('keyV').value = data[26];
-                    updateColorPreview('key');
-                }
+            else if (data[2] === ID_BULK_KEY) {
+                document.getElementById('keyName').value = stringFromBytes(data, 5, 10);
+                document.getElementById('keyImage').value = stringFromBytes(data, 15, 10);
+                document.getElementById('keyH').value = data[25];
+                document.getElementById('keyS').value = data[26];
+                document.getElementById('keyV').value = data[27];
+                updateColorPreview('key');
             }
         }
     </script>
