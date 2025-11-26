@@ -19,12 +19,14 @@ enum custom_value_ids {
     id_via_layer_hue        = 35,
     id_via_layer_sat        = 36,
     id_via_layer_val        = 37,
+    id_via_layer_color      = 38,
 
     // 48 - 63: VIA UI Key Controls
     id_via_key_select       = 48,
     id_via_key_hue          = 49,
     id_via_key_sat          = 50,
-    id_via_key_val          = 51
+    id_via_key_val          = 51,
+    id_via_key_color        = 52
 };
 
 #include "via.h"
@@ -92,10 +94,24 @@ void process_via_set(uint8_t *data) {
         case id_via_layer_sat:    keyname_map[via_selected_layer].color.s = data[3]; mark_layer_dirty(via_selected_layer); break;
         case id_via_layer_val:    keyname_map[via_selected_layer].color.v = data[3]; mark_layer_dirty(via_selected_layer); break;
 
+        case id_via_layer_color:
+            //Built in VIA color picker sends two bytes
+            keyname_map[via_selected_layer].color.h = data[3];
+            keyname_map[via_selected_layer].color.s = data[4];
+            mark_layer_dirty(via_selected_layer);
+            break;
+
         case id_via_key_select:   if(data[3] < KEYNAME_MAP_MAX_KEYS_PER_LAYER) via_selected_key = data[3]; break;
         case id_via_key_hue:      keyname_map[via_selected_layer].keys[via_selected_key].color.h = data[3]; mark_layer_dirty(via_selected_layer); break;
         case id_via_key_sat:      keyname_map[via_selected_layer].keys[via_selected_key].color.s = data[3]; mark_layer_dirty(via_selected_layer); break;
         case id_via_key_val:      keyname_map[via_selected_layer].keys[via_selected_key].color.v = data[3]; mark_layer_dirty(via_selected_layer); break;
+        
+        case id_via_key_color:
+            //Built in VIA color picker sends two bytes
+            keyname_map[via_selected_layer].keys[via_selected_key].color.h = data[3];
+            keyname_map[via_selected_layer].keys[via_selected_key].color.s = data[4];
+            mark_layer_dirty(via_selected_layer);
+            break;
     }
 }
 
@@ -146,11 +162,22 @@ void process_via_get(uint8_t *data) {
         case id_via_layer_sat:    data[3] = keyname_map[via_selected_layer].color.s; break;
         case id_via_layer_val:    data[3] = keyname_map[via_selected_layer].color.v; break;
 
+        case id_via_layer_color:
+            //Built in VIA color picker receives two bytes
+            data[3] = keyname_map[via_selected_layer].color.h;
+            data[4] = keyname_map[via_selected_layer].color.s;
+            break;
+
         case id_via_key_select:   data[3] = via_selected_key; break;
         case id_via_key_hue:      data[3] = keyname_map[via_selected_layer].keys[via_selected_key].color.h; break;
         case id_via_key_sat:      data[3] = keyname_map[via_selected_layer].keys[via_selected_key].color.s; break;
         case id_via_key_val:      data[3] = keyname_map[via_selected_layer].keys[via_selected_key].color.v; break;
         
+        case id_via_key_color:
+            //Built in VIA color picker receives two bytes
+            data[3] = keyname_map[via_selected_layer].keys[via_selected_key].color.h;
+            data[4] = keyname_map[via_selected_layer].keys[via_selected_key].color.s;
+            break;
     }
 }
 
@@ -180,6 +207,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
         case id_custom_save:      // 0x09
             process_via_save(data);
             break;
+        
     }
     // Note: No raw_hid_send() here. QMK core handles the return.
 }

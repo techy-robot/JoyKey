@@ -19,7 +19,7 @@
               "label": "Select Layer",
               "type": "dropdown",
               "options": ["L0","L1","L2","L3","L4","L5","L6","L7","L8","L9","L10","L11","L12","L13","L14","L15"],
-              "content": ["id_custom_set_value", 0, 32]
+              "content": ["id_layer_select", 0, 32]
             },
             { 
               "label": "Effect",
@@ -32,25 +32,19 @@
               "label": "Speed",
               "type": "range",
               "options": [0, 255],
-              "content": ["id_custom_set_value", 0, 34]
+              "content": ["id_layer_effect_speed", 0, 34]
             },
             {
-              "label": "Hue",
-              "type": "range",
-              "options": [0, 255],
-              "content": ["id_custom_set_value", 0, 35]
+              "showIf": "{id_layer_select} == {id_layer_select}",
+              "label": "Color",
+              "type": "color",
+              "content": ["id_layer_color", 0, 38]
             },
             {
-              "label": "Sat", 
+              "label": "Brightness", 
               "type": "range",
               "options": [0, 255],
-              "content": ["id_custom_set_value", 0, 36]
-            },
-            {
-              "label": "Val", 
-              "type": "range",
-              "options": [0, 255],
-              "content": ["id_custom_set_value", 0, 37]
+              "content": ["id_layer_brightness", 0, 37]
             }
           ]
         }
@@ -66,31 +60,25 @@
               "label": "Select Layer",
               "type": "dropdown",
               "options": ["L0","L1","L2","L3","L4","L5","L6","L7","L8","L9","L10","L11","L12","L13","L14","L15"],
-              "content": ["id_custom_set_value", 0, 32]
+              "content": ["id_layer_select", 0, 32]
             },
             {
               "label": "Select Key",
               "type": "dropdown",
               "options": ["K0","K1","K2","K3","K4","K5","K6","K7","K8","K9","K10","K11"],
-              "content": ["id_custom_set_value", 0, 48]
+              "content": ["id_key_select", 0, 48]
             },
             {
-              "label": "Key Hue",
-              "type": "range",
-              "options": [0, 255],
-              "content": ["id_custom_set_value", 0, 49]
+              "showIf": "{id_key_select} == {id_key_select}",
+              "label": "Color",
+              "type": "color",
+              "content": ["id_key_color", 0, 52]
             },
             {
-              "label": "Key Sat",
+              "label": "Brightness",
               "type": "range",
               "options": [0, 255],
-              "content": ["id_custom_set_value", 0, 50]
-            },
-            {
-              "label": "Key Val",
-              "type": "range",
-              "options": [0, 255],
-              "content": ["id_custom_set_value", 0, 51]
+              "content": ["id_key_brightness", 0, 51]
             }
           ]
         }
