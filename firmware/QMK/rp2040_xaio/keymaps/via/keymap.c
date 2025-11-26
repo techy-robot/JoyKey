@@ -208,6 +208,7 @@ void process_via_set(uint8_t *data) {
             keyname_map[layer].color.v        = data[28];
 
             mark_layer_dirty(layer);
+            update_oled = true;
             break;
         }
         case id_bulk_key_data: {
@@ -229,6 +230,7 @@ void process_via_set(uint8_t *data) {
             k->color.v = data[27];
 
             mark_layer_dirty(layer);
+            update_oled = true;
             break;
         }
 
