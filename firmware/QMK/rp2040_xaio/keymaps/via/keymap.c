@@ -159,23 +159,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // --- Value IDs (Shared between Web Tool and VIA UI) ---
 enum custom_value_ids {
-    // 0x01 - 0x1F: Bulk Data (Web Tool)
-    id_bulk_layer_data      = 0x01,
-    id_bulk_key_data        = 0x02,
+    // 1 - 31: Bulk Data (Web Tool)
+    id_bulk_layer_data      = 1,
+    id_bulk_key_data        = 2,
 
-    // 0x20 - 0x2F: VIA UI Layer Controls
-    id_via_layer_select     = 0x20,
-    id_via_layer_effect     = 0x21,
-    id_via_layer_speed      = 0x22,
-    id_via_layer_hue        = 0x23,
-    id_via_layer_sat        = 0x24,
-    id_via_layer_val        = 0x25,
+    // 32 - 47: VIA UI Layer Controls
+    id_via_layer_select     = 32,
+    id_via_layer_effect     = 33,
+    id_via_layer_speed      = 34,
+    id_via_layer_hue        = 35,
+    id_via_layer_sat        = 36,
+    id_via_layer_val        = 37,
 
-    // 0x30 - 0x3F: VIA UI Key Controls
-    id_via_key_select       = 0x30,
-    id_via_key_hue          = 0x31,
-    id_via_key_sat          = 0x32,
-    id_via_key_val          = 0x33
+    // 48 - 63: VIA UI Key Controls
+    id_via_key_select       = 48,
+    id_via_key_hue          = 49,
+    id_via_key_sat          = 50,
+    id_via_key_val          = 51
 };
 
 // =============================================================================
@@ -432,11 +432,11 @@ bool rgb_matrix_indicators_user(void) {
   // Otherwise, we reset the animation timer constantly, freezing the effect.
   if (last_rgb_mode != layer_ptr->lightingEffect) {
       rgb_matrix_mode_noeeprom(layer_ptr->lightingEffect);
-      rgb_matrix_set_speed_noeeprom(layer_ptr->effectSpeed);
-      rgb_matrix_sethsv_noeeprom(layer_ptr->color.h, layer_ptr->color.s, layer_ptr->color.v);
-      
       last_rgb_mode = layer_ptr->lightingEffect;
   }
+
+  rgb_matrix_set_speed_noeeprom(layer_ptr->effectSpeed);
+  rgb_matrix_sethsv_noeeprom(layer_ptr->color.h, layer_ptr->color.s, layer_ptr->color.v);
 
   // PER-KEY OVERRIDES
   // This must run every frame to overlay on top of the active animation
@@ -451,7 +451,7 @@ bool rgb_matrix_indicators_user(void) {
 
     // Safety check: Ensure we don't go out of bounds of your LED config
     // defined in g_led_config
-    uint8_t row = i / MATRIX_COLS; // Hardcoding 4 (Cols) is often safer than MATRIX_COLS for visual layouts
+    uint8_t row = i / MATRIX_COLS;
     uint8_t col = i % MATRIX_COLS;
     
     if (row >= 3) continue; // Safety break
