@@ -4,6 +4,22 @@
 #include <stdio.h>
 #include "keyname_map.h"
 
+// Media to include
+#include "media/fonts/thintel15.qff.h"
+#include "media/github-mark-white.qgf.h"
+#include "media/github-mark.qgf.h"
+
+//Stores pointers for all currently loaded images
+extern painter_image_handle_t image_cache[10];
+
+void bulk_unload(void);
+
+int image_index_from_name(char image[KEYNAME_MAP_NAME_LENGTH]);
+
+painter_image_handle_t load_image(uint8_t image_id);
+
+void bulk_load(char names[10][KEYNAME_MAP_NAME_LENGTH]);
+
 /**
  * @brief Initializes the GUI elements.
  * 

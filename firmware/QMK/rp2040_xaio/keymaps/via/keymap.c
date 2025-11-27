@@ -188,7 +188,7 @@ void keyboard_post_init_user(void) {
         save_requested = true;
     }
 
-    gui_elements_init();//font_arial_12 option??
+    gui_init();//font_arial_12 option??
 
 }
 

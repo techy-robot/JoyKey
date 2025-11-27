@@ -1,18 +1,33 @@
 #include QMK_KEYBOARD_H
 
 #include "gui_elements.h"
+
 // --- Configuration ---
 
 // HSV Values
 #define HSV_WHITE 0, 0, 255
 #define HSV_BLACK 0, 0, 0
 
-
 // Global reference to the loaded font
 static painter_font_handle_t gui_font = NULL;
 
 // Global reference to the display device
 static painter_device_t display_device = NULL;
+
+//Stores pointers for all currently loaded images
+painter_image_handle_t image_cache[10];
+
+//This is for software control with textbox through the web panel
+char* all_image_names[2] = {
+    "qmk", 
+    "github"
+};
+
+//This is for more efficient hard coding the images you want
+enum all_image_name_ids {
+    image_qmk = 0,
+    image_github = 1
+};
 
 // --- Layout Structure ---
 typedef struct {
@@ -71,9 +86,42 @@ void gui_elements_init() {
     }
 }
 
+void bulk_unload() {
+    for (int i = 0; i < 10; i++) {
+        qp_close_image(image_cache[i]);
+    }
+}
+
+int image_index_from_name(char image[KEYNAME_MAP_NAME_LENGTH]) {
+    for (int i = 0; i < 10; i++) {
+        if (strcmp(image, all_image_names[i]) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+painter_image_handle_t load_image(uint8_t image_id) {
+
+    switch (image_id) {
+        case 0:
+            return qp_load_image_mem(gfx_github_mark_white);
+        case 1:
+            return qp_load_image_mem(gfx_github_mark_white);
+        default:
+            return qp_load_image_mem(gfx_github_mark_white);
+    }
+}
+
+void bulk_load(char names[10][KEYNAME_MAP_NAME_LENGTH]) {
+    for (int i = 0; i < 10; i++) {
+        image_cache[i] = load_image(image_index_from_name(names[i]));
+    }
+}
+
 /**
  * @brief Fits text into a box by truncating or wrapping.
- * * @param str The string to draw.
+ * @param str The string to draw.
  * @param x Top-left X of the box.
  * @param y Top-left Y of the box.
  * @param w Width of the box.
@@ -147,13 +195,17 @@ void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const 
     // White Outline, Black Interior
     qp_rect(display_device, x, y, x + w, y + h, HSV_WHITE, false);
 
-    //ignoring image display for now.
-
-    // We skip drawing text on small encoder/joystick buttons (w < 10)
-    if (name && gui_font && w > 10) { 
-        
-        // White Text on Black BG
-        draw_text_confined(name, x, y, w, h, HSV_WHITE, HSV_BLACK);
+    // Draw image if it exists, else draw the name
+    if (imageName) {
+        qp_drawimage(display_device, x, y, image_cache[0]);
+    }
+    else {
+        // We skip drawing text on small encoder/joystick buttons (w < 10)
+        if (name && gui_font && w > 10) { 
+            
+            // White Text on Black BG
+            draw_text_confined(name, x, y, w, h, HSV_WHITE, HSV_BLACK);
+        }
     }
 }
 
@@ -172,10 +224,19 @@ void draw_layer(int layerIndex, char* layerName) {
 
         // Get Physical State
         bool is_pressed = matrix_is_on(item.matrix_row, item.matrix_col);
-        const char* label = keyname_map_get_key_data(layerIndex, i)->name;
+
+        // Get pointers to data
+        const KeyData_t* keyData = keyname_map_get_key_data(layerIndex, i);
+        const char* label = keyData->name;
+        const char* imgName = keyData->imageName;
+
+        // Valid check: Point to NULL if the string is empty
+        if (imgName && imgName[0] == '\0') {
+            imgName = NULL;
+        }
 
         // Draw using standard X/Y coordinates
-        draw_key(is_pressed, item.x, item.y, item.w, item.h, label, NULL);
+        draw_key(is_pressed, item.x, item.y, item.w, item.h, label, imgName);
     }
 }
 

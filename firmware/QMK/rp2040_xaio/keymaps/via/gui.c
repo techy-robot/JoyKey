@@ -11,13 +11,26 @@ extern bool update_oled;
 bool update_oled = false;//external variable
 
 bool layer_change = false;
+static uint8_t last_layer = 255;
 
 void gui_init() {
 
     // Initialize the GUI elements
     gui_elements_init();
 
+    image_cache[0] = qp_load_image_mem(gfx_github_mark);
+
 };
+
+
+void image_handler(uint8_t layer) {
+
+    if (layer != last_layer) {
+        
+        last_layer = layer;
+    }
+}
+
 
 /**
  * This is the main menu system, which deals with updating the menu on the screen and all logic
@@ -28,6 +41,8 @@ void display_task() {
     //Note that clear prevents the display from sleeping
 
     uint8_t current_layer = get_highest_layer(layer_state);
+
+    image_handler(current_layer);
 
     if (layer_change) {
         //Swizzling to pull out all the layer names
