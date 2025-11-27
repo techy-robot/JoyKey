@@ -192,38 +192,6 @@ void keyboard_post_init_user(void) {
 
 }
 
-void LED_indicate_layer(uint8_t layer) {
-
-  // Variables to store the color components and the number of LEDs to light.
-  uint8_t target_hue, target_sat, target_val;
-  uint8_t leds_to_illuminate;
-
-  // Layers > 5 (rollover): Stacking effect resets, and color changes
-  // The stacking count rolls over from 1 to NUM_LAYER_LEDS based on the layer modulo NUM_LAYER_LEDS.
-  leds_to_illuminate = (layer % RGB_MATRIX_LED_COUNT) + 1;
-
-  // Calculate the hue based on the layer offset for color cycling.
-  uint8_t layer_offset_for_hue = layer / RGB_MATRIX_LED_COUNT;//rounds down naturally with truncate
-
-  // QMK's 0-255 range.
-  target_hue = (layer_offset_for_hue * 20) % 255; // 20-point increments, wrap at 255
-  target_sat = 255; // Full saturation for vibrant colors
-  target_val = 255; // Full brightness
-  
-  // Iterate through all the layer indicator LEDs.
-  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-      // If the current LED index is less than the number of LEDs we want to light for stacking
-      if (i < leds_to_illuminate) {
-              // If using HSV, set the color with the calculated HSV values.
-              rgb_t rgb = hsv_to_rgb((hsv_t){target_hue, target_sat, target_val});
-              rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-      } else {
-          // If the current LED index is beyond the number of LEDs to light, turn it off.
-          rgb_matrix_set_color(i, 0, 0, 0);
-      }
-  }
-}
-
 bool rgb_matrix_indicators_user(void) {
 
   uint8_t current_layer = get_highest_layer(layer_state);
