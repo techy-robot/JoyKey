@@ -21,8 +21,8 @@ led_config_t g_led_config = { {
   {   0   ,  3,  1,     NO_LED },
   { NO_LED,  4,  2,     NO_LED }
 }, {
-  // LED Index to Physical Position. For accurate animations I need to scale it to { 0..224, 0..64 }
-  { 2,  1 }, { 3,  1 }, { 4,  2 }, { 3,  2 }, { 2,  2 }, { 1,  0 }, { 4,  0 }
+  // LED Index to Physical Position. For accurate animations it is scaled  to { 0..224, 0..64 }
+  { 112,  32 }, { 168,  32 }, { 224,  64 }, { 168,  64 }, { 112,  64 }, { 56,  0 }, { 224,  0 }
 }, {
   // LED Index to Flag (bitmask). See https://docs.qmk.fm/features/rgb_matrix#flags
   255, 255, 255, 255, 255, 255, 255
