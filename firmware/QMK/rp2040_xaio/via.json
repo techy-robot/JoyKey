@@ -65,7 +65,7 @@
             {
               "label": "Select Key",
               "type": "dropdown",
-              "options": ["K0","K1","K2","K3","K4","K5","K6","K7","K8","K9","K10","K11"],
+              "options": ["Left Trigger","Upper Middle Key","Right Trigger","Wheel Up","Upper Left Key","Lower Middle Key","Upper Right Key","Wheel Down","Joystick Button","Lower Left Key","Lower Right Key", "Wheel Button"],
               "content": ["id_key_select", 0, 48]
             },
             {

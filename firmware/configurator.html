@@ -153,7 +153,8 @@
         for(let i=0; i<16; i++) layerSelect.add(new Option(`Layer ${i}`, i));
 
         const keySelect = document.getElementById('keySelect');
-        for(let i=0; i<12; i++) keySelect.add(new Option(`Key ${i}`, i));
+        const values = ["Left Trigger","Upper Middle Key","Right Trigger","Wheel Up","Upper Left Key","Lower Middle Key","Upper Right Key","Wheel Down","Joystick Button","Lower Left Key","Lower Right Key", "Wheel Button"];
+        for(let i=0; i<12; i++) keySelect.add(new Option(values[i], i));
 
         // --- Connection ---
         document.getElementById('connectBtn').addEventListener('click', async () => {
