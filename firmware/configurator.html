@@ -68,8 +68,8 @@
             <div class="section-header">Lighting Effect</div>
             <div class="row">
                 <div class="col">
-                    <label>Effect ID (0-255)</label>
-                    <input type="number" id="layerEffect" min="0" max="255" value="0">
+                    <label>Effect</label>
+                    <select id="layerEffect"></select>
                 </div>
                 <div class="col">
                     <label>Speed (0-255)</label>
@@ -153,8 +153,58 @@
         for(let i=0; i<16; i++) layerSelect.add(new Option(`Layer ${i}`, i));
 
         const keySelect = document.getElementById('keySelect');
-        const values = ["Left Trigger","Upper Middle Key","Right Trigger","Wheel Up","Upper Left Key","Lower Middle Key","Upper Right Key","Wheel Down","Joystick Button","Lower Left Key","Lower Right Key", "Wheel Button"];
-        for(let i=0; i<12; i++) keySelect.add(new Option(values[i], i));
+        const keyNames = ["Left Trigger","Upper Middle Key","Right Trigger","Wheel Up","Upper Left Key","Lower Middle Key","Upper Right Key","Wheel Down","Joystick Button","Lower Left Key","Lower Right Key", "Wheel Button"];
+        for(let i=0; i<12; i++) keySelect.add(new Option(keyNames[i], i));
+
+        const layerEffect = document.getElementById('layerEffect');
+        const effectList = [
+            "All Off",
+            "Solid Color",
+            "Alphas Mods",
+            "Gradient Up/Down",
+            "Gradient Left/Right",
+            "Breathing",
+            "Band Sat.",
+            "Band Val.",
+            "Pinwheel Sat.",
+            "Pinwheel Val.",
+            "Spiral Sat.",
+            "Spiral Val.",
+            "Cycle All",
+            "Cycle Left/Right",
+            "Cycle Up/Down",
+            "Rainbow Moving Chevron",
+            "Cycle Out/In",
+            "Cycle Out/In Dual",
+            "Cycle Pinwheel",
+            "Cycle Spiral",
+            "Dual Beacon",
+            "Rainbow Beacon",
+            "Rainbow Pinwheels",
+            "Raindrops",
+            "Jellybean Raindrops",
+            "Hue Breathing",
+            "Hue Pendulum",
+            "Hue Wave",
+            "Pixel Rain",
+            "Pixel Flow",
+            "Pixel Fractal",
+            "Typing Heatmap",
+            "Digital Rain",
+            "Solid Reactive Simple",
+            "Solid Reactive",
+            "Solid Reactive Wide",
+            "Solid Reactive Multi Wide",
+            "Solid Reactive Cross",
+            "Solid Reactive Multi Cross",
+            "Solid Reactive Nexus",
+            "Solid Reactive Multi Nexus",
+            "Splash",
+            "Multi Splash",
+            "Solid Splash",
+            "Solid Multi Splash"
+        ];
+        for(let i=0; i<effectList.length; i++) layerEffect.add(new Option(effectList[i], i));
 
         // --- Connection ---
         document.getElementById('connectBtn').addEventListener('click', async () => {
