@@ -16,7 +16,8 @@ SRC += utils/encoder_handler.c \
        utils/gui_elements.c \
        media/fonts/thintel15.qff.c \
        media/github-mark-white.qgf.c \
-       media/github-mark.qgf.c
+       media/github-mark.qgf.c \
+       media/ignore.qgf.c
 
 # required for rp2040
 LTO_ENABLE = yes
@@ -36,7 +37,7 @@ QUANTUM_PAINTER_ENABLE = yes
 # For I2C, very much same as ssd1306
 QUANTUM_PAINTER_DRIVERS += sh1106_i2c
 
-QUANTUM_PAINTER_NUM_IMAGES = 10
+QUANTUM_PAINTER_NUM_IMAGES = 12
 
 # Bootloader selection
 BOOTLOADER = rp2040

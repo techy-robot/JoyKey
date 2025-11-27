@@ -15,28 +15,30 @@ static painter_font_handle_t gui_font = NULL;
 static painter_device_t display_device = NULL;
 
 //Stores pointers for all currently loaded images
-painter_image_handle_t image_cache[10];
+painter_image_handle_t image_cache[KEYNAME_MAP_MAX_KEYS_PER_LAYER];
+
+#define ALL_IMAGES 2
 
 //This is for software control with textbox through the web panel
-char* all_image_names[2] = {
+char* all_image_names[ALL_IMAGES] = {
     "qmk", 
     "github"
 };
 
-//This is for more efficient hard coding the images you want
-enum all_image_name_ids {
-    image_qmk = 0,
-    image_github = 1
-};
+// Stores image IDs for all currently loaded images
+// This basically says "Oh, what names are currently loaded right now?"
+// The index is the same as the image_cache index, so you can find the image_cache index by looking at the image_id_to_cache_id
+static uint8_t image_id_to_cache_id[KEYNAME_MAP_MAX_KEYS_PER_LAYER];
+static uint8_t current_cache_id = 0;// current incrementing cache id, increased by image, loading reset when dumped
 
 // --- Layout Structure ---
 typedef struct {
     uint8_t matrix_row;
     uint8_t matrix_col;
-    int x; // Top-left X
-    int y; // Top-left Y
-    int w;
-    int h;
+    uint8_t x; // Top-left X
+    uint8_t y; // Top-left Y
+    uint8_t w;
+    uint8_t h;
 } screen_key_pos_t;
 
 // --- Layout Definition ---
@@ -69,7 +71,7 @@ const screen_key_pos_t PROGMEM SCREEN_LAYOUT[] = {
  * Requires a loaded font.
  */
 
-static int get_centered_start(int container_pos, int container_size, int text_size) {
+static uint8_t get_centered_start(uint8_t container_pos, uint8_t container_size, uint8_t text_size) {
     return container_pos + (container_size - text_size) / 2;
 }
 
@@ -87,36 +89,62 @@ void gui_elements_init() {
 }
 
 void bulk_unload() {
-    for (int i = 0; i < 10; i++) {
+    for (uint8_t i = 0; i < 10; i++) {
         qp_close_image(image_cache[i]);
     }
+    current_cache_id = 0;
 }
 
-int image_index_from_name(char image[KEYNAME_MAP_NAME_LENGTH]) {
-    for (int i = 0; i < 10; i++) {
-        if (strcmp(image, all_image_names[i]) == 0) {
+uint8_t image_index_from_name(const char image[KEYNAME_MAP_NAME_LENGTH]) {
+    if (!image) return 255; // Safety check for null pointer
+
+    for (uint8_t i = 0; i < ALL_IMAGES; i++) {
+        // use strncmp to only compare up to the max length of your key names
+        // This protects against strings that are missing a null terminator
+        if (strncmp(image, all_image_names[i], KEYNAME_MAP_NAME_LENGTH) == 0) {
             return i;
         }
     }
-    return -1;
+    return 255;
 }
 
 painter_image_handle_t load_image(uint8_t image_id) {
+    // Map the current cache slot to this image ID
+    image_id_to_cache_id[current_cache_id] = image_id;
+
+    painter_image_handle_t handle = NULL;
 
     switch (image_id) {
         case 0:
-            return qp_load_image_mem(gfx_github_mark_white);
+            handle = qp_load_image_mem(gfx_github_mark_white);
+            break;
         case 1:
-            return qp_load_image_mem(gfx_github_mark_white);
+            handle = qp_load_image_mem(gfx_github_mark);
+            break;
         default:
-            return qp_load_image_mem(gfx_github_mark_white);
+            // Fallback: mark this slot as invalid (255)
+            image_id_to_cache_id[current_cache_id] = 255;
+            handle = qp_load_image_mem(gfx_ignore);
+            break;
     }
+
+    current_cache_id++;
+    return handle;
 }
 
 void bulk_load(char names[10][KEYNAME_MAP_NAME_LENGTH]) {
-    for (int i = 0; i < 10; i++) {
+    for (uint8_t i = 0; i < 10; i++) {
         image_cache[i] = load_image(image_index_from_name(names[i]));
     }
+}
+
+uint8_t get_image_cache_id(uint8_t image_id) {
+    for (uint8_t i = 0; i < current_cache_id; i++) {
+        if (image_id == image_id_to_cache_id[i]) {
+            return i;
+        }
+    }
+    return 255;
 }
 
 /**
@@ -129,7 +157,7 @@ void bulk_load(char names[10][KEYNAME_MAP_NAME_LENGTH]) {
  * @param fg_hsv Hue/Sat/Val for foreground text.
  * @param bg_hsv Hue/Sat/Val for background (antialiasing).
  */
-void draw_text_confined(const char* str, int x, int y, int w, int h, 
+void draw_text_confined(const char* str, uint8_t x, uint8_t y, uint8_t w, uint8_t h, 
                         uint8_t h_fg, uint8_t s_fg, uint8_t v_fg,
                         uint8_t h_bg, uint8_t s_bg, uint8_t v_bg) {
     
@@ -140,9 +168,9 @@ void draw_text_confined(const char* str, int x, int y, int w, int h,
     strncpy(buffer, str, 15);
     buffer[15] = '\0'; // Ensure null term
 
-    int line_height = gui_font->line_height;
-    int padding = 2; // Pixel padding on sides
-    int max_w = w - (padding * 2);
+    uint8_t line_height = gui_font->line_height;
+    uint8_t padding = 2; // Pixel padding on sides
+    uint8_t max_w = w - (padding * 2);
 
     // --- STRATEGY 1: Check for Line Wrap (Space split) ---
     // Only if the box is tall enough for 2 lines
@@ -164,14 +192,14 @@ void draw_text_confined(const char* str, int x, int y, int w, int h,
     // --- STRATEGY 2: Single Line Truncation ---
     // If we are here, it's one line (or the split line from above).
     // Loop until it fits the width.
-    int len = strlen(buffer);
+    uint8_t len = strlen(buffer);
     while (len > 0) {
-        int text_w = qp_textwidth(gui_font, buffer);
+        uint8_t text_w = qp_textwidth(gui_font, buffer);
         
         if (text_w <= max_w) {
             // It fits! Draw it centered.
-            int text_x = get_centered_start(x, w, text_w);
-            int text_y = get_centered_start(y, h, line_height);
+            uint8_t text_x = get_centered_start(x, w, text_w);
+            uint8_t text_y = get_centered_start(y, h, line_height);
             qp_drawtext_recolor(display_device, text_x, text_y, gui_font, buffer, h_fg, s_fg, v_fg, h_bg, s_bg, v_bg);
             return;
         }
@@ -182,7 +210,7 @@ void draw_text_confined(const char* str, int x, int y, int w, int h,
     }
 }
 
-void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const char* imageName) {
+void draw_key(bool pressed, uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char* name, uint8_t image_cache_id) {
     if (!display_device) return;
 
     //If pressed move the key down and to the side. Yes, it will join with another key, but its more animated
@@ -196,8 +224,8 @@ void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const 
     qp_rect(display_device, x, y, x + w, y + h, HSV_WHITE, false);
 
     // Draw image if it exists, else draw the name
-    if (imageName) {
-        qp_drawimage(display_device, x, y, image_cache[0]);
+    if (image_cache_id < 255) {
+        qp_drawimage(display_device, x, y, image_cache[image_cache_id]);
     }
     else {
         // We skip drawing text on small encoder/joystick buttons (w < 10)
@@ -209,7 +237,7 @@ void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const 
     }
 }
 
-void draw_layer(int layerIndex, char* layerName) {
+void draw_layer(uint8_t layerIndex, char* layerName) {
     if (!display_device) return;
 
     // Clear
@@ -219,7 +247,7 @@ void draw_layer(int layerIndex, char* layerName) {
     draw_layer_name(layerName);
 
     // Iterate Layout
-    for (int i = 0; i < SCREEN_LAYOUT_SIZE; i++) {
+    for (uint8_t i = 0; i < SCREEN_LAYOUT_SIZE; i++) {
         screen_key_pos_t item = SCREEN_LAYOUT[i];
 
         // Get Physical State
@@ -228,34 +256,37 @@ void draw_layer(int layerIndex, char* layerName) {
         // Get pointers to data
         const KeyData_t* keyData = keyname_map_get_key_data(layerIndex, i);
         const char* label = keyData->name;
-        const char* imgName = keyData->imageName;
 
-        // Valid check: Point to NULL if the string is empty
-        if (imgName && imgName[0] == '\0') {
-            imgName = NULL;
+        // Standardize variable names and remove debugging statements
+        uint8_t image_cache_id = 255;
+        const char *imageName = keyData->imageName;
+
+        // Validate image name and get image cache ID
+        if (imageName && imageName[0]) {
+            image_cache_id = get_image_cache_id(image_index_from_name(imageName));
         }
 
         // Draw using standard X/Y coordinates
-        draw_key(is_pressed, item.x, item.y, item.w, item.h, label, imgName);
+        draw_key(is_pressed, item.x, item.y, item.w, item.h, label, image_cache_id);
     }
 }
 
 void draw_layer_name(const char* name) {
     if (!display_device || !gui_font) return;
 
-    int text_w = qp_textwidth(gui_font, name);
+    uint8_t text_w = qp_textwidth(gui_font, name);
     // Center strictly based on screen width, 2px padding from top
-    int text_x = (QP_WIDTH - text_w) / 2; 
+    uint8_t text_x = (QP_WIDTH - text_w) / 2; 
     
     //draw white text
     qp_drawtext_recolor(display_device, text_x, 2, gui_font, name, HSV_WHITE, HSV_BLACK);
 }
 
-void draw_menu_item(const char* text, int x, int y, bool highlighted, bool selected) {
+void draw_menu_item(const char* text, uint8_t x, uint8_t y, bool highlighted, bool selected) {
     if (!display_device) return;
 
-    int item_height = 12; 
-    int item_width = 100; 
+    uint8_t item_height = 12; 
+    uint8_t item_width = 100; 
 
     // 1. Draw Background
     if (highlighted) {
@@ -288,17 +319,17 @@ void draw_menu_item(const char* text, int x, int y, bool highlighted, bool selec
     }
 }
 
-void draw_menu(const char* items[], int size, int selected) {
+void draw_menu(const char* items[], uint8_t size, uint8_t selected) {
     if (!display_device) return;
 
     // --- Menu Configuration ---
-    const int MAX_VISIBLE_ITEMS = 4;
-    const int ITEM_HEIGHT = 14;
-    const int MENU_START_X = 10;
-    const int MENU_START_Y = 10;
+    const uint8_t MAX_VISIBLE_ITEMS = 4;
+    const uint8_t ITEM_HEIGHT = 14;
+    const uint8_t MENU_START_X = 10;
+    const uint8_t MENU_START_Y = 10;
 
     // --- Scrolling Logic ---
-    int start_index = 0;
+    uint8_t start_index = 0;
     if (selected >= MAX_VISIBLE_ITEMS) {
         start_index = selected - MAX_VISIBLE_ITEMS + 1;
     }
@@ -307,16 +338,16 @@ void draw_menu(const char* items[], int size, int selected) {
         start_index = size - MAX_VISIBLE_ITEMS;
     }
 
-    int end_index = start_index + MAX_VISIBLE_ITEMS;
+    uint8_t end_index = start_index + MAX_VISIBLE_ITEMS;
     if (end_index > size) end_index = size;
 
     // Clear menu area (optional, depends on update rate)
     // qp_clear(display_device);
 
     // --- Render Loop ---
-    for (int i = start_index; i < end_index; ++i) {
-        int display_row = i - start_index;
-        int current_y = MENU_START_Y + (display_row * ITEM_HEIGHT);
+    for (uint8_t i = start_index; i < end_index; ++i) {
+        uint8_t display_row = i - start_index;
+        uint8_t current_y = MENU_START_Y + (display_row * ITEM_HEIGHT);
         
         bool is_highlighted = (i == selected);
         bool is_selected = false; // Can be passed in if tracking "Active" vs "Hovered"

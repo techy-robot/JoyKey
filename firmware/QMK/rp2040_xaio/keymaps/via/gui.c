@@ -18,16 +18,28 @@ void gui_init() {
     // Initialize the GUI elements
     gui_elements_init();
 
-    image_cache[0] = qp_load_image_mem(gfx_github_mark);
-
 };
-
 
 void image_handler(uint8_t layer) {
 
+    //if layer change unload and load correct images
     if (layer != last_layer) {
-        
+        bulk_unload();
+
+        for (uint8_t i = 0; i < KEYNAME_MAP_MAX_KEYS_PER_LAYER; i++) {
+            image_cache[i] = load_image(image_index_from_name(keyname_map[layer].keys[i].imageName));
+        }
+
         last_layer = layer;
+    }
+
+    //refresh loaded icons if the settings have changed for the current layer
+    if (layer_dirty[layer] == true) {
+        bulk_unload();
+
+        for (uint8_t i = 0; i < KEYNAME_MAP_MAX_KEYS_PER_LAYER; i++) {
+            image_cache[i] = load_image(image_index_from_name(keyname_map[layer].keys[i].imageName));
+        }
     }
 }
 

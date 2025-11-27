@@ -8,13 +8,23 @@
 #include "media/fonts/thintel15.qff.h"
 #include "media/github-mark-white.qgf.h"
 #include "media/github-mark.qgf.h"
+#include "media/ignore.qgf.h"
 
 //Stores pointers for all currently loaded images
-extern painter_image_handle_t image_cache[10];
+extern painter_image_handle_t image_cache[KEYNAME_MAP_MAX_KEYS_PER_LAYER];
+
+extern char* all_image_names[2];
+
+//This is for more efficient hard coding the images you want
+enum all_image_name_ids {
+    image_qmk = 0,
+    image_github = 1,
+    image_ignore = 255
+};
 
 void bulk_unload(void);
 
-int image_index_from_name(char image[KEYNAME_MAP_NAME_LENGTH]);
+uint8_t image_index_from_name(const char image[KEYNAME_MAP_NAME_LENGTH]);
 
 painter_image_handle_t load_image(uint8_t image_id);
 
@@ -40,9 +50,9 @@ void gui_elements_init(void);
  * @param w The width of the key.
  * @param h The height of the key.
  * @param name The name of the key (e.g., "Enter").
- * @param imageName The name of the key's image asset.
+ * @param image_cache_id The ID of the image to use for the key.
  */
-void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const char* imageName);
+void draw_key(bool pressed, uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char* name, uint8_t image_cache_id);
 
 /**
  * @brief Draws a full key layer on the screen.
@@ -52,7 +62,7 @@ void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const 
  * @param layerIndex The index of the layer to draw.
  * @param layerName The name of the layer (e.g., "Layer 1").
  */
-void draw_layer(int layerIndex, char* layerName);
+void draw_layer(uint8_t layerIndex, char* layerName);
 /** 
  * @brief Draws the name of a layer on the screen.
  * 
@@ -75,7 +85,7 @@ void draw_layer_name(const char* name);
  * @param highlighted Whether the menu item is currently highlighted (invert background color of the text box)
  * @param selected Whether the menu item is currently selected (renders pressed down similar to a key)
  */
-void draw_menu_item(const char* text, int x, int y, bool highlighted, bool selected);
+void draw_menu_item(const char* text, uint8_t x, uint8_t y, bool highlighted, bool selected);
 
 /**
  * @brief Draws the menu on the screen.
@@ -88,5 +98,5 @@ void draw_menu_item(const char* text, int x, int y, bool highlighted, bool selec
  * @param size The number of menu items in the array.
  * @param selected The index of the currently selected menu item.
  */
-void draw_menu(const char* items[], int size, int selected);
+void draw_menu(const char* items[], uint8_t size, uint8_t selected);
 
