@@ -137,28 +137,23 @@ void draw_text_confined(const char* str, int x, int y, int w, int h,
 void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const char* imageName) {
     if (!display_device) return;
 
-    // Draw The Box
+    //If pressed move the key down and to the side. Yes, it will join with another key, but its more animated
     if (pressed) {
-        // PRESSED: Filled White Box
-        qp_rect(display_device, x, y, x + w, y + h, HSV_WHITE, true);
-    } else {
-        // IDLE: White Outline, Black Interior
-        qp_rect(display_device, x, y, x + w, y + h, HSV_WHITE, false);
+        x = x + 2;
+        y = y + 2;
     }
+    // Draw The Box
+
+    // White Outline, Black Interior
+    qp_rect(display_device, x, y, x + w, y + h, HSV_WHITE, false);
 
     //ignoring image display for now.
 
-    // Draw Text (Recolored based on state)
     // We skip drawing text on small encoder/joystick buttons (w < 10)
     if (name && gui_font && w > 10) { 
         
-        if (pressed) {
-            // Black Text on White BG
-            draw_text_confined(name, x, y, w, h, HSV_BLACK, HSV_WHITE);
-        } else {
-            // White Text on Black BG
-            draw_text_confined(name, x, y, w, h, HSV_WHITE, HSV_BLACK);
-        }
+        // White Text on Black BG
+        draw_text_confined(name, x, y, w, h, HSV_WHITE, HSV_BLACK);
     }
 }
 
