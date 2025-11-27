@@ -10,10 +10,8 @@
  * This function is responsible for capturing the quantum painer display object to be used by the other functions,
  * and clearing the screen on init.
  * 
- * @param oled The quantum painter display object.
- * @param font The quantum painter font object.
  */
-void gui_elements_init(painter_device_t oled, painter_font_handle_t font);
+void gui_elements_init(void);
 
 /**
  * @brief Draws a key on the screen.
@@ -36,8 +34,9 @@ void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const 
  * This function is responsible for drawing a single layer on the screen, rendering all keys in that layer.
  *
  * @param layerIndex The index of the layer to draw.
+ * @param layerName The name of the layer (e.g., "Layer 1").
  */
-void draw_layer(int layerIndex);
+void draw_layer(int layerIndex, char* layerName);
 /** 
  * @brief Draws the name of a layer on the screen.
  * 

@@ -1,3 +1,5 @@
+#include QMK_KEYBOARD_H
+
 #include "gui_elements.h"
 // --- Configuration ---
 
@@ -57,9 +59,9 @@ static int get_centered_start(int container_pos, int container_size, int text_si
 }
 
 
-void gui_elements_init(painter_device_t oled, painter_font_handle_t font) {
+void gui_elements_init() {
     display_device = oled;
-    gui_font = font;
+    gui_font = default_font;
     
     // Initialize the screen background
     if (display_device) {
@@ -160,15 +162,13 @@ void draw_key(bool pressed, int x, int y, int w, int h, const char* name, const 
     }
 }
 
-void draw_layer(int layerIndex) {
+void draw_layer(int layerIndex, char* layerName) {
     if (!display_device) return;
 
     // Clear
     qp_clear(display_device);
 
     // Header
-    char layerName[16];
-    snprintf(layerName, sizeof(layerName), "LAYER %d", layerIndex);
     draw_layer_name(layerName);
 
     // Iterate Layout

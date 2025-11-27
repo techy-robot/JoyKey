@@ -13,7 +13,6 @@ SRC += utils/encoder_handler.c \
        utils/settings.c \
        utils/via_handler.c \
        utils/gui_elements.c \
-       utils/menu_display.c \
        media/fonts/thintel15.qff.c
 
 # required for rp2040

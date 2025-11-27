@@ -17,7 +17,7 @@
 
 #include <string.h>
 #include "media/fonts/thintel15.qff.h"
-#include "utils/gui_elements.h"
+#include "gui.c"
 #include "utils/settings.h"
 #include "utils/keyname_map.h"
 
@@ -48,7 +48,7 @@ enum layer_names {
 bool layer_change_toggle = false;
 
 // --- Optimization: Track state to prevent unnecessary refreshes ---
-bool update_oled;//external variable
+
 static uint8_t last_rgb_mode = 255;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -188,7 +188,7 @@ void keyboard_post_init_user(void) {
         save_requested = true;
     }
 
-    gui_elements_init(oled, default_font);//font_arial_12 option??
+    gui_elements_init();//font_arial_12 option??
 
 }
 
@@ -319,30 +319,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-void display_task(void) {
-  //qp_clear(oled);//clean slate, it may be a little slower but I don't want to do selective overwrite.
-  //Note that clear prevents the display from sleeping
-
-  uint8_t current_layer = get_highest_layer(layer_state);
-
-  draw_layer(current_layer);
-
-  qp_flush(oled);
-}
-
 void housekeeping_task_user(void) {
-  static uint32_t last_draw = 0;
-
-  if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
-    last_draw = timer_read32();
-
-    //variable refresh rate, only refresh if something has changed. Cuts down on i2c usage
-    if (update_oled || save_requested) {
-      display_task();
-      update_oled = false;
-    }
+  
+  if (save_requested) {
+    update_oled = true;//saved changes need the display refreshed
   }
-
+  gui_refresh(layer_change_toggle);
   //save data if it changed, make sure it is kept up to date
   refresh_settings();
   
