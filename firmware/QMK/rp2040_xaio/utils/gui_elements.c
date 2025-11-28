@@ -39,27 +39,30 @@ typedef struct {
     uint8_t y; // Top-left Y
     uint8_t w;
     uint8_t h;
+    bool show;
 } screen_key_pos_t;
 
 // --- Layout Definition ---
 // Scaled for 128x64: ~22px per 1u. 
 // Offsets: X+6 to center on screen.
 const screen_key_pos_t PROGMEM SCREEN_LAYOUT[] = {
+
+    // The do not show elements are simply to map display keys to the matrix properly
     
     // Note: W/H are slightly smaller than the grid step (22px) to create a 2px gap.
 // {Row, Col, X, Y, W,  H}
-    {0, 0,   6,  0, 20, 20}, // Index 0:  Left Trigger (1u)
-    {0, 1,  50, 20, 20, 20}, // Index 1:  Key 2        (1u)
-    {0, 2,  94,  0, 20, 20}, // Index 2:  Right Trigger(1u)
-    {0, 3, 99, 22,  20, 20}, // Index 3:  EncA         (0.5u)
-    {1, 0,  28, 20, 20, 20}, // Index 4:  Key 1        (1u)
-    {1, 1,  50, 42, 20, 20}, // Index 5:  Key 5        (1u)
-    {1, 2,  72, 20, 20, 20}, // Index 6:  Key 3        (1u)
-    {1, 3, 99, 42,  20, 20}, // Index 7:  EncB         (0.5u)
-    //{2, 0,  11, 38,  20, 20}, // Index 8:  JoystickBtn. Does not exist in case yet
-    {2, 1,  28, 42, 20, 20}, // Index 9:  Key 4        (1u)
-    {2, 2,  72, 42, 20, 20}, // Index 10: Key 6        (1u)
-    //{2, 3,  99, 38,  20, 20}  // Index 11: EncBtn. Held hostage by layer change code, we don't need key press
+    {0, 0,   6,  0, 20, 20, true}, // Index 0:  Left Trigger (1u)
+    {0, 1,  50, 20, 20, 20, true}, // Index 1:  Key 2        (1u)
+    {0, 2,  94,  0, 20, 20, true}, // Index 2:  Right Trigger(1u)
+    {0, 3, 99, 22,  20, 20, true}, // Index 3:  EncA         (0.5u)
+    {1, 0,  28, 20, 20, 20, true}, // Index 4:  Key 1        (1u)
+    {1, 1,  50, 42, 20, 20, true}, // Index 5:  Key 5        (1u)
+    {1, 2,  72, 20, 20, 20, true}, // Index 6:  Key 3        (1u)
+    {1, 3, 99, 42,  20, 20, true}, // Index 7:  EncB         (0.5u)
+    {2, 0,  11, 38,  20, 20, false}, // Index 8:  JoystickBtn. Does not exist in case yet, placeholder.
+    {2, 1,  28, 42, 20, 20, true}, // Index 9:  Key 4        (1u)
+    {2, 2,  72, 42, 20, 20, true}, // Index 10: Key 6        (1u)
+    {2, 3,  99, 38,  20, 20, false}  // Index 11: EncBtn. Held hostage by layer change code, we don't need key press
 };
 
 #define SCREEN_LAYOUT_SIZE (sizeof(SCREEN_LAYOUT) / sizeof(screen_key_pos_t))
@@ -249,6 +252,7 @@ void draw_layer(uint8_t layerIndex, char* layerName) {
     // Iterate Layout
     for (uint8_t i = 0; i < SCREEN_LAYOUT_SIZE; i++) {
         screen_key_pos_t item = SCREEN_LAYOUT[i];
+        if (item.show == false) continue;
 
         // Get Physical State
         bool is_pressed = matrix_is_on(item.matrix_row, item.matrix_col);
