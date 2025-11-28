@@ -179,17 +179,17 @@ void keyboard_post_init_user(void) {
             .effectSpeed = 128,//half speed
             .color = { .h = 128, .s = 255, .v = 128 },
             .keys = {
-                {.name = "LClk", .imageName = ""},
-                {.name = "Up", .imageName = ""},
-                {.name = "RClk", .imageName = ""},
-                {.name = "WHLU", .imageName = ""},
-                {.name = "WHLL", .imageName = ""},
-                {.name = "Down", .imageName = ""},
-                {.name = "WHLR", .imageName = ""},
-                {.name = "WHLD", .imageName = ""},
+                {.name = "LClk", .imageName = "left_trig"},
+                {.name = "Up", .imageName = "up"},
+                {.name = "RClk", .imageName = "right_trig"},
+                {.name = "WHLU", .imageName = "u_point"},
+                {.name = "WHLL", .imageName = "l_point"},
+                {.name = "Down", .imageName = "down"},
+                {.name = "WHLR", .imageName = "r_point"},
+                {.name = "WHLD", .imageName = "d_point"},
                 {.name = "K", .imageName = ""},
-                {.name = "Left", .imageName = ""},
-                {.name = "Right", .imageName = ""},
+                {.name = "Left", .imageName = "left"},
+                {.name = "Right", .imageName = "right"},
                 {.name = "CHGN", .imageName = ""}
             }
         };

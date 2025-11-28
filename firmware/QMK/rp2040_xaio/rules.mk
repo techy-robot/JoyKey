@@ -13,11 +13,25 @@ SRC += utils/encoder_handler.c \
        utils/keyname_map.c \
        utils/settings.c \
        utils/via_handler.c \
-       utils/gui_elements.c \
-       media/fonts/thintel15.qff.c \
-       media/github-mark-white.qgf.c \
-       media/github-mark.qgf.c \
-       media/ignore.qgf.c
+       utils/gui_elements.c
+
+# Media Files
+SRC +=   media/fonts/thintel15.qff.c \
+         media/github-mark-white.qgf.c \
+         media/github-mark.qgf.c \
+         media/ignore.qgf.c \
+         media/Arrows_Left_West.qgf.c \
+         media/Arrows_Right_East.qgf.c \
+         media/Arrows_Down_South.qgf.c \
+         media/Arrows_Up_North.qgf.c \
+         media/Arrows_Pointer_Left_West.qgf.c \
+         media/Arrows_Pointer_Right_East.qgf.c \
+         media/Arrows_Pointer_Down_South.qgf.c \
+         media/Arrows_Pointer_Up_North.qgf.c \
+         media/Controller_Buttons_Left_Trigger_LT.qgf.c \
+         media/Controller_Buttons_Right_Trigger_RT.qgf.c \
+         media/Software_Hardware_Keyboard_Keys_Text_Input.qgf.c \
+         media/Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration.qgf.c
 
 # required for rp2040
 LTO_ENABLE = yes
@@ -36,8 +50,6 @@ OLED_TRANSPORT = i2c
 QUANTUM_PAINTER_ENABLE = yes
 # For I2C, very much same as ssd1306
 QUANTUM_PAINTER_DRIVERS += sh1106_i2c
-
-QUANTUM_PAINTER_NUM_IMAGES = 12
 
 # Bootloader selection
 BOOTLOADER = rp2040

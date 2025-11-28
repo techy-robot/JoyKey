@@ -129,6 +129,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Timeout configuration, default 30000 (30 seconds). 0 = No timeout.
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 30000
 
+#define QUANTUM_PAINTER_NUM_IMAGES 13
+
+
 // Min 0, max 32
 //#define JOYSTICK_BUTTON_COUNT 1
 // Min 0, max 6: X, Y, Z, Rx, Ry, Rz

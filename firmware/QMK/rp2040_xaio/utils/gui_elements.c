@@ -17,12 +17,22 @@ static painter_device_t display_device = NULL;
 //Stores pointers for all currently loaded images
 painter_image_handle_t image_cache[KEYNAME_MAP_MAX_KEYS_PER_LAYER];
 
-#define ALL_IMAGES 2
-
 //This is for software control with textbox through the web panel
 char* all_image_names[ALL_IMAGES] = {
-    "qmk", 
-    "github"
+    "github",
+    "ignore",
+    "up",
+    "down",
+    "left",
+    "right",
+    "u_point",
+    "d_point",
+    "l_point",
+    "r_point",
+    "left_trig",
+    "right_trig",
+    "keyboard",
+    "image"
 };
 
 // Stores image IDs for all currently loaded images
@@ -117,15 +127,52 @@ painter_image_handle_t load_image(uint8_t image_id) {
 
     switch (image_id) {
         case 0:
-            handle = qp_load_image_mem(gfx_github_mark_white);
-            break;
-        case 1:
             handle = qp_load_image_mem(gfx_github_mark);
             break;
+        case 1:
+            handle = qp_load_image_mem(gfx_ignore);
+            break;
+        case 2:
+            handle = qp_load_image_mem(gfx_Arrows_Pointer_Up_North);
+            break;
+        case 3:
+            handle = qp_load_image_mem(gfx_Arrows_Pointer_Down_South);
+            break;
+        case 4:
+            handle = qp_load_image_mem(gfx_Arrows_Pointer_Left_West);
+            break;
+        case 5:
+            handle = qp_load_image_mem(gfx_Arrows_Pointer_Right_East);
+            break;
+        case 6:
+            handle = qp_load_image_mem(gfx_Arrows_Up_North);
+            break;
+        case 7:
+            handle = qp_load_image_mem(gfx_Arrows_Down_South);
+            break;
+        case 8:
+            handle = qp_load_image_mem(gfx_Arrows_Left_West);
+            break;
+        case 9:
+            handle = qp_load_image_mem(gfx_Arrows_Right_East);
+            break;
+        case 10:
+            handle = qp_load_image_mem(gfx_Controller_Buttons_Left_Trigger_LT);
+            break;
+        case 11:
+            handle = qp_load_image_mem(gfx_Controller_Buttons_Right_Trigger_RT);
+            break;
+        case 12:
+            handle = qp_load_image_mem(gfx_Software_Hardware_Keyboard_Keys_Text_Input);
+            break;
+        case 13:
+            handle = qp_load_image_mem(gfx_Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration);
+            break;
+
         default:
             // Fallback: mark this slot as invalid (255)
             image_id_to_cache_id[current_cache_id] = 255;
-            handle = qp_load_image_mem(gfx_ignore);
+            handle = qp_load_image_mem(gfx_Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration);
             break;
     }
 
@@ -229,7 +276,9 @@ void draw_key(bool pressed, uint8_t x, uint8_t y, uint8_t w, uint8_t h, const ch
         //image is gauranteed to be 16x16 pixels, so we can center it
         x = get_centered_start(x, w, 16);
         y = get_centered_start(y, h, 16);
-        qp_drawimage(display_device, x, y, image_cache[image_cache_id]);
+        //recolor image and invert colors so outlines that were black are white and transparency & white in conversions show dark.
+        //Most images will look fine with this, as white is used for filling and black is used for outlines
+        qp_drawimage_recolor(display_device, x, y, image_cache[image_cache_id], HSV_BLACK, HSV_WHITE);
     }
     else {
         // We skip drawing text on small encoder/joystick buttons (w < 10)

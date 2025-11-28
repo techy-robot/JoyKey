@@ -6,20 +6,44 @@
 
 // Media to include
 #include "media/fonts/thintel15.qff.h"
-#include "media/github-mark-white.qgf.h"
 #include "media/github-mark.qgf.h"
 #include "media/ignore.qgf.h"
+#include "media/Arrows_Up_North.qgf.h"
+#include "media/Arrows_Down_South.qgf.h"
+#include "media/Arrows_Left_West.qgf.h"
+#include "media/Arrows_Right_East.qgf.h"
+#include "media/Arrows_Pointer_Up_North.qgf.h"
+#include "media/Arrows_Pointer_Down_South.qgf.h"
+#include "media/Arrows_Pointer_Left_West.qgf.h"
+#include "media/Arrows_Pointer_Right_East.qgf.h"
+#include "media/Controller_Buttons_Left_Trigger_LT.qgf.h"
+#include "media/Controller_Buttons_Right_Trigger_RT.qgf.h"
+#include "media/Software_Hardware_Keyboard_Keys_Text_Input.qgf.h"
+#include "media/Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration.qgf.h"
 
 //Stores pointers for all currently loaded images
 extern painter_image_handle_t image_cache[KEYNAME_MAP_MAX_KEYS_PER_LAYER];
 
-extern char* all_image_names[2];
+#define ALL_IMAGES 14
+
+extern char* all_image_names[ALL_IMAGES];
 
 //This is for more efficient hard coding the images you want
 enum all_image_name_ids {
-    image_qmk = 0,
-    image_github = 1,
-    image_ignore = 255
+    image_github = 0,
+    image_ignore = 1,
+    image_up = 2,
+    image_down = 3,
+    image_left = 4,
+    image_right = 5,
+    image_u_point = 6,
+    image_d_point = 7,
+    image_l_point = 8,
+    image_r_point = 9,
+    image_left_trig = 10,
+    image_right_trig = 11,
+    image_keyboard = 12,
+    image_image = 13
 };
 
 void bulk_unload(void);
