@@ -70,12 +70,10 @@ const screen_key_pos_t PROGMEM SCREEN_LAYOUT[] = {
 // --- Helper Functions ---
 
 /** 
- * Helper to calculate text width to center it.
- * Requires a loaded font.
+ * Helper to calculate location of an item to center it, with coordinates at upper left corner.
  */
-
-static uint8_t get_centered_start(uint8_t container_pos, uint8_t container_size, uint8_t text_size) {
-    return container_pos + (container_size - text_size) / 2;
+static uint8_t get_centered_start(uint8_t container_pos, uint8_t container_size, uint8_t item_size) {
+    return container_pos + (container_size - item_size) / 2;
 }
 
 
@@ -201,8 +199,8 @@ void draw_text_confined(const char* str, uint8_t x, uint8_t y, uint8_t w, uint8_
         
         if (text_w <= max_w) {
             // It fits! Draw it centered.
-            uint8_t text_x = get_centered_start(x, w, text_w);
-            uint8_t text_y = get_centered_start(y, h, line_height);
+            uint8_t text_x = get_centered_start(x, w, 16);
+            uint8_t text_y = get_centered_start(y, h, 16);
             qp_drawtext_recolor(display_device, text_x, text_y, gui_font, buffer, h_fg, s_fg, v_fg, h_bg, s_bg, v_bg);
             return;
         }
@@ -228,6 +226,9 @@ void draw_key(bool pressed, uint8_t x, uint8_t y, uint8_t w, uint8_t h, const ch
 
     // Draw image if it exists, else draw the name
     if (image_cache_id < 255) {
+        //image is gauranteed to be 16x16 pixels, so we can center it
+        x = get_centered_start(x, w, 16);
+        y = get_centered_start(y, h, 16);
         qp_drawimage(display_device, x, y, image_cache[image_cache_id]);
     }
     else {
