@@ -121,6 +121,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QP_WIDTH 128
 #define QP_HEIGHT 64
 
+// Stuff for image file system
+#define QP_STREAM_HAS_FILE_IO
+
+// Configure the Mass Storage
+#define MSD_ENABLE // Custom flag we will use to enable our driver
+#define FILESYSTEM_BLOCK_SIZE 4096
+#define FILESYSTEM_SIZE (1024 * 1024) // 1MB for files
 
 // The size of the "fake" EEPROM exposed to your code
 #define WEAR_LEVELING_LOGICAL_SIZE 8192

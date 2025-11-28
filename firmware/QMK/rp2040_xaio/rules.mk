@@ -8,16 +8,49 @@ RGB_MATRIX_DRIVER = ws2812
 WS2812_DRIVER = vendor # This driver is RP2040 specific, use pwm for other
 
 ENCODER_ENABLE = yes
+
 # Code Files # Media Files
 SRC += utils/encoder_handler.c \
        utils/keyname_map.c \
        utils/settings.c \
        utils/via_handler.c \
        utils/gui_elements.c \
+       utils/ff16/ffsystem.c \
+       utils/ff16/ffunicode.c \
+       utils/ff16/diskio.c \
        media/fonts/thintel15.qff.c \
        media/github-mark-white.qgf.c \
        media/github-mark.qgf.c \
        media/ignore.qgf.c
+
+# --- Mass Storage & Filesystem Configuration ---
+
+# 1. Custom Glue Code
+SRC += utils/msc_disk.c
+
+# 2. ChibiOS Drivers (USB Mass Storage)
+# USE RELATIVE PATHS (No $(QMK_TOP))
+SRC += lib/chibios-contrib/os/hal/src/hal_usb_msd.c
+SRC += lib/chibios-contrib/os/various/lib_scsi.c
+
+# 3. FatFS Core (Local Vendor)
+SRC += utils/ff16/ff.c
+
+# 4. Include Directories (Headers)
+# Add system paths for the MSD driver (Relative to QMK Root)
+EXTRAINCDIRS += lib/chibios-contrib/os/hal/include
+EXTRAINCDIRS += lib/chibios-contrib/os/various
+
+# Add LOCAL path for msc_disk.h
+EXTRAINCDIRS += $(KEYBOARD_PATH)/utils
+
+# Add LOCAL path for ff.h
+EXTRAINCDIRS += $(KEYBOARD_PATH)/utils/ff16
+
+# 5. Required Flags
+OPT_DEFS += -DHAL_USE_USB_MSD=TRUE
+OPT_DEFS += -DHAL_USE_COMMUNITY=TRUE
+OPT_DEFS += -DCH_CFG_USE_WAITEXIT=TRUE
 
 # required for rp2040
 LTO_ENABLE = yes

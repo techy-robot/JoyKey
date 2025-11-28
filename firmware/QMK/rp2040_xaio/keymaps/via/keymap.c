@@ -20,9 +20,11 @@
 #include "gui.c"
 #include "utils/settings.h"
 #include "utils/keyname_map.h"
+#include "utils/msc_disk.h"
 
 enum my_keycodes {
   LAYR_CHNG_TGGL = SAFE_RANGE,
+  KC_USB_MNT, // "USB Maintenance"
 };
 
 enum layer_names {
@@ -158,6 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
 
+    init_mass_storage();
     keyname_map_init(); // Zero out RAM
     custom_eeprom_load(); // Load from Flash
 
@@ -189,6 +192,12 @@ void keyboard_post_init_user(void) {
     }
 
     gui_init();//font_arial_12 option??
+
+    painter_image_handle_t img = qp_load_image_mem("joykey_logo.qgf");
+    
+    if (img) {
+        qp_drawimage(oled, 0, 0, img);
+    }
 
 }
 
@@ -282,6 +291,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_change_toggle = !layer_change_toggle;
       }
       //return false; // Skip all further processing of this key
+
+    case KC_USB_MNT:
+      if (record->event.pressed) {
+        // Toggle the mode safely
+        toggle_msc_mode();
+        
+        // Visual feedback (Optional but recommended)
+        // qp_draw_text(oled, 0, 0, "USB MODE: SWAPPED");
+      }
+      return false;
     default:
       return true; // Process all other keycodes normally
   }
