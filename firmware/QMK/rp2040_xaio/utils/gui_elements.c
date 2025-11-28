@@ -278,7 +278,7 @@ void draw_key(bool pressed, uint8_t x, uint8_t y, uint8_t w, uint8_t h, const ch
         y = get_centered_start(y, h, 16);
         //recolor image and invert colors so outlines that were black are white and transparency & white in conversions show dark.
         //Most images will look fine with this, as white is used for filling and black is used for outlines
-        qp_drawimage_recolor(display_device, x, y, image_cache[image_cache_id], HSV_BLACK, HSV_WHITE);
+        qp_drawimage_recolor(display_device, x, y, image_cache[image_cache_id], HSV_WHITE, HSV_BLACK);
     }
     else {
         // We skip drawing text on small encoder/joystick buttons (w < 10)
