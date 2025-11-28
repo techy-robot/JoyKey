@@ -16,4 +16,5 @@ _autosave-*
 **/*backups/*.zip
 **/obsidian-icon-folder/icons/*.zip
 PCBs/JoyKey/libraries/**
+/1-bit_Pixel_Icons
 

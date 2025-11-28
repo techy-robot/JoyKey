@@ -69,3 +69,7 @@ Top
 ![](media/Schem%204.png)
 
 ![](media/Schem%205.png)
+
+# Sprite Credit
+
+All icons that are converted using qmk's command line tool were originally from Nikoichu's 1-bit Pixel Icons set, which is licensed CC0 1.0
