@@ -100,7 +100,7 @@ void gui_elements_init() {
 }
 
 void bulk_unload() {
-    for (uint8_t i = 0; i < 10; i++) {
+    for (uint8_t i = 0; i < KEYNAME_MAP_MAX_KEYS_PER_LAYER; i++) {
         qp_close_image(image_cache[i]);
     }
     current_cache_id = 0;
