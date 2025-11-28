@@ -171,20 +171,41 @@ void keyboard_post_init_user(void) {
         
         // ---- DEFINE DEFAULTS (Only runs once) ----
         
-        // Layer 0: Base Layer
-        keyname_map_set_layer_name(0, "Base");
-        keyname_map_set_key_data(0, 0, "Escape", "esc.bin");
-        keyname_map_set_key_data(0, 1, "Tab", "tab.bin");
-        keyname_map_set_key_data(0, 14, "Backspace", "bspc.bin");
-
-        // Layer 1: Function Layer
-        keyname_map_set_layer_name(1, "Function");
-        keyname_map_set_key_data(1, 0, "F1", "f1.bin");
-        keyname_map_set_key_data(1, 1, "F2", "f2.bin");
+        // Layer 0: Base Layer for Mouse
+        keyname_map[0] = (LayerData_t){
+            .name = "Mouse",
+            .imageName = "",
+            .lightingEffect = 5,//Breathing
+            .effectSpeed = 128,//half speed
+            .color = { .h = 128, .s = 255, .v = 128 },
+            .keys = {
+                {.name = "LClk", .imageName = ""},
+                {.name = "Up", .imageName = ""},
+                {.name = "RClk", .imageName = ""},
+                {.name = "WHLU", .imageName = ""},
+                {.name = "WHLL", .imageName = ""},
+                {.name = "Down", .imageName = ""},
+                {.name = "WHLR", .imageName = ""},
+                {.name = "WHLD", .imageName = ""},
+                {.name = "K", .imageName = ""},
+                {.name = "Left", .imageName = ""},
+                {.name = "Right", .imageName = ""},
+                {.name = "CHGN", .imageName = ""}
+            }
+        };
         
+        // Layer 15
+        keyname_map[15] = (LayerData_t){
+            .name = "Misc",
+            .imageName = "",
+            .lightingEffect = 0,//Disable
+            .keys = {
+                { .name = "Boot", .imageName = "", .color = { .h = 0, .s = 255, .v = 255 } }
+            }
+        };
         // Save
         mark_layer_dirty(0);
-        mark_layer_dirty(1);
+        mark_layer_dirty(15);
         save_requested = true;
     }
 
