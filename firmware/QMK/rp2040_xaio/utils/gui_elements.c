@@ -172,8 +172,8 @@ void draw_text_confined(const char* str, uint8_t x, uint8_t y, uint8_t w, uint8_
     buffer[15] = '\0'; // Ensure null term
 
     uint8_t line_height = gui_font->line_height;
-    uint8_t padding = 2; // Pixel padding on sides
-    uint8_t max_w = w - (padding * 2);
+    //uint8_t padding = 0; // Pixel padding
+    uint8_t max_w = w;
 
     // --- STRATEGY 1: Check for Line Wrap (Space split) ---
     // Only if the box is tall enough for 2 lines
